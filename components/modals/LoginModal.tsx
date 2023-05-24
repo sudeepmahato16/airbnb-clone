@@ -13,7 +13,7 @@ import Button from "../Button";
 import Input from "../inputs/Input";
 import useRegisterModal from "@/hooks/useRegisterModal";
 
-const RegisterModal = () => {
+const LoginModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const registerModal = useRegisterModal();
 
@@ -36,7 +36,6 @@ const RegisterModal = () => {
       .post("/api/register", data)
       .then(() => {
         registerModal.onClose();
-        toast.success("Logged in successful");
       })
       .catch((error) => {
         toast.error("Something went wrong!");
@@ -132,4 +131,4 @@ const RegisterModal = () => {
   );
 };
 
-export default RegisterModal;
+export default LoginModal;
