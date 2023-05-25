@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
@@ -9,7 +9,7 @@ import User from "@/models/user";
 import clientPromise from "@/libs/mongodb";
 import connectToDB from "@/libs/connectToDB";
 
-export default NextAuth({
+export const authOptions: AuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     GitHubProvider({
@@ -50,14 +50,18 @@ export default NextAuth({
 
         return user;
       },
-    } ),
+    }),
   ],
   pages: {
     signIn: "/",
   },
-  debug: process.env.NODE_ENV === 'development',
+  debug: process.env.NODE_ENV === "development",
   session: {
-    strategy: 'jwt'
+    strategy: "jwt",
   },
-  secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET
-});
+  secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
+};
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };

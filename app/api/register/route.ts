@@ -17,8 +17,9 @@ export const POST = async (request: Request) => {
       name,
       password: hashedPassword,
     });
-
-    return new Response(JSON.stringify({ ...user, password: undefined }), {
+    user.password = undefined;
+    
+    return new Response(JSON.stringify(user), {
       status: 200,
     });
   } catch (error) {
