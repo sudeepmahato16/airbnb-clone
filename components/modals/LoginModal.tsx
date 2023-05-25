@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { AiFillGithub } from "react-icons/ai";
@@ -14,11 +14,13 @@ import Button from "../Button";
 import Input from "../inputs/Input";
 
 import useLoginModal from "@/hooks/useLoginModal";
+import useRegisterModal from "@/hooks/useRegisterModal";
 
 const LoginModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
 
   const {
     register,
@@ -39,17 +41,23 @@ const LoginModal = () => {
     }).then((callback) => {
       setIsLoading(false);
 
+      if (callback?.error) {
+        toast.error(callback.error);
+        return;
+      }
+
       if (callback?.ok) {
         toast.success("Logged in successful!");
         router.refresh();
         loginModal.onClose();
       }
-
-      if (callback?.error) {
-        toast.error(callback.error);
-      }
     });
   };
+
+  const onToggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -81,13 +89,13 @@ const LoginModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {}}
+        onClick={() => signIn("google")}
       />
       <Button
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => {}}
+        onClick={() => signIn("github")}
       />
       <div
         className="
@@ -96,6 +104,7 @@ const LoginModal = () => {
         <p>
           First time using Airbnb?
           <span
+            onClick={onToggle}
             className="
             text-neutral-800
             cursor-pointer 

@@ -1,19 +1,20 @@
 import { Schema, Types, model } from "mongoose";
 
 const AccountSchema = new Schema({
-  user: {
+  userId: {
     type: Types.ObjectId,
     ref: "User",
   },
   type: String,
   provider: String,
   providerAccountId: String,
-  expiresAt: Date,
+  expires_at: Date,
   scope: String,
-  sessionState: String,
-  refreshToken: String,
-  accessToken: String,
-  tokenType: String,
+  session_state: String,
+  refresh_token: String,
+  access_token: String,
+  token_type: String,
+  id_token: String 
 });
 
 AccountSchema.index({ provider: 1, providerAccountId: 1 }, { unique: true });
