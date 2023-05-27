@@ -1,12 +1,12 @@
-import { Schema, Types, model } from "mongoose";
+import { Schema, Types, model, models } from "mongoose";
 
 const ListingSchema = new Schema(
   {
     title: String,
     description: String,
-    imageUrl: String,
+    image: String,
     category: String,
-    roomcount: Number,
+    roomCount: Number,
     bathroomCount: Number,
     guestCount: Number,
     locationValue: String,
@@ -27,5 +27,5 @@ const ListingSchema = new Schema(
   }
 );
 
-const Listing = model("Listing", ListingSchema);
+const Listing = models.Listing || model("Listing", ListingSchema);
 export default Listing;
