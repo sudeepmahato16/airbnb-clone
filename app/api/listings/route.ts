@@ -7,6 +7,7 @@ export const POST = async (req: Request) => {
   if (!currentUser) return NextResponse.error();
   
   const body = await req.json();
+
   const {
     category,
     location,

@@ -60,6 +60,7 @@ const RentModal = () => {
   const bathroomCount = watch("bathroomCount");
   const image = watch("image");
 
+
   const Map = useMemo(
     () =>
       dynamic(() => import("../Map"), {
@@ -88,6 +89,7 @@ const RentModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (step !== STEPS.PRICE) return onNext();
     setIsLoading(true);
+
 
     axios
       .post("/api/listings", data)
