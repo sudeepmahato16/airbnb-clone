@@ -3,12 +3,13 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import User from "@/models/user";
 import connectToDB from "@/libs/connectToDB";
+import { IUser } from "@/types";
 
 export const getSession = async () => {
   return await getServerSession(authOptions);
 };
 
-const getCurrentUser = async () => {
+const getCurrentUser = async (): Promise<IUser | null> => {
   try {
     const session = await getSession();
     if (!session?.user?.email) {

@@ -1,7 +1,9 @@
 import Listing from "@/models/listing";
 import connectToDB from "@/libs/connectToDB";
 
-const getListings = async () => {
+import { IListing } from "@/types";
+
+const getListings = async (): Promise<IListing[] | undefined> => {
   try {
     await connectToDB();
     const listings = await Listing.find().sort({ createdAt: 1 });

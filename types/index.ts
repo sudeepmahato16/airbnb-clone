@@ -1,14 +1,39 @@
 import { IconType } from "react-icons";
 
-export interface User {
+export interface IUser {
+  _id: string;
   name?: string;
   email?: string;
   image?: string;
   password?: string;
-  favourite: string[];
+  favorites: string[];
   accounts: string[];
   listings: string[];
   reservations: string[];
+}
+
+export interface IListing {
+  _id: string;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  roomCount: number;
+  bathroomCount: number;
+  guestCount: number;
+  locationValue: string;
+  price: number;
+  user: string;
+  reservations: [string];
+}
+
+export interface IReservation {
+  _id: string;
+  user: string;
+  listing: string;
+  startDate: string;
+  endDate: string;
+  totalPrice: number;
 }
 
 export interface Category {

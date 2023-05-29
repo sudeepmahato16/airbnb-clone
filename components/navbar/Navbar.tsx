@@ -7,10 +7,10 @@ import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
 import Categories from "./Categories";
-import { User } from "@/types";
+import { IUser } from "@/types";
 
 interface NavbarProps {
-  currentUser?: User | null;
+  currentUser?: IUser | null;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {

@@ -6,17 +6,17 @@ import { format } from "date-fns";
 
 import HeartButton from "../HeartButton";
 import useCountries from "@/hooks/useCountries";
-import { User } from "@/types";
 import Button from "../Button";
+import { IListing, IReservation, IUser } from "@/types";
 
 interface ListingCardProps {
-  data: any;
-  reservation?: any;
+  data: IListing;
+  reservation?: IReservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
-  currentUser?: User | null;
+  currentUser?: IUser | null;
 }
 
 const ListingCard: React.FC<ListingCardProps> = ({
@@ -60,26 +60,19 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
   return (
     <div
-      onClick={() => router.push(`/listings/${data.id}`)}
+      onClick={() => router.push(`/listings/${data._id}`)}
       className="col-span-1 cursor-pointer group"
     >
       <div className="flex flex-col gap-1 w-full">
-        <div
-          className="aspect-square w-full relative overflow-hidden rounded-xl"
-        >
+        <div className="aspect-square w-full relative overflow-hidden rounded-xl">
           <Image
             fill
             className="object-cover h-full w-full group-hover:scale-105 transition duration-300"
             src={data.image}
             alt="Listing"
           />
-          <div
-            className=" absolute top-3 right-3"
-          >
-            <HeartButton 
-              listingId={data.id} 
-              currentUser={currentUser}
-            />
+          <div className=" absolute top-3 right-3">
+            <HeartButton listingId={data._id} currentUser={currentUser} />
           </div>
         </div>
         <div className="font-semibold text-[16px]">

@@ -9,11 +9,11 @@ import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import useLoginModal from "@/hooks/useLoginModal";
-import { User } from "@/types";
+import { IUser } from "@/types";
 import useRentModal from "@/hooks/useRentModal";
 
 interface UserMenuProps {
-  currentUser?: User | null;
+  currentUser?: IUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {

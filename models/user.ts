@@ -9,7 +9,7 @@ const UserSchema = new Schema(
     },
     image: String,
     password: String,
-    favourite: [String],
+    favorites: [String],
     accounts: [
       {
         type: Types.ObjectId,
