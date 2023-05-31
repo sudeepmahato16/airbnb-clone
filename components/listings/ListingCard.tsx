@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { format } from "date-fns";
 
+import Button from "../Button";
 import HeartButton from "../HeartButton";
 import useCountries from "@/hooks/useCountries";
-import Button from "../Button";
 import { IListing, IReservation, IUser } from "@/types";
 
 interface ListingCardProps {
@@ -61,13 +61,13 @@ const ListingCard: React.FC<ListingCardProps> = ({
   return (
     <div
       onClick={() => router.push(`/listings/${data._id}`)}
-      className="col-span-1 cursor-pointer group"
+      className="col-span-1 cursor-pointer"
     >
       <div className="flex flex-col gap-1 w-full">
         <div className="aspect-square w-full relative overflow-hidden rounded-xl">
           <Image
             fill
-            className="object-cover h-full w-full group-hover:scale-105 transition duration-300"
+            className="object-cover h-full w-full hover:scale-110 transition duration-200"
             src={data.image}
             alt="Listing"
           />

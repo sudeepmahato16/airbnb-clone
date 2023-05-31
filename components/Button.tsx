@@ -29,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({
           ? "bg-white border-[1px] border-gray-500 text-[#4e4e4e]"
           : "bg-rose-500 border-rose-500 text-white"
       }  ${small ? "text-sm" : "text-md"} ${
-        small ? "py-1 text-[14px]" : "py-[10px] text-[15px]"
+        small ? "py-[6px] text-[14px]" : "py-[10px] text-[15px]"
       } ${small ? "font-light" : "font-semibold"} ${
         small ? "border-[1px]" : "border-2"
       }

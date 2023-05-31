@@ -30,11 +30,12 @@ export interface IListing {
 export interface IReservation {
   _id: string;
   user: string;
-  listing: string;
+  listing: string | IListing;
   startDate: string;
   endDate: string;
   totalPrice: number;
 }
+
 
 export interface Category {
   label: string;
