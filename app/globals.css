@@ -3,12 +3,21 @@
 @tailwind utilities;
 
 .hide-scrollbar::-webkit-scrollbar {
-    width: 0;
-  }
+  width: 0;
+}
 
 .leaflet-bottom,
 .leaflet-control,
 .leaflet-pane,
-.leaflet-top{
+.leaflet-top {
   z-index: 0 !important;
+}
+
+.rdrMonth {
+  width: 100% !important;
+}
+
+.rdrCalendarWrapper {
+  width: 100% !important;
+  font-size: 16px !important;
 }
