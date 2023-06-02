@@ -17,12 +17,10 @@ export const POST = async (_req: Request, { params }: { params: IParams }) => {
     throw new Error("Invalid id");
   }
 
-  let favorites = [...(currentUser.favorites || [])];
-
-  favorites.push(listingId);
-
   const user = await User.findByIdAndUpdate(currentUser._id, {
-    favorites,
+    $push: {
+      favorites: listingId,
+    },
   });
 
   return NextResponse.json(user);
@@ -41,12 +39,10 @@ export const DELETE = async (
     throw new Error("Invalid id");
   }
 
-  let favorites = [...(currentUser.favorites || [])];
-
-  favorites = favorites.filter((id) => id !== listingId);
-
   const user = await User.findByIdAndUpdate(currentUser._id, {
-    favorites,
+    $pull: {
+      favorites: listingId,
+    },
   });
 
   return NextResponse.json(user);
