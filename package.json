@@ -27,6 +27,7 @@
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.8.0",
     "react-leaflet": "^4.2.1",
+    "react-loading-skeleton": "^3.3.1",
     "react-select": "^5.7.3",
     "world-countries": "^4.0.0",
     "zustand": "^4.3.8"
