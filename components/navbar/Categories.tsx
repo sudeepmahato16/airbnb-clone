@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
 import React from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 import Container from "../Container";
 import CategoryBox from "../CategoryBox";
-
+import Slider from "../Slider";
 import { categories } from "@/constants";
 import { Category } from "@/types";
 
@@ -22,7 +22,7 @@ const Categories = () => {
 
   return (
     <Container>
-      <div className="pt-3 flex flex-row items-center justify-between overflow-x-auto">
+      <Slider>
         {categories.map((item: Category) => (
           <CategoryBox
             key={item.label}
@@ -31,7 +31,7 @@ const Categories = () => {
             selected={category === item.label}
           />
         ))}
-      </div>
+      </Slider>
     </Container>
   );
 };
