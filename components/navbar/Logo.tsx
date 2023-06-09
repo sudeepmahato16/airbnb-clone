@@ -9,11 +9,11 @@ const Logo = () => {
   return (
     <Image
       onClick={() => router.push("/")}
-      src="/images/airbnb.png"
+      src="/images/vacationhub.png"
       alt="logo"
       className="hidden md:block cursor-pointer"
       height="100"
-      width="100"
+      width="150"
     />
   );
 };

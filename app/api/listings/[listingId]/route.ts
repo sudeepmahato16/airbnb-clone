@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 
 import getCurrentUser from "@/actions/getCurrentUser";
 import Listing from "@/models/listing";
-import User from "@/models/user";
 import Reservation from "@/models/reservation";
 
 interface IParams {

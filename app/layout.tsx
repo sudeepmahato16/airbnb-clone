@@ -10,8 +10,9 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import SearchModal from "@/components/modals/SearchModal";
 
 export const metadata = {
-  title: "Airbnb",
-  description: "airbnb clone",
+  title: "VacationHub",
+  description:
+    "Your Ultimate Destination Connection. Discover a world of endless possibilities and seamless vacation planning at VacationHub.",
 };
 
 const font = Nunito({
@@ -27,6 +28,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body className={font.className}>
         <ToasterProvider />
         <SearchModal />
