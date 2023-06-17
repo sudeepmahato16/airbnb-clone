@@ -6,7 +6,9 @@ import { format } from "date-fns";
 
 import Button from "../Button";
 import HeartButton from "../HeartButton";
+
 import useCountries from "@/hooks/useCountries";
+import { formatPrice } from "@/utils/helper";
 import { IListing, IReservation, IUser } from "@/types";
 
 interface ListingCardProps {
@@ -88,7 +90,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           {reservationDate || data.category}
         </span>
         <div className="flex flex-row items-baseline gap-1">
-          <span className="font-bold text-[#444] text-[14px]">$ {price}</span>
+          <span className="font-bold text-[#444] text-[14px]">$ {formatPrice(price)}</span>
           {!reservation && <span className="font-light">night</span>}
         </div>
         {onAction && actionLabel && (
