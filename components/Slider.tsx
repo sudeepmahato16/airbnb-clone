@@ -64,7 +64,7 @@ const Slider: React.FC<SliderProps> = ({ children }) => {
       onTouchStart={onStart}
     >
       <div
-        className={`pt-3 flex flex-row items-center justify-between gap-2 transition-transform duration-100`}
+        className={`pt-3 flex flex-row items-center justify-between gap-2 transition-transform duration-200`}
         style={{ transform: `translate3d(${offSetX}px, 0, 0)` }}
         ref={containerRef}
       >

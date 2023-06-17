@@ -71,7 +71,7 @@ const Modal: React.FC<ModalProps> = ({
         onClick={handleClose}
       >
         <div
-          className="relative w-full md:w-4/6 lg:max-w-[420px] my-6 mx-auto max-h-[90vh] rounded-lg hide-scrollbar overflow-y-scroll"
+          className="relative w-full md:w-4/6 lg:max-w-[420px] my-6 mx-auto md:max-h-[90vh] h-full rounded-lg hide-scrollbar overflow-y-scroll"
           onClick={stopPropagation}
         >
           <div

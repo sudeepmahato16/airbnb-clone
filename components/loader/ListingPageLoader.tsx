@@ -15,7 +15,7 @@ const ListingPageLoader = () => {
             <Skeleton width={"148px"} height={"18px"} />
           </div>
 
-          <Skeleton width={"100%"} height={"420px"} borderRadius={"12px"} />
+          <Skeleton className="!w-full md:!h-[420px] sm:!h-[280px]  !h-[260px]" borderRadius={"12px"} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-7 md:gap-10 mt-6">

@@ -31,7 +31,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
         title={title}
         subtitle={`${location?.region}, ${location?.label}`}
       />
-      <div className="w-full h-[420px] overflow-hidden  rounded-xl relative">
+      <div className="w-full md:h-[420px] sm:h-[280px]  h-[260px] overflow-hidden  rounded-xl relative">
         <Image src={image} fill className="object-cover w-full" alt="Image" />
         <div className="absolute top-5 right-5">
           <HeartButton listingId={id} currentUser={currentUser} />
