@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { IoMdClose } from "react-icons/io";
 
 import Button from "../Button";
+import {useOutsideClick} from '@/hooks/useOutsideClick';
 
 interface ModalProps {
   isOpen?: boolean;
@@ -30,12 +31,13 @@ const Modal: React.FC<ModalProps> = ({
   secondaryActionLabel,
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-
+  const {ref} = useOutsideClick(handleClose);
+  
   useEffect(() => {
     setShowModal(Boolean(isOpen));
   }, [isOpen]);
-
-  const handleClose = useCallback(() => {
+  
+ function handleClose () {
     if (disabled) {
       return;
     }
@@ -43,7 +45,7 @@ const Modal: React.FC<ModalProps> = ({
     setTimeout(() => {
       onClose();
     }, 300);
-  }, [disabled, onClose]);
+  }
 
   const handleSubmit = useCallback(() => {
     if (disabled) return;
@@ -58,21 +60,17 @@ const Modal: React.FC<ModalProps> = ({
     secondaryAction();
   }, [disabled, secondaryAction]);
 
-  const stopPropagation = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-  }, []);
-
   if (!isOpen) return null;
 
   return (
     <>
       <div
         className="justify-center items-center flex overflow-x-hidden  fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70"
-        onClick={handleClose}
+
       >
         <div
           className="relative w-full md:w-4/6 lg:max-w-[420px] my-6 mx-auto md:max-h-[90vh] h-full rounded-lg hide-scrollbar overflow-y-scroll"
-          onClick={stopPropagation}
+          ref={ref}
         >
           <div
             className={`translate duration-300 h-full    ${

@@ -77,6 +77,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
             src={data.image}
             alt="Listing"
             onLoad={() => setIsImageLoaded(true)}
+            sizes=""
             />
             </div>
           <div className=" absolute top-3 right-3">
