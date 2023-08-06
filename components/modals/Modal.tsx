@@ -65,7 +65,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <>
       <div
-        className="justify-center items-center flex overflow-x-hidden  fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70"
+        className={`justify-center items-center flex overflow-x-hidden  fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 duration-300 ${showModal ? "opacity-100": "opacity-0"}`}
 
       >
         <div

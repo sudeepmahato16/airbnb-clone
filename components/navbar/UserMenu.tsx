@@ -3,7 +3,9 @@
 import React, { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { AnimatePresence, motion } from "framer-motion";
 import { AiOutlineMenu } from "react-icons/ai";
+import { User } from "@prisma/client";
 
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
@@ -12,7 +14,7 @@ import useRegisterModal from "@/hooks/useRegisterModal";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRentModal from "@/hooks/useRentModal";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
-import { User } from "@prisma/client";
+import { zoomIn } from "@/utils/motion";
 
 interface UserMenuProps {
   currentUser?: User | null;
@@ -67,42 +69,49 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         </div>
       </div>
 
-      {isOpen && (
-        <div
-          ref={ref}
-          className="absolute rounded-xl shadow-[0_0_16px_4px_rgba(0,0,0,0.035)] w-[40vw] md:w-3/4  bg-white overflow-hidden right-0 top-12 text-sm
+      <AnimatePresence>
+
+        {isOpen && (
+          <motion.div
+            variants={zoomIn(0.85, 0.175)}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+            ref={ref}
+            className="absolute rounded-xl shadow-[0_0_16px_4px_rgba(0,0,0,0.035)] w-[40vw] md:w-3/4  bg-white overflow-hidden right-0 top-12 text-sm
           z-[10]
-      "
-        >
-          <div className="flex flex-col cursor-pointer">
-            {currentUser ? (
-              <>
-                <MenuItem label="My trips" onClick={() => navigate("/trips")} />
-                <MenuItem
-                  label="My favorites"
-                  onClick={() => navigate("/favorites")}
-                />
-                <MenuItem
-                  label="My reservations"
-                  onClick={() => navigate("/reservations")}
-                />
-                <MenuItem
-                  label="My properties"
-                  onClick={() => navigate("/properties")}
-                />
-                <MenuItem label="Share your home" onClick={onRent} />
-                <hr />
-                <MenuItem label="Logout" onClick={() => signOut()} />
-              </>
-            ) : (
-              <>
-                <MenuItem label="Login" onClick={loginModal.onOpen} />
-                <MenuItem label="Sign up" onClick={registerModal.onOpen} />
-              </>
-            )}
-          </div>
-        </div>
-      )}
+          "
+          >
+            <div className="flex flex-col cursor-pointer">
+              {currentUser ? (
+                <>
+                  <MenuItem label="My trips" onClick={() => navigate("/trips")} />
+                  <MenuItem
+                    label="My favorites"
+                    onClick={() => navigate("/favorites")}
+                  />
+                  <MenuItem
+                    label="My reservations"
+                    onClick={() => navigate("/reservations")}
+                  />
+                  <MenuItem
+                    label="My properties"
+                    onClick={() => navigate("/properties")}
+                  />
+                  <MenuItem label="Share your home" onClick={onRent} />
+                  <hr />
+                  <MenuItem label="Logout" onClick={() => signOut()} />
+                </>
+              ) : (
+                <>
+                  <MenuItem label="Login" onClick={loginModal.onOpen} />
+                  <MenuItem label="Sign up" onClick={registerModal.onOpen} />
+                </>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
