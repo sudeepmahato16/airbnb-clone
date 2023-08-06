@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
-
-import getCurrentUser from "@/actions/getCurrentUser";
-import Listing from "@/models/listing";
-import Reservation from "@/models/reservation";
+import { getCurrentUser } from "@/actions/getCurrentUser";
+import { db } from "@/libs/db";
 
 interface IParams {
   listingId?: string;
@@ -20,18 +18,16 @@ export async function DELETE(
 
   const { listingId } = params;
 
-  if (!listingId || typeof listingId !== "string") {
-    throw new Error("Invalid ID");
+  if (!listingId || typeof listingId !== 'string') {
+    throw new Error('Invalid ID');
   }
 
-  const listing = await Listing.deleteOne({
-    _id: listingId,
-    user: currentUser._id,
+  const listing = await db.listing.deleteMany({
+    where: {
+      id: listingId,
+      userId: currentUser.id
+    }
   });
-
-  const reservations = await Reservation.deleteMany({
-    listing: listingId,
-  })
 
   return NextResponse.json(listing);
 }

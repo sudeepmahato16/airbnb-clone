@@ -7,11 +7,11 @@ import axios from "axios";
 import Container from "@/components/Container";
 import Heading from "@/components/Heading";
 import ListingCard from "@/components/listings/ListingCard";
-import { IListing, IUser } from "@/types";
+import { User, Listing } from "@prisma/client";
 
 interface PropertiesClientProps {
-  currentUser: IUser | null;
-  properties: IListing[];
+  currentUser: User | null;
+  properties: Listing[];
 }
 
 const PropertiesClient: React.FC<PropertiesClientProps> = ({

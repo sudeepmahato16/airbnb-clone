@@ -7,14 +7,15 @@ import { AiOutlineMenu } from "react-icons/ai";
 
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
+
 import useRegisterModal from "@/hooks/useRegisterModal";
 import useLoginModal from "@/hooks/useLoginModal";
-import { IUser } from "@/types";
 import useRentModal from "@/hooks/useRentModal";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { User } from "@prisma/client";
 
 interface UserMenuProps {
-  currentUser?: IUser | null;
+  currentUser?: User | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {

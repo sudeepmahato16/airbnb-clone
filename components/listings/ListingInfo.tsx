@@ -5,10 +5,11 @@ import dynamic from "next/dynamic";
 import Avatar from "../Avatar";
 import ListingCategory from "./ListingCategory";
 import useCountries from "@/hooks/useCountries";
-import { Category, IUser } from "@/types";
+import { Category } from "@/types";
+import { User } from "@prisma/client";
 
 interface ListingInfoProps {
-  user: IUser;
+  user: User;
   description: string;
   guestCount: number;
   roomCount: number;

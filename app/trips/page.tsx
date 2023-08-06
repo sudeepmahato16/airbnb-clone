@@ -3,8 +3,8 @@ import React from "react";
 import TripsClient from "./TripsClient";
 import EmptyState from "@/components/EmptyState";
 
-import getCurrentUser from "@/actions/getCurrentUser";
-import getReservations from "@/actions/getReservations";
+import {getCurrentUser} from "@/actions/getCurrentUser";
+import {getReservations} from "@/actions/getReservations";
 
 const TripsPage = async () => {
   const currentUser = await getCurrentUser();
@@ -13,7 +13,7 @@ const TripsPage = async () => {
     return <EmptyState title="Unauthorized" subtitle="Please login" />;
   }
 
-  const reservations = await getReservations({ userId: currentUser._id });
+  const reservations = await getReservations({ userId: currentUser.id });
 
   if (reservations.length === 0) {
     return (

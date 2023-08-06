@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import Listing from "@/models/listing";
-import getCurrentUser from "@/actions/getCurrentUser";
+import { getCurrentUser } from "@/actions/getCurrentUser";
+import { db } from "@/libs/db";
 
 export const POST = async (req: Request) => {
   const currentUser = await getCurrentUser();
   if (!currentUser) return NextResponse.error();
-  
+
   const body = await req.json();
 
   const {
@@ -14,7 +14,7 @@ export const POST = async (req: Request) => {
     guestCount,
     bathroomCount,
     roomCount,
-    image,
+    image: imageSrc,
     price,
     title,
     description,
@@ -26,17 +26,19 @@ export const POST = async (req: Request) => {
     }
   });
 
-  const listing = await Listing.create({
-    category,
-    locationValue: location.value,
-    guestCount,
-    bathroomCount,
-    roomCount,
-    image,
-    price: parseInt(price),
-    title,
-    description,
-    user: currentUser._id,
+  const listing = await db.listing.create({
+    data: {
+      title,
+      description,
+      imageSrc,
+      category,
+      roomCount,
+      bathroomCount,
+      guestCount,
+      locationValue: location.value,
+      price: parseInt(price, 10),
+      userId: currentUser.id
+    }
   });
 
   return NextResponse.json(listing);

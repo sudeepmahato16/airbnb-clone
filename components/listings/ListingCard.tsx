@@ -3,22 +3,22 @@ import React, { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { format } from "date-fns";
+import { User, Listing, Reservation } from "@prisma/client";
 
 import Button from "../Button";
 import HeartButton from "../HeartButton";
 
 import useCountries from "@/hooks/useCountries";
 import { formatPrice } from "@/utils/helper";
-import { IListing, IReservation, IUser } from "@/types";
 
 interface ListingCardProps {
-  data: IListing;
-  reservation?: IReservation;
+  data: Listing;
+  reservation?: Reservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
-  currentUser?: IUser | null;
+  currentUser?: User | null;
 }
 
 const ListingCard: React.FC<ListingCardProps> = ({
@@ -63,25 +63,24 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
   return (
     <div
-      onClick={() => router.push(`/listings/${data._id}`)}
+      onClick={() => router.push(`/listings/${data.id}`)}
       className="col-span-1 cursor-pointer"
     >
       <div className="flex flex-col gap-1 w-full">
         <div className="aspect-square w-full relative overflow-hidden rounded-xl">
           <div className="w-full h-full bg-gray-100">
-          <Image
-            fill
-            className={`object-cover h-full w-full hover:scale-110 transition duration-300 ${
-              isImageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
-            }`}
-            src={data.image}
-            alt="Listing"
-            onLoad={() => setIsImageLoaded(true)}
-            sizes=""
+            <Image
+              fill
+              className={`object-cover h-full w-full hover:scale-110 transition duration-300 ${isImageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                }`}
+              src={data.imageSrc}
+              alt="Listing"
+              onLoad={() => setIsImageLoaded(true)}
+              sizes=""
             />
-            </div>
+          </div>
           <div className=" absolute top-3 right-3">
-            <HeartButton listingId={data._id} currentUser={currentUser} />
+            <HeartButton listingId={data.id} currentUser={currentUser} />
           </div>
         </div>
         <span className="font-semibold text-[16px] mt-[2px]">

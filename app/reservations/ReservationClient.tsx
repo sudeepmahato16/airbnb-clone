@@ -2,17 +2,19 @@
 import React, { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import axios from "axios";
+import { User, Reservation, Listing } from "@prisma/client";
 
 import Container from "@/components/Container";
 import Heading from "@/components/Heading";
 import ListingCard from "@/components/listings/ListingCard";
 
-import { IListing, IReservation, IUser } from "@/types";
-import axios from "axios";
 
 interface ReservationClientProps {
-  reservations: IReservation[];
-  currentUser?: IUser | null;
+  reservations: (Reservation & {
+    listing: Listing
+  })[];
+  currentUser?: User | null;
 }
 
 const ReservationClient: React.FC<ReservationClientProps> = ({
@@ -50,12 +52,12 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
       >
         {reservations.map((reservation) => (
           <ListingCard
-            key={reservation._id}
-            data={reservation.listing as IListing}
+            key={reservation.id}
+            data={reservation.listing as Listing}
             reservation={reservation}
-            actionId={reservation._id}
+            actionId={reservation.id}
             onAction={onCancel}
-            disabled={deletingId === reservation._id}
+            disabled={deletingId === reservation.id}
             actionLabel="Cancel guest reservation"
             currentUser={currentUser}
           />

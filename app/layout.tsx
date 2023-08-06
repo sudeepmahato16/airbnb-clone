@@ -6,7 +6,7 @@ import LoginModal from "@/components/modals/LoginModal";
 import RentModal from "@/components/modals/RentModal";
 import SearchModal from "@/components/modals/SearchModal";
 import ToasterProvider from "@/providers/ToasterProvider";
-import getCurrentUser from "@/actions/getCurrentUser";
+import {getCurrentUser} from "@/actions/getCurrentUser";
 import "./globals.css";
 
 export const metadata = {

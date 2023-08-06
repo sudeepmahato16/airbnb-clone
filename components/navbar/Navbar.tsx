@@ -7,10 +7,10 @@ import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
 import Categories from "./Categories";
-import { IUser } from "@/types";
+import { User } from "@prisma/client";
 
 interface NavbarProps {
-  currentUser?: IUser | null;
+  currentUser?: User | null;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {

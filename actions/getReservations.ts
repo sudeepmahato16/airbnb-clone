@@ -1,6 +1,4 @@
-import { Types } from "mongoose";
-import connectToDB from "@/libs/connectToDB";
-import Reservation from "@/models/reservation";
+import { db } from "@/libs/db";
 
 interface IParams {
   listingId?: string;
@@ -8,38 +6,38 @@ interface IParams {
   authorId?: string;
 }
 
-const getReservations = async (params: IParams) => {
-  const { listingId, userId, authorId } = params;
-  const query: any = {};
-  if (listingId) query["listing._id"] = new Types.ObjectId(listingId);
-  if (userId) query.user = new Types.ObjectId(userId);
-  if (authorId) query["listing.user"] = new Types.ObjectId(authorId);
+export const getReservations = async (
+  params: IParams
+) => {
+  try {
+    const { listingId, userId, authorId } = params;
 
-  await connectToDB();
+    const query: any = {};
+        
+    if (listingId) {
+      query.listingId = listingId;
+    };
 
-  const reservations = await Reservation.aggregate([
-    {
-      $lookup: {
-        from: "listings",
-        foreignField: "_id",
-        localField: "listing",
-        as: "listing",
+    if (userId) {
+      query.userId = userId;
+    }
+
+    if (authorId) {
+      query.listing = { userId: authorId };
+    }
+
+    const reservations = await db.reservation.findMany({
+      where: query,
+      include: {
+        listing: true
       },
-    },
-    {
-      $unwind: "$listing",
-    },
-    {
-      $match: query,
-    },
-    {
-      $sort: {
-        createdAt: -1,
-      },
-    },
-  ]);
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
 
-  return JSON.parse(JSON.stringify(reservations));
-};
-
-export default getReservations;
+    return JSON.parse(JSON.stringify(reservations))
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}

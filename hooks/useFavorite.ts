@@ -2,13 +2,13 @@ import { useCallback, useMemo } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { User } from "@prisma/client";
 
-import { IUser } from "@/types";
 import useLoginModal from "./useLoginModal";
 
 interface IUseFavorite {
   listingId: string;
-  currentUser?: IUser | null;
+  currentUser?: User | null;
 }
 
 const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
@@ -16,9 +16,9 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
   const loginModal = useLoginModal();
 
   const hasFavorited = useMemo(() => {
-    const list = currentUser?.favorites || [];
+    const list = currentUser?.favoriteIds || [];
     return list.includes(listingId);
-  }, [currentUser?.favorites, listingId]);
+  }, [currentUser?.favoriteIds, listingId]);
 
   const toggleFavorite = useCallback(
     async (e: React.MouseEvent<HTMLDivElement>) => {

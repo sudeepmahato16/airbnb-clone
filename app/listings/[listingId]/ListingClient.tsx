@@ -5,6 +5,7 @@ import axios from "axios";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { toast } from "react-hot-toast";
 import { Range } from "react-date-range";
+import { User, Listing, Reservation } from "@prisma/client";
 
 import Container from "@/components/Container";
 import ListingHead from "@/components/listings/ListingHead";
@@ -13,7 +14,6 @@ import ListingInfo from "@/components/listings/ListingInfo";
 
 import useLoginModal from "@/hooks/useLoginModal";
 import { categories } from "@/constants";
-import { IListing, IReservation, IUser } from "@/types";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -22,11 +22,11 @@ const initialDateRange = {
 };
 
 interface ListingClientProps {
-  currentUser?: null | IUser;
-  listing: IListing & {
-    user: IUser;
+  currentUser?: null | User;
+  listing: Listing & {
+    user: User;
   };
-  reservations?: IReservation[];
+  reservations?: Reservation[];
 }
 
 const ListingClient: React.FC<ListingClientProps> = ({
@@ -68,7 +68,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
         totalPrice,
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
-        listing: listing?._id,
+        listing: listing?.id,
       })
       .then(() => {
         toast.success("Listing reserved!");
@@ -79,15 +79,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
       .finally(() => {
         setIsLoading(false);
       });
-  }, [
-    currentUser,
-    dateRange.endDate,
-    dateRange.startDate,
-    listing?._id,
-    loginModal,
-    router,
-    totalPrice,
-  ]);
+  }, [currentUser, dateRange.endDate, dateRange.startDate, listing?.id, loginModal, router, totalPrice]);
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
@@ -110,9 +102,9 @@ const ListingClient: React.FC<ListingClientProps> = ({
         <div className="flex flex-col gap-6">
           <ListingHead
             title={listing.title}
-            image={listing.image}
+            image={listing.imageSrc}
             locationValue={listing.locationValue}
-            id={listing._id}
+            id={listing.id}
             currentUser={currentUser}
           />
         </div>

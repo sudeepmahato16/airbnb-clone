@@ -4,11 +4,11 @@ import React from 'react'
 import ListingCard from '@/components/listings/ListingCard'
 import Heading from '@/components/Heading'
 import Container from '@/components/Container'
-import { IListing, IUser } from '@/types'
+import { User, Listing } from '@prisma/client'
 
 interface FavoritesClientProps {
-  listings: IListing[],
-  currentUser?: IUser | null,
+  listings: Listing[],
+  currentUser?: User | null,
 }
 
 
@@ -25,7 +25,7 @@ const FavoritesClient: React.FC<FavoritesClientProps> = ({listings, currentUser}
       {listings.map((listing) => (
         <ListingCard
           currentUser={currentUser}
-          key={listing._id}
+          key={listing.id}
           data={listing}
         />
       ))}

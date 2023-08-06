@@ -1,23 +1,28 @@
-import connectToDB from "@/libs/connectToDB";
-import Listing from "@/models/listing";
+import { db } from "@/libs/db";
 
-interface IParams{
-    listingId?: string
+interface IParams {
+  listingId?: string;
 }
 
-const getListingById = async (params: IParams) => {
-    try{
-        const {listingId} = params;
-        await connectToDB();
-        const listing = await Listing.findById(listingId).populate("user");
+export const getListingById = async (params: IParams) => {
+  try {
+    const { listingId } = params;
 
-        if(!listing) return null;
+    const listing = await db.listing.findUnique({
+      where: {
+        id: listingId,
+      },
+      include: {
+        user: true,
+      },
+    });
 
-        return JSON.parse(JSON.stringify(listing))
-
-    }catch(error){
-
+    if (!listing) {
+      return null;
     }
-}
 
-export default getListingById;
+    return JSON.parse(JSON.stringify(listing));
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};

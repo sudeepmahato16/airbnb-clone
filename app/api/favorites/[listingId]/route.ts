@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-
-import getCurrentUser from "@/actions/getCurrentUser";
-import User from "@/models/user";
+import { getCurrentUser } from "@/actions/getCurrentUser";
+import { db } from "@/libs/db";
 
 interface IParams {
   listingId?: string;
@@ -17,9 +16,15 @@ export const POST = async (_req: Request, { params }: { params: IParams }) => {
     throw new Error("Invalid id");
   }
 
-  const user = await User.findByIdAndUpdate(currentUser._id, {
-    $push: {
-      favorites: listingId,
+  let favoriteIds = [...(currentUser.favoriteIds || [])];
+  favoriteIds.push(listingId);
+
+  const user = await db.user.update({
+    where: {
+      id: currentUser.id,
+    },
+    data: {
+      favoriteIds,
     },
   });
 
@@ -39,9 +44,16 @@ export const DELETE = async (
     throw new Error("Invalid id");
   }
 
-  const user = await User.findByIdAndUpdate(currentUser._id, {
-    $pull: {
-      favorites: listingId,
+  let favoriteIds = [...(currentUser.favoriteIds || [])];
+
+  favoriteIds = favoriteIds.filter((id) => id !== listingId);
+
+  const user = await db.user.update({
+    where: {
+      id: currentUser.id,
+    },
+    data: {
+      favoriteIds,
     },
   });
 

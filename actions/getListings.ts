@@ -1,11 +1,7 @@
-import { Types } from "mongoose";
-import Listing from "@/models/listing";
-import connectToDB from "@/libs/connectToDB";
+import { db } from "@/libs/db";
 
-import { IListing } from "@/types";
-
-export interface IListingParams {
-  user?: string;
+export interface IListingsParams {
+  userId?: string;
   guestCount?: number;
   roomCount?: number;
   bathroomCount?: number;
@@ -15,12 +11,10 @@ export interface IListingParams {
   category?: string;
 }
 
-const getListings = async (
-  params: IListingParams
-): Promise<IListing[] | undefined> => {
+export const getListings = async (params: IListingsParams) => {
   try {
     const {
-      user,
+      userId,
       roomCount,
       guestCount,
       bathroomCount,
@@ -30,40 +24,50 @@ const getListings = async (
       category,
     } = params;
 
-    const query: any = {};
+    let query: any = {};
 
-    if (user) query.user = new Types.ObjectId(user);
-    if (category) query.category = category;
-    if (roomCount)
+    if (userId) {
+      query.userId = userId;
+    }
+
+    if (category) {
+      query.category = category;
+    }
+
+    if (roomCount) {
       query.roomCount = {
-        $gte: +roomCount,
-      };
-
-    if (guestCount)
-      query.guestCount = {
-        $gte: +guestCount,
-      };
-
-    if (bathroomCount) {
-      query.bathroomCount = {
-        $gte: +bathroomCount,
+        gte: +roomCount,
       };
     }
 
-    if (locationValue) query.locationValue = locationValue;
+    if (guestCount) {
+      query.guestCount = {
+        gte: +guestCount,
+      };
+    }
+
+    if (bathroomCount) {
+      query.bathroomCount = {
+        gte: +bathroomCount,
+      };
+    }
+
+    if (locationValue) {
+      query.locationValue = locationValue;
+    }
 
     if (startDate && endDate) {
-      query["reservations"] = {
-        $not: {
-          $elemMatch: {
-            $or: [
+      query.NOT = {
+        reservations: {
+          some: {
+            OR: [
               {
-                endDate: { $gte: startDate },
-                startDate: { $lte: startDate },
+                endDate: { gte: startDate },
+                startDate: { lte: startDate },
               },
               {
-                startDate: { $lte: endDate },
-                endDate: { $gte: endDate },
+                startDate: { lte: endDate },
+                endDate: { gte: endDate },
               },
             ],
           },
@@ -71,35 +75,15 @@ const getListings = async (
       };
     }
 
-    await connectToDB();
-   
-    const listings = await Listing.aggregate([
-      {
-        $lookup: {
-          from: "reservations",
-          localField: "reservations",
-          foreignField: "_id",
-          as: "reservations",
-        },
+    const listings = await db.listing.findMany({
+      where: query,
+      orderBy: {
+        createdAt: "desc",
       },
-      {
-        $match: query,
-      },
-      {
-        $project: {
-          image: 1,
-          category: 1,
-          locationValue: 1,
-          price: 1,
-          title: 1,
-        },
-      },
-    ]);
+    });
 
     return JSON.parse(JSON.stringify(listings));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
-
-export default getListings;

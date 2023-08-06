@@ -5,14 +5,14 @@ import Image from "next/image";
 import Heading from "@/components/Heading";
 import HeartButton from "@/components/HeartButton";
 import useCountries from "@/hooks/useCountries";
-import { IUser } from "@/types";
+import { User } from "@prisma/client";
 
 interface ListingHeadProps {
   title: string;
   locationValue: string;
   image: string;
   id: string;
-  currentUser?: IUser | null;
+  currentUser?: User | null;
 }
 
 const ListingHead: React.FC<ListingHeadProps> = ({

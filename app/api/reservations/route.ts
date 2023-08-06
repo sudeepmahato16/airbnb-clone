@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import getCurrentUser from "@/actions/getCurrentUser";
-import Reservation from "@/models/reservation";
-import Listing from "@/models/listing";
+import { getCurrentUser } from "@/actions/getCurrentUser";
+import { db } from "@/libs/db";
 
 export const POST = async (req: Request) => {
   const currentUser = await getCurrentUser();
@@ -14,23 +13,20 @@ export const POST = async (req: Request) => {
   if (!listing || !startDate || !endDate || !totalPrice)
     return NextResponse.error();
 
-  const reservation = await Reservation.create({
-    listing,
-    startDate,
-    endDate,
-    totalPrice,
-    user: currentUser._id,
-  });
-
-  const updatedListing = await Listing.findByIdAndUpdate(
-    listing,
-    {
-      $push: {
-        reservations: reservation._id,
+    const listingAndReservation = await db.listing.update({
+      where: {
+        id: listing
       },
-    },
-    { new: true }
-  );
-
-  return NextResponse.json(updatedListing);
+      data: {
+        reservations: {
+          create: {
+            userId: currentUser.id,
+            startDate,
+            endDate,
+            totalPrice,
+          }
+        }
+      }
+    });
+  return NextResponse.json(listingAndReservation);
 };
