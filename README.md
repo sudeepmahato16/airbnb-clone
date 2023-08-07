@@ -1,7 +1,7 @@
 
 # Airbnb Clone
 
-This is an Airbnb clone built using Next.js, TypeScript, Tailwind CSS, MongoDB, Mongoose, NextAuth and Leaflet.
+This is an Airbnb clone built with Next.js, TypeScript, Tailwind CSS, MongoDB, Prisma, Next auth, Leaflet and many other technologies.
 
 ## Features
 
@@ -22,11 +22,6 @@ You can check out a live demo of the Airbnb clone project [here](https://airbnb-
   <kbd><img width="886" alt="login-modal" src="https://github.com/sudeepmahato16/airbnb_clone/assets/122378993/3d6675e0-6046-48dc-b55f-7ef318581ccd"></kbd>
 
   <kbd><img width="810" alt="listing" src="https://github.com/sudeepmahato16/airbnb_clone/assets/122378993/a0b05a50-cbc2-40db-8f62-6cc203a7c887"></kbd>
-
-  <kbd><img width="915" alt="my-reservation" src="https://github.com/sudeepmahato16/airbnb_clone/assets/122378993/93d1e062-22dc-4d63-b88a-d390050b46ad"></kbd>
-
-  <kbd><img width="934" alt="my-favorite" src="https://github.com/sudeepmahato16/airbnb_clone/assets/122378993/37893d50-18a0-4313-ae87-d3aa4884e713"></kbd>
-
   
 
 ## Prerequisites
@@ -61,7 +56,7 @@ Make sure you have the following software installed on your system:
    2. Add the following variables to the .env file, replacing the placeholder values with your own:
 
     ```
-    NEXT_PUBLIC_DATABASE_URI=<your-mongodb-uri>
+    DATABASE_URL=<your-mongodb-uri>
     GITHUB_CLIENT_ID=<your-github-client-id>
     GITHUB_CLIENT_SECRET=<your-github-client-secret>
     GOOGLE_CLIENT_ID=<your-google-client-id>
