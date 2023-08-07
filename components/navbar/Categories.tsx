@@ -1,11 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
 
 import Container from "../Container";
 import CategoryBox from "../CategoryBox";
-import Slider from "../Slider";
 import { categories } from "@/constants";
 import { Category } from "@/types";
 
@@ -22,16 +24,22 @@ const Categories = () => {
 
   return (
     <Container>
-      <Slider>
+      <Swiper slidesPerView="auto"
+        pagination={{
+          clickable: true,
+        }} spaceBetween={20}>
         {categories.map((item: Category) => (
-          <CategoryBox
-            key={item.label}
-            label={item.label}
-            icon={item.icon}
-            selected={category === item.label}
-          />
+          <SwiperSlide key={item.label} className="max-w-fit">
+            <Suspense fallback={<></>}>
+              <CategoryBox
+                label={item.label}
+                icon={item.icon}
+                selected={category === item.label}
+              />
+            </Suspense>
+          </SwiperSlide>
         ))}
-      </Slider>
+      </Swiper>
     </Container>
   );
 };

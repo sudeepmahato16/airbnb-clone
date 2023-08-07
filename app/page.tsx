@@ -8,6 +8,8 @@ import { getListings, IListingsParams } from "@/actions/getListings";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import { Listing } from "@prisma/client";
 
+export const dynamic = 'force-dynamic'
+
 interface HomeProps {
   searchParams: IListingsParams;
 }
