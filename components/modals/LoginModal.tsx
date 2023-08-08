@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { AiFillGithub } from "react-icons/ai";
@@ -54,10 +54,10 @@ const LoginModal = () => {
     });
   };
 
-  const onToggle = useCallback(() => {
+  const onToggle = () => {
     loginModal.onClose();
     registerModal.onOpen();
-  }, [loginModal, registerModal]);
+  }
 
   const bodyContent = (
     <div className="flex flex-col gap-4">

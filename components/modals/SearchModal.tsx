@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { formatISO } from "date-fns";
 import { Range } from "react-date-range";
@@ -46,15 +46,15 @@ const SearchModal = () => {
     [location]
   );
 
-  const onNext = useCallback(() => {
+  const onNext = () => {
     setStep((value) => value + 1);
-  }, []);
+  }
 
-  const onBack = useCallback(() => {
+  const onBack = () => {
     setStep((value) => value - 1);
-  }, []);
+  }
 
-  const onSubmit = useCallback(async () => {
+  const onSubmit = async () => {
     if (step !== STEPS.INFO) return onNext();
 
     let currentQuery = {};
@@ -90,19 +90,7 @@ const SearchModal = () => {
     setStep(STEPS.LOCATION);
     searchModal.onClose();
     router.push(url);
-  }, [
-    bathroomCount,
-    dateRange.endDate,
-    dateRange.startDate,
-    guestCount,
-    location?.value,
-    onNext,
-    params,
-    roomCount,
-    router,
-    searchModal,
-    step,
-  ]);
+  }
 
   const actionLabel = useMemo(() => {
     if (step === STEPS.INFO) {

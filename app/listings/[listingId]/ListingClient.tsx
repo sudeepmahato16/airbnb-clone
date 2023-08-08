@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
@@ -58,7 +58,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
     return dates;
   }, [reservations]);
 
-  const onCreateReservation = useCallback(() => {
+  const onCreateReservation = () => {
     if (!currentUser) return loginModal.onOpen();
 
     setIsLoading(true);
@@ -79,7 +79,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
       .finally(() => {
         setIsLoading(false);
       });
-  }, [currentUser, dateRange.endDate, dateRange.startDate, listing?.id, loginModal, router, totalPrice]);
+  }
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {

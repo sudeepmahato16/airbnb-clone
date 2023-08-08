@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 interface CounterProps {
   title: string,
@@ -12,14 +12,14 @@ interface CounterProps {
 const Counter: React.FC<CounterProps> = ({
   title, subtitle, value, onChange
 }) => {
-  const onAdd = useCallback(() => {
+  const onAdd = () => {
     onChange(value + 1)
-  }, [onChange, value])
+  }
 
-  const onReduce = useCallback(() => {
+  const onReduce = () => {
     if (value === 1) return;
     onChange(value - 1)
-  }, [onChange, value])
+  }
 
 
   return (

@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 import { Nunito } from "next/font/google";
+import "./globals.css";
+import "react-loading-skeleton/dist/skeleton.css";
 
 import Navbar from "@/components/navbar/Navbar";
 import RegisterModal from "@/components/modals/RegisterModal";
@@ -8,7 +10,8 @@ import RentModal from "@/components/modals/RentModal";
 import SearchModal from "@/components/modals/SearchModal";
 import ToasterProvider from "@/providers/ToasterProvider";
 import { getCurrentUser } from "@/actions/getCurrentUser";
-import "./globals.css";
+
+
 
 export const metadata = {
   title: "VacationHub",

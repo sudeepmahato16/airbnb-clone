@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { format } from "date-fns";
@@ -34,25 +34,9 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const { getByValue } = useCountries();
 
-  const location = getByValue(data.locationValue);
+  const location = useMemo(() => getByValue(data.locationValue), [data.locationValue, getByValue]);
 
-  const handleCancel = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.stopPropagation();
-
-      if (disabled) return;
-      onAction?.(actionId);
-    },
-    [actionId, disabled, onAction]
-  );
-
-  const price = useMemo(() => {
-    if (reservation) {
-      return reservation.totalPrice;
-    }
-
-    return data?.price;
-  }, [data.price, reservation]);
+  const price = reservation ? reservation.totalPrice : data?.price;
 
   const reservationDate = useMemo(() => {
     if (!reservation) return null;
@@ -61,17 +45,25 @@ const ListingCard: React.FC<ListingCardProps> = ({
     return `${format(start, "PP")} - ${format(end, "PP")}`;
   }, [reservation]);
 
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
+    if (disabled) return;
+    onAction?.(actionId);
+  }
+
   return (
+
     <div
       onClick={() => router.push(`/listings/${data.id}`)}
       className="col-span-1 cursor-pointer"
     >
       <div className="flex flex-col gap-1 w-full">
-        <div className="aspect-square w-full relative overflow-hidden rounded-xl">
-          <div className="w-full h-full bg-gray-100">
+        <div className="aspect-[1/0.95] w-full relative overflow-hidden rounded-xl">
+          <div className="w-full h-full bg-gray-100 relative">
             <Image
               fill
-              className={`object-cover h-full w-full hover:scale-110 transition duration-300 ${isImageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
+              className={`hover:scale-110 transition duration-300 ${isImageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
                 }`}
               src={data.imageSrc}
               alt="Listing"
@@ -83,7 +75,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
             <HeartButton listingId={data.id} currentUser={currentUser} />
           </div>
         </div>
-        <span className="font-semibold text-[16px] mt-[2px]">
+        <span className="font-semibold text-[16px] mt-[4px]">
           {location?.region}, {location?.label}
         </span>
         <span className="font-light text-neutral-500 text-sm">

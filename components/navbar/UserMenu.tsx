@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -37,11 +37,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     setIsOpen((prev) => !prev);
   }
 
-  const onRent = useCallback(() => {
+  const onRent = () => {
     if (!currentUser) return loginModal.onOpen();
     close();
     rentModal.onOpen();
-  }, [currentUser, loginModal, rentModal]);
+  }
 
   const navigate = (pathName: string) => {
     close();

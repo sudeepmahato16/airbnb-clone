@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import axios from "axios";
@@ -24,24 +24,21 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
   const [deletingId, setDeletingId] = useState("");
   const router = useRouter();
 
-  const onCancel = useCallback(
-    (id: string) => {
-      setDeletingId(id);
-      axios
-        .delete(`/api/reservations/${id}`)
-        .then(() => {
-          toast.success("Reservation cancelled");
-          router.refresh();
-        })
-        .catch(() => {
-          toast.error("Something went wrong.");
-        })
-        .finally(() => {
-          setDeletingId("");
-        });
-    },
-    [router]
-  );
+  const onCancel = (id: string) => {
+    setDeletingId(id);
+    axios
+      .delete(`/api/reservations/${id}`)
+      .then(() => {
+        toast.success("Reservation cancelled");
+        router.refresh();
+      })
+      .catch(() => {
+        toast.error("Something went wrong.");
+      })
+      .finally(() => {
+        setDeletingId("");
+      });
+  }
 
   return (
     <Container>

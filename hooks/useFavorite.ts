@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
@@ -15,10 +15,7 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
   const router = useRouter();
   const loginModal = useLoginModal();
 
-  const hasFavorited = useMemo(() => {
-    const list = currentUser?.favoriteIds || [];
-    return list.includes(listingId);
-  }, [currentUser?.favoriteIds, listingId]);
+  const hasFavorited = !!(currentUser?.favoriteIds.includes(listingId));
 
   const toggleFavorite = useCallback(
     async (e: React.MouseEvent<HTMLDivElement>) => {
@@ -46,8 +43,8 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
 
   return {
     hasFavorited,
-    toggleFavorite
-  }
+    toggleFavorite,
+  };
 };
 
 export default useFavorite;

@@ -4,7 +4,6 @@ import Skeleton from "react-loading-skeleton";
 import Container from "../Container";
 import ListingLoader from "./ListingLoader";
 
-import "react-loading-skeleton/dist/skeleton.css";
 
 const PageLoader = () => {
   return (

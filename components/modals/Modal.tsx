@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 
 import Button from "../Button";
-import {useOutsideClick} from '@/hooks/useOutsideClick';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 
 interface ModalProps {
   isOpen?: boolean;
@@ -31,13 +31,13 @@ const Modal: React.FC<ModalProps> = ({
   secondaryActionLabel,
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const {ref} = useOutsideClick(handleClose);
-  
+  const { ref } = useOutsideClick(handleClose);
+
   useEffect(() => {
     setShowModal(Boolean(isOpen));
   }, [isOpen]);
-  
- function handleClose () {
+
+  function handleClose() {
     if (disabled) {
       return;
     }
@@ -47,35 +47,34 @@ const Modal: React.FC<ModalProps> = ({
     }, 300);
   }
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = () => {
     if (disabled) return;
     onSubmit();
-  }, [disabled, onSubmit]);
+  }
 
-  const handleSecondaryAction = useCallback(() => {
+  const handleSecondaryAction = () => {
     if (disabled || !secondaryAction) {
       return;
     }
 
     secondaryAction();
-  }, [disabled, secondaryAction]);
+  }
 
   if (!isOpen) return null;
 
   return (
     <>
       <div
-        className={`justify-center items-center flex overflow-x-hidden  fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 duration-300 ${showModal ? "opacity-100": "opacity-0"}`}
+        className={`justify-center items-center flex w-screen h-screen overflow-x-hidden  fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 duration-300 ${showModal ? "opacity-100" : "opacity-0"}`}
 
       >
         <div
-          className="relative w-full md:w-4/6 lg:max-w-[420px] my-6 mx-auto md:max-h-[90vh] h-full rounded-lg hide-scrollbar overflow-y-scroll"
+          className="relative w-full md:w-4/6 lg:max-w-[420px] rounded-lg hide-scrollbar overflow-y-scroll"
           ref={ref}
         >
           <div
-            className={`translate duration-300 h-full    ${
-              showModal ? "translate-y-0" : "translate-y-full"
-            }
+            className={`translate duration-300 md:max-h-[90vh] h-full   ${showModal ? "translate-y-0" : "translate-y-full"
+              }
             ${showModal ? "opacity-100" : "opacity-0"}`}
           >
             <div className="translate h-full lg:h-auto  md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none ">

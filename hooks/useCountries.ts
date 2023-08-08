@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import countries from "world-countries";
 
 const formattedCountries = countries.map((country) => ({
@@ -9,13 +10,13 @@ const formattedCountries = countries.map((country) => ({
 }));
 
 const useCountries = () => {
-  const getAll = () => formattedCountries;
+  const getAll = useCallback(() => formattedCountries, []);
 
-  const getByValue = (value: string) => {
+  const getByValue = useCallback((value: string) => {
     return formattedCountries.find((item) => item.value === value);
-  };
+  }, []);
 
-  return {getAll, getByValue}
+  return { getAll, getByValue };
 };
 
 export default useCountries;

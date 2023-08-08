@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  overflow-y: scroll;
+}
+
 ::-webkit-scrollbar {
   @apply w-2;
 }
@@ -40,4 +44,8 @@
 .rdrCalendarWrapper {
   width: 100% !important;
   font-size: 16px !important;
+}
+
+.swiper-wrapper > *:not(:last-child){
+  margin-right: 20px !important;
 }

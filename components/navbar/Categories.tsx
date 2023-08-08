@@ -27,17 +27,17 @@ const Categories = () => {
       <Swiper slidesPerView="auto"
         pagination={{
           clickable: true,
-        }} spaceBetween={20}>
+        }} className="w-full mt-2">
         {categories.map((item: Category) => (
-          <SwiperSlide key={item.label} className="max-w-fit">
-            <Suspense fallback={<></>}>
+
+          <SwiperSlide className="max-w-fit" key={item.label}>
               <CategoryBox
                 label={item.label}
                 icon={item.icon}
                 selected={category === item.label}
               />
-            </Suspense>
           </SwiperSlide>
+
         ))}
       </Swiper>
     </Container>
@@ -45,3 +45,7 @@ const Categories = () => {
 };
 
 export default Categories;
+
+
+
+

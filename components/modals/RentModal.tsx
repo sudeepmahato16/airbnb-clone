@@ -60,6 +60,7 @@ const RentModal = () => {
   const bathroomCount = watch("bathroomCount");
   const image = watch("image");
 
+  const country = location?.label;
 
   const Map = useMemo(
     () =>
@@ -67,7 +68,7 @@ const RentModal = () => {
         ssr: false,
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [location]
+    [country]
   );
 
   const setCustomValue = (id: string, value: any) => {
@@ -131,7 +132,7 @@ const RentModal = () => {
         subtitle="Pick a category"
       />
       <div
-        className=" grid  grid-cols-1  md:grid-cols-2  gap-3 max-h-[30vh] overflow-y-auto 
+        className=" grid grid-cols-1 md:grid-cols-2  gap-3 max-h-[210px] overflow-y-auto 
       "
       >
         {categories.map((item: Category) => (
