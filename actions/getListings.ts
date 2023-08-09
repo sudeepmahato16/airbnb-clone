@@ -7,7 +7,7 @@ export interface IListingsParams {
   bathroomCount?: number;
   startDate?: string;
   endDate?: string;
-  locationValue?: string;
+  country?: string;
   category?: string;
 }
 
@@ -18,7 +18,7 @@ export const getListings = async (params: IListingsParams) => {
       roomCount,
       guestCount,
       bathroomCount,
-      locationValue,
+      country,
       startDate,
       endDate,
       category,
@@ -52,8 +52,8 @@ export const getListings = async (params: IListingsParams) => {
       };
     }
 
-    if (locationValue) {
-      query.locationValue = locationValue;
+    if (country) {
+      query.country = country;
     }
 
     if (startDate && endDate) {

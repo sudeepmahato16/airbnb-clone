@@ -4,12 +4,12 @@ import Image from "next/image";
 
 import Heading from "@/components/Heading";
 import HeartButton from "@/components/HeartButton";
-import useCountries from "@/hooks/useCountries";
 import { User } from "@prisma/client";
 
 interface ListingHeadProps {
   title: string;
-  locationValue: string;
+  country: string | null,
+  region: string | null
   image: string;
   id: string;
   currentUser?: User | null;
@@ -17,20 +17,19 @@ interface ListingHeadProps {
 
 const ListingHead: React.FC<ListingHeadProps> = ({
   title,
-  locationValue,
+  country = '',
+  region = '',
   image,
   id,
   currentUser,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
-  const { getByValue } = useCountries();
-  const location = getByValue(locationValue);
 
   return (
     <>
       <Heading
         title={title}
-        subtitle={`${location?.region}, ${location?.label}`}
+        subtitle={`${region}, ${country}`}
       />
       <div
         className={`w-full md:h-[420px] sm:h-[280px] bg-gray-100 h-[260px] overflow-hidden  rounded-xl relative transition duration-300`}
@@ -38,9 +37,8 @@ const ListingHead: React.FC<ListingHeadProps> = ({
         <Image
           src={image}
           fill
-          className={`object-cover w-full ${
-            imageLoaded ? "opacity-100 " : "opacity-0 "
-          }`}
+          className={`object-cover w-full ${imageLoaded ? "opacity-100 " : "opacity-0 "
+            }`}
           alt="Image"
           onLoad={() => setImageLoaded(true)}
           sizes=""

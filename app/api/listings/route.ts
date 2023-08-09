@@ -10,7 +10,7 @@ export const POST = async (req: Request) => {
 
   const {
     category,
-    location,
+    location: { region, label: country, latlng },
     guestCount,
     bathroomCount,
     roomCount,
@@ -35,10 +35,12 @@ export const POST = async (req: Request) => {
       roomCount,
       bathroomCount,
       guestCount,
-      locationValue: location.value,
+      country,
+      region,
+      latlng,
       price: parseInt(price, 10),
-      userId: currentUser.id
-    }
+      userId: currentUser.id,
+    },
   });
 
   return NextResponse.json(listing);

@@ -8,7 +8,6 @@ import { User, Listing, Reservation } from "@prisma/client";
 import Button from "../Button";
 import HeartButton from "../HeartButton";
 
-import useCountries from "@/hooks/useCountries";
 import { formatPrice } from "@/utils/helper";
 
 interface ListingCardProps {
@@ -32,10 +31,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
 }) => {
   const router = useRouter();
   const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const { getByValue } = useCountries();
-
-  const location = useMemo(() => getByValue(data.locationValue), [data.locationValue, getByValue]);
-
+  
   const price = reservation ? reservation.totalPrice : data?.price;
 
   const reservationDate = useMemo(() => {
@@ -76,7 +72,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           </div>
         </div>
         <span className="font-semibold text-[16px] mt-[4px]">
-          {location?.region}, {location?.label}
+          {data?.region}, {data?.country}
         </span>
         <span className="font-light text-neutral-500 text-sm">
           {reservationDate || data.category}

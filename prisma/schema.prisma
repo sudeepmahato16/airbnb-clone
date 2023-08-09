@@ -55,10 +55,12 @@ model Listing {
   roomCount Int
   bathroomCount Int
   guestCount Int
-  locationValue String
   userId String @db.ObjectId
   price Int
-
+  country String?
+  latlng Int[]
+  region String?
+  
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   reservations Reservation[]
 }

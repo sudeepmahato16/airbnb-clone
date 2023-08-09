@@ -1,10 +1,8 @@
-"use client";
-import React, { useMemo } from "react";
+import React from "react";
 import dynamic from "next/dynamic";
 
 import Avatar from "../Avatar";
 import ListingCategory from "./ListingCategory";
-import useCountries from "@/hooks/useCountries";
 import { Category } from "@/types";
 import { User } from "@prisma/client";
 
@@ -15,7 +13,7 @@ interface ListingInfoProps {
   roomCount: number;
   bathroomCount: number;
   category: Category | undefined;
-  locationValue: string;
+  latlng: number[]
 }
 
 const Map = dynamic(() => import("./../Map"), {
@@ -29,10 +27,8 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   roomCount,
   bathroomCount,
   category,
-  locationValue,
+  latlng
 }) => {
-  const { getByValue } = useCountries();
-  const coordinates = useMemo(() => getByValue(locationValue)?.latlng, [locationValue, getByValue]);
 
   return (
     <div className="col-span-4 flex flex-col gap-8">
@@ -61,7 +57,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
       <hr />
       <p className=" font-light text-neutral-500 text-[16px] ">{description}</p>
       <hr />
-      <Map center={coordinates} />
+      <Map center={latlng} />
     </div>
   );
 };
