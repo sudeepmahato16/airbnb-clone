@@ -1,37 +1,39 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { IconType } from "react-icons";
 
-interface ButtonProps {
-  label: string;
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  disabled?: boolean;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  label?: string;
   outline?: boolean;
   small?: boolean;
   icon?: IconType;
+  className?: string;
+  children?: ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
   label,
-  onClick,
-  disabled,
   outline,
   small,
   icon: Icon,
+  children,
+  className,
+  ...props
 }) => {
   return (
     <button
-      disabled={disabled}
-      onClick={onClick}
       className={`relative disabled:opacity-70 disabled:cursor-not-allowed rounded hover:opacity-80 transition w-full ${
         outline
           ? "bg-white border-[1px] border-gray-500 text-[#4e4e4e]"
           : "bg-rose-500 border-rose-500 text-white"
       }  ${small ? "text-sm" : "text-md"} ${
-        small ? "py-[6px] text-[14px]" : "py-[10px] text-[15px]"
+        small ? "py-[6px] text-[14px]" : "py-[8px] text-[15px]"
       } ${small ? "font-light" : "font-semibold"} ${
         small ? "border-[1px]" : "border-2"
       }
+
+      ${className}
   `}
+      {...props}
     >
       {Icon && (
         <Icon
@@ -44,6 +46,7 @@ const Button: React.FC<ButtonProps> = ({
         />
       )}
       {label}
+      {children}
     </button>
   );
 };

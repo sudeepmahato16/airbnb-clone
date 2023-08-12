@@ -48,8 +48,8 @@ const LoginModal = () => {
 
       if (callback?.ok) {
         toast.success("Logged in successful!");
-        router.refresh();
         loginModal.onClose();
+        router.refresh();
       }
     });
   };

@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 
 import Button from "../Button";
-import { useOutsideClick } from '@/hooks/useOutsideClick';
+import SpinnerMini from "../loader/Loader";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 interface ModalProps {
   isOpen?: boolean;
@@ -31,7 +32,7 @@ const Modal: React.FC<ModalProps> = ({
   secondaryActionLabel,
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const { ref } = useOutsideClick(handleClose);
+  const { ref } = useOutsideClick(handleClose, false);
 
   useEffect(() => {
     setShowModal(Boolean(isOpen));
@@ -47,10 +48,12 @@ const Modal: React.FC<ModalProps> = ({
     }, 300);
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
     if (disabled) return;
     onSubmit();
-  }
+  };
 
   const handleSecondaryAction = () => {
     if (disabled || !secondaryAction) {
@@ -58,28 +61,35 @@ const Modal: React.FC<ModalProps> = ({
     }
 
     secondaryAction();
-  }
+  };
 
   if (!isOpen) return null;
 
   return (
     <>
       <div
-        className={`justify-center items-center flex w-screen h-screen overflow-x-hidden  fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 duration-300 ${showModal ? "opacity-100" : "opacity-0"}`}
-
+        className={`justify-center items-center flex w-screen h-screen overflow-x-hidden  fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 duration-300 ${
+          showModal ? "opacity-100" : "opacity-0"
+        }`}
       >
         <div
           className="relative w-full md:w-4/6 lg:max-w-[420px] rounded-lg hide-scrollbar overflow-y-scroll"
-          ref={ref}
         >
           <div
-            className={`translate duration-300 md:max-h-[90vh] h-full   ${showModal ? "translate-y-0" : "translate-y-full"
-              }
+            className={`duration-300 md:max-h-[90vh] h-full   ${
+              showModal ? "translate-y-0" : "translate-y-full"
+            }
             ${showModal ? "opacity-100" : "opacity-0"}`}
+            ref={ref}
           >
-            <div className="translate h-full lg:h-auto  md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none ">
+            <form
+              className="translate h-full lg:h-auto  md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none "
+              onSubmit={handleSubmit}
+
+            >
               <div className=" flex items-center  px-6 py-4  rounded-t justify-center relative border-b-[1px]">
                 <button
+                type="button"
                   className="
                     p-1
                     border-0 
@@ -107,21 +117,20 @@ const Modal: React.FC<ModalProps> = ({
                 >
                   {secondaryAction && secondaryActionLabel && (
                     <Button
+                    type="button"
                       disabled={disabled}
                       label={secondaryActionLabel}
                       onClick={handleSecondaryAction}
                       outline
                     />
                   )}
-                  <Button
-                    disabled={disabled}
-                    label={actionLabel}
-                    onClick={handleSubmit}
-                  />
+                  <Button type="submit" disabled={disabled} className="flex items-center gap-2 justify-center">
+                    {disabled ? <SpinnerMini /> : actionLabel}
+                  </Button>
                 </div>
                 {footer}
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
