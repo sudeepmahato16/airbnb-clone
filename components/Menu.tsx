@@ -50,7 +50,7 @@ const List: FC<ListProps> = ({ children }) => {
   return (
     <ul
       ref={ref}
-      className={`absolute top-[110%] left-[5%] w-auto bg-white shadow-md rounded-md z-[9999] text-[12px]`}
+      className={`absolute top-[110%] left-[5%] w-auto bg-white rounded-md z-[9999] text-[12px]`}
     >
       {children}
     </ul>
@@ -60,21 +60,21 @@ const List: FC<ListProps> = ({ children }) => {
 interface ButtonProps {
   children: ReactNode;
   icon: IconType;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button: FC<ButtonProps> = ({ children, icon: Icon, onClick }) => {
   const { close } = useContext(MenuContext);
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     close();
-    onClick?.();
+    onClick?.(e);
   };
 
   return (
-    <li className="min-w-[180px]">
+    <li className="min-w-[160px]">
       <button
         onClick={handleClick}
-        className="w-full text-left bg-[#fff] hover:bg-gray-50 border-none py-2 px-4 text-[13.25px] transition-all duration-200 flex items-center gap-4"
+        className="w-full text-left bg-[#fff] hover:bg-gray-50 border-none py-2 px-3 text-[13.25px] transition-all duration-200 flex items-center gap-3"
         type="button"
       >
         <Icon className="w-4 h-4 stroke-gray-700 text-gray-700" />

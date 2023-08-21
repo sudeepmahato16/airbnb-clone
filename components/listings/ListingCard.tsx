@@ -43,7 +43,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
     return `${format(start, "PP")} - ${format(end, "PP")}`;
   }, [reservation]);
 
-  const handleCancel = () => {
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e?.stopPropagation();
     if (disabled) return;
     onAction?.(actionId);
   };
@@ -61,11 +62,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
                 <Menu>
                   <Menu.Toggle
                     id={actionLabel}
-                    className="w-8 h-8"
+                    className="w-8 h-8 flex items-center justify-center"
                   >
-                    <div  className="w-6 h-6 rounded-full bg-neutral-700/50 flex items-center justify-center hover:bg-neutral-700/70 group transition duration-100 z-[20]">
-                    <BsThreeDots className="h-[18px] w-[18px] text-gray-300 transition duration-100 group-hover:text-gray-100 " />
-                      </div>
+                    <div className="w-6 h-6 rounded-full bg-neutral-700/50 flex items-center justify-center hover:bg-neutral-700/70 group transition duration-100 z-[20]">
+                      <BsThreeDots className="h-[18px] w-[18px] text-gray-300 transition duration-100 group-hover:text-gray-100 " />
+                    </div>
                   </Menu.Toggle>
 
                   <Menu.List>

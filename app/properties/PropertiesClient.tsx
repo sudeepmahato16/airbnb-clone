@@ -48,11 +48,11 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
       >
         {properties.map((listing: any) => (
           <ListingCard
-            key={listing._id}
+            key={listing.id}
             data={listing}
-            actionId={listing._id}
+            actionId={listing.id}
             onAction={onDelete}
-            disabled={deletingId === listing._id}
+            disabled={deletingId === listing.id}
             actionLabel="Delete property"
             currentUser={currentUser}
           />
