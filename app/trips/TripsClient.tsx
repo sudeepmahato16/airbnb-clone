@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, Fragment } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -8,10 +8,12 @@ import { User, Reservation, Listing } from "@prisma/client";
 import Container from "@/components/Container";
 import Heading from "@/components/Heading";
 import ListingCard from "@/components/listings/ListingCard";
+import useConfirmDelete from "@/hooks/useConfirmDelete";
+import ConfirmDelete from "@/components/ConfirmDelete";
 
 interface TripsClientProps {
   reservations: (Reservation & {
-    listing: Listing
+    listing: Listing;
   })[];
   currentUser?: User | null;
 }
@@ -21,11 +23,12 @@ const TripsClient: React.FC<TripsClientProps> = ({
   currentUser,
 }) => {
   const router = useRouter();
-  const [deletingId, setDeletingId] = useState("");
+  const [isCanceling, setIsCanceling] = useState(false);
+  const { onOpen } = useConfirmDelete();
 
   const onCancel = useCallback(
     (id: string) => {
-      setDeletingId(id);
+      setIsCanceling(true);
 
       axios
         .delete(`/api/reservations/${id}`)
@@ -35,7 +38,7 @@ const TripsClient: React.FC<TripsClientProps> = ({
         })
         .catch((error) => toast.error(error?.response?.data?.error))
         .finally(() => {
-          setDeletingId("");
+          setIsCanceling(false);
         });
     },
     [router]
@@ -53,16 +56,21 @@ const TripsClient: React.FC<TripsClientProps> = ({
         "
       >
         {reservations.map((reservation) => (
-          <ListingCard
-            key={reservation.id}
-            data={reservation.listing as Listing}
-            reservation={reservation}
-            actionId={reservation.id}
-            onAction={onCancel}
-            disabled={deletingId === reservation.id}
-            actionLabel="Cancel reservation"
-            currentUser={currentUser}
-          />
+          <Fragment key={reservation.id}>
+            <ListingCard
+              data={reservation.listing as Listing}
+              reservation={reservation}
+              onAction={onOpen}
+              actionLabel="Cancel reservation"
+              currentUser={currentUser}
+            />
+            <ConfirmDelete
+              onConfirm={() => onCancel(reservation.id)}
+              title="Cancel Reservation"
+              desc="Are you sure you want to cancel this reservation?"
+              isLoading={isCanceling}
+            />
+          </Fragment>
         ))}
       </div>
     </Container>

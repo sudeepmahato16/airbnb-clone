@@ -6,8 +6,8 @@ import React, {
   useContext,
   useState,
 } from "react";
-import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { IconType } from "react-icons";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 const MenuContext = createContext({
   openId: "",
@@ -25,6 +25,7 @@ const Toggle: FC<ToggleProps> = ({ children, id, className }) => {
   const { setOpenId, close, openId } = useContext(MenuContext);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     e.stopPropagation();
 
     openId === "" || openId !== id ? setOpenId(id) : close();
@@ -74,7 +75,7 @@ const Button: FC<ButtonProps> = ({ children, icon: Icon, onClick }) => {
     <li className="min-w-[160px]">
       <button
         onClick={handleClick}
-        className="w-full text-left bg-[#fff] hover:bg-gray-50 border-none py-2 px-3 text-[13.25px] transition-all duration-200 flex items-center gap-3"
+        className="w-full text-left bg-[#fff] hover:bg-gray-50 border-none p-2 text-[13.25px] transition-all duration-200 flex items-center gap-2"
         type="button"
       >
         <Icon className="w-4 h-4 stroke-gray-700 text-gray-700" />
@@ -105,7 +106,7 @@ const Menu: FC<MenuProps> & {
         close,
       }}
     >
-      <div className="flex items-center justify-end relative rounded-md shadow-md ">{children}</div>
+      <div className="flex items-center justify-end relative rounded-md">{children}</div>
     </MenuContext.Provider>
   );
 };

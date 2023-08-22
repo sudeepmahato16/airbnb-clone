@@ -1,13 +1,15 @@
-'use client'
-import React, { useCallback, useState } from "react";
+"use client";
+import React, { useState, Fragment } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import { User, Listing } from "@prisma/client";
 
 import Container from "@/components/Container";
 import Heading from "@/components/Heading";
 import ListingCard from "@/components/listings/ListingCard";
-import { User, Listing } from "@prisma/client";
+import ConfirmDelete from "@/components/ConfirmDelete";
+import useConfirmDelete from "@/hooks/useConfirmDelete";
 
 interface PropertiesClientProps {
   currentUser: User | null;
@@ -19,43 +21,45 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
   properties,
 }) => {
   const router = useRouter();
-  const [deletingId, setDeletingId] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { onOpen } = useConfirmDelete();
 
-  const onDelete = useCallback(
-    (id: string) => {
-      setDeletingId(id);
+  const onDelete = (id: string) => {
+    setIsDeleting(true);
 
-      axios
-        .delete(`/api/listings/${id}`)
-        .then(() => {
-          toast.success("Listing deleted");
-          router.refresh();
-        })
-        .catch((error) => {
-          toast.error(error?.response?.data?.error);
-        })
-        .finally(() => {
-          setDeletingId("");
-        });
-    },
-    [router]
-  );
+    axios
+      .delete(`/api/listings/${id}`)
+      .then(() => {
+        toast.success("Listing deleted");
+        router.refresh();
+      })
+      .catch((error) => {
+        toast.error(error?.response?.data?.error);
+      })
+      .finally(() => {
+        setIsDeleting(false);
+      });
+  };
+
   return (
     <Container>
       <Heading title="Properties" subtitle="List of your properties" />
-      <div
-        className=" mt-8 md:mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 md:gap-8 gap-4"
-      >
-        {properties.map((listing: any) => (
-          <ListingCard
-            key={listing.id}
-            data={listing}
-            actionId={listing.id}
-            onAction={onDelete}
-            disabled={deletingId === listing.id}
-            actionLabel="Delete property"
-            currentUser={currentUser}
-          />
+      <div className=" mt-8 md:mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 md:gap-8 gap-4">
+        {properties.map((listing) => (
+          <Fragment key={listing.id}>
+            <ListingCard
+              data={listing}
+              onAction={onOpen}
+              actionLabel="Delete property"
+              currentUser={currentUser}
+            />
+            <ConfirmDelete
+              onConfirm={() => onDelete(listing.id)}
+              title="Delete Property"
+              desc="Are you sure you want to delete this listing permanently?"
+              isLoading={isDeleting}
+            />
+          </Fragment>
         ))}
       </div>
     </Container>

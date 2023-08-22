@@ -18,8 +18,8 @@ export const zoomIn = (scale: number, duration: number) => ({
 });
 
 export const slideIn = (
-  direction: string,
-  type: string,
+  direction: "up" | "down" | "left" | "right",
+  type: "tween" | "spring",
   duration: number
 ) => ({
   hidden: {

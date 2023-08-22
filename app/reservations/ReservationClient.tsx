@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import axios from "axios";
@@ -8,6 +8,8 @@ import { User, Reservation, Listing } from "@prisma/client";
 import Container from "@/components/Container";
 import Heading from "@/components/Heading";
 import ListingCard from "@/components/listings/ListingCard";
+import ConfirmDelete from "@/components/ConfirmDelete";
+import useConfirmDelete from "@/hooks/useConfirmDelete";
 
 
 interface ReservationClientProps {
@@ -21,11 +23,12 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
   reservations,
   currentUser,
 }) => {
-  const [deletingId, setDeletingId] = useState("");
   const router = useRouter();
+  const [isCanceling, setIsCanceling] = useState(false);
+  const { onOpen } = useConfirmDelete();
 
   const onCancel = (id: string) => {
-    setDeletingId(id);
+    setIsCanceling(true);
     axios
       .delete(`/api/reservations/${id}`)
       .then(() => {
@@ -36,7 +39,7 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
         toast.error("Something went wrong.");
       })
       .finally(() => {
-        setDeletingId("");
+        setIsCanceling(false);
       });
   }
 
@@ -48,16 +51,22 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
         "
       >
         {reservations.map((reservation) => (
+          <Fragment  key={reservation.id}>
           <ListingCard
-            key={reservation.id}
+           
             data={reservation.listing as Listing}
             reservation={reservation}
-            actionId={reservation.id}
-            onAction={onCancel}
-            disabled={deletingId === reservation.id}
+            onAction={onOpen}
             actionLabel="Cancel guest reservation"
             currentUser={currentUser}
           />
+          <ConfirmDelete
+              onConfirm={() => onCancel(reservation.id)}
+              title="Delete Property"
+              desc="Are you sure you want to cancel this reservation?"
+              isLoading={isCanceling}
+            />
+          </Fragment>
         ))}
       </div>
     </Container>
