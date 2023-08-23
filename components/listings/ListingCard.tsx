@@ -46,30 +46,31 @@ const ListingCard: React.FC<ListingCardProps> = ({
       <div className="flex flex-col gap-1 w-full">
         <div className="aspect-[1/0.95] w-full relative overflow-hidden rounded-xl">
           <div className="w-full h-full bg-gray-100 relative">
-            <div className=" absolute top-3 left-3 z-20">
-              {onAction && actionLabel && (
-                <Menu>
-                  <Menu.Toggle
-                    id={actionLabel}
-                    className="w-8 h-8 flex items-center z-[999] justify-center"
-                  >
-                    <div className="w-6 h-6 rounded-full bg-neutral-700/50 flex items-center justify-center hover:bg-neutral-700/70 group transition duration-100 z-[20]">
-                      <BsThreeDots className="h-[18px] w-[18px] text-gray-300 transition duration-100 group-hover:text-gray-100 " />
-                    </div>
-                  </Menu.Toggle>
+            <div className="absolute top-0 left-0 p-2 flex items-center justify-between w-full">
+              <div className="z-5">
+                {onAction && actionLabel && (
+                  <Menu>
+                    <Menu.Toggle
+                      id={actionLabel}
+                      className="w-8 h-8 flex items-center z-5 justify-center"
+                    >
+                      <div className="w-6 h-6 rounded-full bg-neutral-700/50 flex items-center justify-center hover:bg-neutral-700/70 group transition duration-200 z-[5]">
+                        <BsThreeDots className="h-[18px] w-[18px] text-gray-300 transition duration-100 group-hover:text-gray-100 " />
+                      </div>
+                    </Menu.Toggle>
 
-                  <Menu.List>
-                    <Menu.Button onClick={handleClick} icon={MdDeleteOutline}>
-                      {actionLabel}
-                    </Menu.Button>
-                  </Menu.List>
-                </Menu>
-              )}
+                    <Menu.List>
+                      <Menu.Button onClick={handleClick} icon={MdDeleteOutline}>
+                        {actionLabel}
+                      </Menu.Button>
+                    </Menu.List>
+                  </Menu>
+                )}
+              </div>
+
+              <HeartButton listingId={data.id} currentUser={currentUser} />
             </div>
-            <CustomImage imageSrc={data.imageSrc} title={data.title} fill/>
-          </div>
-          <div className=" absolute top-3 right-3">
-            <HeartButton listingId={data.id} currentUser={currentUser} />
+            <CustomImage imageSrc={data.imageSrc} title={data.title} fill />
           </div>
         </div>
         <span className="font-semibold text-[16px] mt-[4px]">

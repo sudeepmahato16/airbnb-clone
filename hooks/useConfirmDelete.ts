@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
 interface ConfirmDeleteStore {
-  isOpen: boolean;
-  onOpen: () => void;
+  openId: string;
+  onOpen: (val: string) => void;
   onClose: () => void;
 }
 
 const useConfirmDelete = create<ConfirmDeleteStore>((set) => ({
-  isOpen: false,
-  onOpen: () => set({ isOpen: true }),
-  onClose: () => set({ isOpen: false }),
+  openId: "",
+  onOpen: (val) => set({ openId: val }),
+  onClose: () => set({ openId: "" }),
 }));
 
 export default useConfirmDelete;

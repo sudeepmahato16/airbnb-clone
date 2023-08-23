@@ -11,10 +11,9 @@ import ListingCard from "@/components/listings/ListingCard";
 import ConfirmDelete from "@/components/ConfirmDelete";
 import useConfirmDelete from "@/hooks/useConfirmDelete";
 
-
 interface ReservationClientProps {
   reservations: (Reservation & {
-    listing: Listing
+    listing: Listing;
   })[];
   currentUser?: User | null;
 }
@@ -25,7 +24,7 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
 }) => {
   const router = useRouter();
   const [isCanceling, setIsCanceling] = useState(false);
-  const { onOpen } = useConfirmDelete();
+  const { onOpen, onClose } = useConfirmDelete();
 
   const onCancel = (id: string) => {
     setIsCanceling(true);
@@ -40,8 +39,9 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
       })
       .finally(() => {
         setIsCanceling(false);
+        onClose();
       });
-  }
+  };
 
   return (
     <Container>
@@ -51,20 +51,20 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
         "
       >
         {reservations.map((reservation) => (
-          <Fragment  key={reservation.id}>
-          <ListingCard
-           
-            data={reservation.listing as Listing}
-            reservation={reservation}
-            onAction={onOpen}
-            actionLabel="Cancel guest reservation"
-            currentUser={currentUser}
-          />
-          <ConfirmDelete
+          <Fragment key={reservation.id}>
+            <ListingCard
+              data={reservation.listing as Listing}
+              reservation={reservation}
+              onAction={() => onOpen(reservation.id)}
+              actionLabel="Cancel guest reservation"
+              currentUser={currentUser}
+            />
+            <ConfirmDelete
               onConfirm={() => onCancel(reservation.id)}
-              title="Delete Property"
+              title="Cancel reservation"
               desc="Are you sure you want to cancel this reservation?"
               isLoading={isCanceling}
+              id={reservation.id}
             />
           </Fragment>
         ))}

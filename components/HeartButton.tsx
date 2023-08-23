@@ -27,6 +27,7 @@ const HeartButton: React.FC<HeartButtonProps> = ({
         hover:opacity-80
         transition
         cursor-pointer
+        z-[5]
       "
     >
       <AiOutlineHeart

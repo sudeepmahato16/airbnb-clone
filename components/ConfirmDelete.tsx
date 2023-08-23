@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
 import Button from "./Button";
@@ -14,24 +15,31 @@ interface ConfirmDeleteProps {
   desc: string;
   onConfirm: (fn?: () => void) => void;
   isLoading?: boolean;
+  id: string;
 }
 
 const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({
   title,
   onConfirm,
   isLoading,
-  desc
+  desc,
+  id,
 }) => {
-  const { isOpen, onClose } = useConfirmDelete();
-  const { ref } = useOutsideClick(onClose);
+  const { openId, onClose } = useConfirmDelete();
+  const { ref } = useOutsideClick(handleClose);
 
-  const onDelete = () => {
-    onConfirm(onClose);
+  function handleClose() {
+    if(isLoading)return;
+    onClose();
+  }
+
+  const handleConfirm = () => {
+    onConfirm();
   };
 
-  return (
+  return createPortal(
     <AnimatePresence>
-      {isOpen && (
+      {openId === id && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -47,30 +55,28 @@ const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({
             className="w-[400px] flex flex-col gap-3 bg-white p-8 rounded-md"
             ref={ref}
           >
-            <h1 className="text-[20px] font-medium ">
-              {title}
-            </h1>
+            <h1 className="text-[20px] font-medium ">{title}</h1>
             <p className="text-gray-500  text-[14px] leading-[1.6] mb-6">
               {desc}
             </p>
 
             <div className="flex justify-end gap-3">
-              <Button disabled={isLoading} onClick={onClose}>
+              <Button disabled={isLoading} onClick={onClose} outline>
                 Cancel
               </Button>
               <Button
                 className="flex items-center gap-2 justify-center"
                 disabled={isLoading}
-                onClick={onDelete}
+                onClick={handleConfirm}
               >
-                {isLoading ? <SpinnerMini />:<span>Confirm</span>}
-                
+                {isLoading ? <SpinnerMini /> : <span>Confirm</span>}
               </Button>
             </div>
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 

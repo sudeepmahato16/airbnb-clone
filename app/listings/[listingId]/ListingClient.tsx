@@ -73,6 +73,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
       .then(() => {
         toast.success("Listing reserved!");
         setDateRange(initialDateRange);
+        router.refresh();
         router.push('/trips');
       })
       .catch(() => toast.error("Something went wrong!"))
@@ -130,7 +131,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
               onChangeDate={(value) => setDateRange(value)}
               dateRange={dateRange}
               onSubmit={onCreateReservation}
-              disabled={isLoading}
+              isLoading={isLoading}
               disabledDates={disabledDates}
             />
           </div>

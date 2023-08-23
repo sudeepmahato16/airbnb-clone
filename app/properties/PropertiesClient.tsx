@@ -22,7 +22,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
 }) => {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
-  const { onOpen } = useConfirmDelete();
+  const { onOpen, onClose } = useConfirmDelete();
 
   const onDelete = (id: string) => {
     setIsDeleting(true);
@@ -38,6 +38,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
       })
       .finally(() => {
         setIsDeleting(false);
+        onClose();
       });
   };
 
@@ -49,11 +50,12 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
           <Fragment key={listing.id}>
             <ListingCard
               data={listing}
-              onAction={onOpen}
+              onAction={() => onOpen(listing.id)}
               actionLabel="Delete property"
               currentUser={currentUser}
             />
             <ConfirmDelete
+              id={listing.id}
               onConfirm={() => onDelete(listing.id)}
               title="Delete Property"
               desc="Are you sure you want to delete this listing permanently?"

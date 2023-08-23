@@ -3,6 +3,7 @@ import { Range } from "react-date-range";
 
 import Calendar from "../inputs/Calendar";
 import Button from "../Button";
+import SpinnerMini from "../loader/Loader";
 
 import { formatPrice } from "@/utils/helper";
 
@@ -12,7 +13,7 @@ interface ListingReservationProps {
   totalPrice: number;
   onChangeDate: (value: Range) => void;
   onSubmit: () => void;
-  disabled?: boolean;
+  isLoading?: boolean;
   disabledDates: Date[];
 }
 
@@ -23,7 +24,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   onChangeDate,
   onSubmit,
   disabledDates,
-  disabled,
+  isLoading,
 }) => {
   return (
     <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
@@ -39,12 +40,13 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       />
       <hr />
       <div className="p-4">
-        <Button disabled={disabled} label="Reserve" onClick={onSubmit} />
+        <Button disabled={isLoading} onClick={onSubmit} className="flex flex-row items-center justify-center h-[42px]">
+          {isLoading ? <SpinnerMini /> : <span>Reserve</span>}
+        </Button>
       </div>
       <hr />
       <div
-        className="p-4 flex flex-row items-center justify-between font-semibold text-lg
-    "
+        className="p-4 flex flex-row items-center justify-between font-semibold text-lg"
       >
         <span>Total</span>
         <span>$ {formatPrice(totalPrice)}</span>
