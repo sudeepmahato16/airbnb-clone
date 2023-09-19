@@ -8,6 +8,7 @@ import ListingLoader from "../loader/ListingLoader";
 import { useListings } from "@/hooks/useListings";
 import { useLoadMore } from "@/hooks/useLoadMore";
 import { LISTINGS_BATCH } from "@/constants";
+import EmptyState from "../EmptyState";
 
 interface ListingsProps {
   currentUser: User | null;
@@ -22,6 +23,10 @@ const Listings: FC<ListingsProps> = ({ currentUser }) => {
     status === "loading" || isFetchingNextPage,
     status === "error"
   );
+
+  if (status !== "loading" && listings?.pages[0]?.items.length === 0) {
+    return <EmptyState />;
+  }
 
   return (
     <>
@@ -47,6 +52,11 @@ const Listings: FC<ListingsProps> = ({ currentUser }) => {
           </>
         )}
       </div>
+      {status === "error" && (
+        <p className="text-xl mt-8 text-center font-semibold">
+          Something went wrong!
+        </p>
+      )}
       <div ref={ref} />
     </>
   );
