@@ -91,3 +91,5 @@ export const categories = [
     description: "This property is brand new and luxurious!",
   },
 ];
+
+export const LISTINGS_BATCH = 10;

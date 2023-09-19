@@ -9,9 +9,8 @@ import LoginModal from "@/components/modals/LoginModal";
 import RentModal from "@/components/modals/RentModal";
 import SearchModal from "@/components/modals/SearchModal";
 import ToasterProvider from "@/providers/ToasterProvider";
+import QueryProvider from "@/providers/QueryProvider";
 import { getCurrentUser } from "@/actions/getCurrentUser";
-
-
 
 export const metadata = {
   title: "VacationHub",
@@ -33,15 +32,17 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <ToasterProvider />
-        <Suspense fallback={<></>}>
-          <SearchModal />
-        </Suspense>
-        <RegisterModal />
-        <RentModal />
-        <LoginModal />
-        <Navbar currentUser={currentUser} />
-        <main className="pb-20 md:pt-28 pt-24">{children}</main>
+        <QueryProvider>
+          <ToasterProvider />
+          <Suspense fallback={<></>}>
+            <SearchModal />
+          </Suspense>
+          <RegisterModal />
+          <RentModal />
+          <LoginModal />
+          <Navbar currentUser={currentUser} />
+          <main className="pb-20 md:pt-28 pt-24">{children}</main>
+        </QueryProvider>
       </body>
     </html>
   );
