@@ -1,6 +1,9 @@
+"use client";
 import React from "react";
 import Select from "react-select";
-import { formattedCountries as countries } from "@/utils/helper";
+import { useQuery } from "@tanstack/react-query";
+import { getCountries } from "@/actions/getCountries";
+import Skeleton from "react-loading-skeleton";
 
 export type CountrySelectValue = {
   flag: string;
@@ -10,12 +13,20 @@ export type CountrySelectValue = {
   value: string;
 };
 
-interface CountrySelectProps {
+const CountrySelect = ({
+  value,
+  onChange,
+}: {
   value?: CountrySelectValue;
-  onChange: (value: CountrySelectValue) => void;
-}
+  onChange: (val: CountrySelectValue) => void;
+}) => {
+  const { data: countries, isLoading } = useQuery({
+    queryFn: getCountries,
+    queryKey: ["countries"],
+  });
 
-const CountrySelect: React.FC<CountrySelectProps> = ({ value, onChange }) => {
+  if (isLoading) return <Skeleton height={48} width={"100%"} />;
+
   return (
     <div>
       <Select
@@ -25,9 +36,7 @@ const CountrySelect: React.FC<CountrySelectProps> = ({ value, onChange }) => {
         value={value}
         onChange={(value) => onChange(value as CountrySelectValue)}
         formatOptionLabel={(option: any) => (
-          <div
-            className="flex flex-row items-center gap-3 z-[10]"
-          >
+          <div className="flex flex-row items-center gap-3 z-[10]">
             <div>{option.flag}</div>
             <div>
               {option.label},
