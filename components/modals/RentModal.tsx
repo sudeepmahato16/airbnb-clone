@@ -4,19 +4,20 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import dynamic from "next/dynamic";
+import { useQueryClient } from "@tanstack/react-query";
 
 import Modal from "./Modal";
 import Heading from "../Heading";
 import CategoryInput from "../inputs/CategoryInput";
 import CountrySelect from "../inputs/CountrySelect";
+import Counter from "../inputs/Counter";
+import ImageUpload from "../inputs/ImageUpload";
+import Input from "../inputs/Input";
 
 import useRentModal from "@/hooks/useRentModal";
 import { categories } from "@/constants";
 import { Category } from "@/types";
-import dynamic from "next/dynamic";
-import Counter from "../inputs/Counter";
-import ImageUpload from "../inputs/ImageUpload";
-import Input from "../inputs/Input";
 
 enum STEPS {
   CATEGORY = 0,
@@ -30,6 +31,7 @@ enum STEPS {
 const RentModal = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const rentModal = useRentModal();
+  const queryClient = useQueryClient();
   const [step, setStep] = useState(STEPS.CATEGORY);
   const {
     register,
@@ -94,7 +96,9 @@ const RentModal = () => {
       .post("/api/listings", data)
       .then(() => {
         toast.success("Listing created!");
-        router.refresh();
+        queryClient.invalidateQueries({
+          queryKey: ["listings"]
+        })
         reset();
         setStep(STEPS.CATEGORY);
         rentModal.onClose();

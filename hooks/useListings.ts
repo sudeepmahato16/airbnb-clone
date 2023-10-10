@@ -7,6 +7,7 @@ export const useListings = () => {
   const params = useSearchParams();
   const query = queryString.parse(params.toString());
 
+
   const {
     data: listings,
     isFetchingNextPage,
