@@ -52,9 +52,9 @@ const ListingCard: React.FC<ListingCardProps> = ({
                   <Menu>
                     <Menu.Toggle
                       id={actionLabel}
-                      className="w-8 h-8 flex items-center z-5 justify-center"
+                      className="w-10 h-10 flex items-center z-5 justify-center"
                     >
-                      <div className="w-6 h-6 rounded-full bg-neutral-700/50 flex items-center justify-center hover:bg-neutral-700/70 group transition duration-200 z-[5]">
+                      <div className="w-7 h-7 rounded-full bg-neutral-700/50 flex items-center justify-center hover:bg-neutral-700/70 group transition duration-200 z-[5]">
                         <BsThreeDots className="h-[18px] w-[18px] text-gray-300 transition duration-100 group-hover:text-gray-100 " />
                       </div>
                     </Menu.Toggle>
@@ -67,8 +67,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
                   </Menu>
                 )}
               </div>
-
+              
+              <div className="w-[40px] h-[40px] flex items-center justify-center">
               <HeartButton listingId={data.id} currentUser={currentUser} />
+                </div>
             </div>
             <CustomImage imageSrc={data.imageSrc} title={data.title} fill />
           </div>

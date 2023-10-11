@@ -33,7 +33,7 @@ const HeartButton: React.FC<HeartButtonProps> = ({
       <AiOutlineHeart
         size={28}
         className="
-          text-gray-100
+          text-gray-50
           absolute
           -top-[2px]
           -right-[2px]

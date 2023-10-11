@@ -1,17 +1,6 @@
 import axios from "axios";
 import queryString from "query-string";
 
-export interface IListingsParams {
-  userId?: string;
-  guestCount?: number;
-  roomCount?: number;
-  bathroomCount?: number;
-  startDate?: string;
-  endDate?: string;
-  country?: string;
-  category?: string;
-}
-
 export const getListings = async (query: {}) => {
   const urlWithQuery = queryString.stringifyUrl(
     {

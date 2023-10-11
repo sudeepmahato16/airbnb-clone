@@ -77,6 +77,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             initial="hidden"
             animate="show"
             exit="hidden"
+            style={{
+              originY: 0,
+            }}
             ref={ref}
             className="absolute rounded-xl shadow-[0_0_16px_4px_rgba(0,0,0,0.035)] w-[40vw] md:w-3/4  bg-white overflow-hidden right-0 top-12 text-sm
           z-[10]

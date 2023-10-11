@@ -51,7 +51,7 @@ const List: FC<ListProps> = ({ children }) => {
   return (
     <ul
       ref={ref}
-      className={`absolute top-[110%] left-[5%] w-auto bg-white rounded-md z-[9999] text-[12px]`}
+      className={`absolute top-[110%] left-[20%] w-auto bg-white rounded-sm z-[9999] text-[12px] overflow-hidden`}
     >
       {children}
     </ul>
@@ -72,7 +72,7 @@ const Button: FC<ButtonProps> = ({ children, icon: Icon, onClick }) => {
   };
 
   return (
-    <li className="min-w-[160px]">
+    <li className="w-[180px] ">
       <button
         onClick={handleClick}
         className="w-full text-left bg-[#fff] hover:bg-gray-50 border-none p-2 text-[13.25px] transition-all duration-200 flex items-center gap-2"

@@ -1,8 +1,8 @@
 import React from "react";
 import PropertiesClient from "./PropertiesClient";
 import { getCurrentUser } from "@/actions/getCurrentUser";
-import { getListings } from "@/actions/getListings";
 import EmptyState from "@/components/EmptyState";
+import {db} from '@/libs/db'
 
 const PropertiesPage = async () => {
   const currentUser = await getCurrentUser();
@@ -11,7 +11,11 @@ const PropertiesPage = async () => {
     return <EmptyState title="Unauthorized" subtitle="Please login" />;
   }
   
-  const properties = await getListings({ userId: currentUser.id });
+  const properties = await db.listing.findMany({
+    where: {
+      userId: currentUser.id
+    }
+  })
 
   if (!properties || properties.length === 0) {
     return (

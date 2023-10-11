@@ -139,6 +139,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     });
     
   } catch (error: any) {
+    console.log(error)
     return new Response("Server error", { status: 500 });
   }
 };

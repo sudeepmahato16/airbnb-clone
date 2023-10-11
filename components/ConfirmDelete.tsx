@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -27,15 +27,25 @@ const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({
 }) => {
   const { openId, onClose } = useConfirmDelete();
   const { ref } = useOutsideClick(handleClose);
+  const [isMouted, setIsMouted] = useState(false);
+
+  useEffect(() => {
+    if (!isMouted) {
+      setIsMouted(true)
+    }
+  }, [isMouted])
 
   function handleClose() {
-    if(isLoading)return;
+    if (isLoading) return;
     onClose();
   }
 
   const handleConfirm = () => {
     onConfirm();
   };
+
+  if (!isMouted) return null;
+
 
   return createPortal(
     <AnimatePresence>
