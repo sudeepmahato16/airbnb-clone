@@ -57,7 +57,7 @@ const LoginModal = () => {
   const onToggle = () => {
     loginModal.onClose();
     registerModal.onOpen();
-  }
+  };
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -86,12 +86,14 @@ const LoginModal = () => {
     <div className="flex flex-col gap-4 mt-3">
       <hr />
       <Button
+        type="button"
         outline
         label="Continue with Google"
         icon={FcGoogle}
         onClick={() => signIn("google")}
       />
       <Button
+        type="button"
         outline
         label="Continue with Github"
         icon={AiFillGithub}
