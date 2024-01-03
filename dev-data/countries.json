@@ -1,0 +1,1752 @@
+[
+  {
+    "value": "BF",
+    "label": "Burkina Faso",
+    "flag": "🇧🇫",
+    "region": "Africa",
+    "latlng": [13, -2]
+  },
+  {
+    "value": "AF",
+    "label": "Afghanistan",
+    "flag": "🇦🇫",
+    "region": "Asia",
+    "latlng": [33, 65]
+  },
+  {
+    "value": "AI",
+    "label": "Anguilla",
+    "flag": "🇦🇮",
+    "region": "Americas",
+    "latlng": [18, -63]
+  },
+  {
+    "value": "AQ",
+    "label": "Antarctica",
+    "flag": "🇦🇶",
+    "region": "Antarctic",
+    "latlng": [-90, 0]
+  },
+  {
+    "value": "AR",
+    "label": "Argentina",
+    "flag": "🇦🇷",
+    "region": "Americas",
+    "latlng": [-34, -64]
+  },
+  {
+    "value": "AM",
+    "label": "Armenia",
+    "flag": "🇦🇲",
+    "region": "Asia",
+    "latlng": [40, 45]
+  },
+  {
+    "value": "FJ",
+    "label": "Fiji",
+    "flag": "🇫🇯",
+    "region": "Oceania",
+    "latlng": [-18, 175]
+  },
+  {
+    "value": "GA",
+    "label": "Gabon",
+    "flag": "🇬🇦",
+    "region": "Africa",
+    "latlng": [-1, 11]
+  },
+  {
+    "value": "GB",
+    "label": "United Kingdom",
+    "flag": "🇬🇧",
+    "region": "Europe",
+    "latlng": [54, -2]
+  },
+  {
+    "value": "IL",
+    "label": "Israel",
+    "flag": "🇮🇱",
+    "region": "Asia",
+    "latlng": [31, 35]
+  },
+  {
+    "value": "NC",
+    "label": "New Caledonia",
+    "flag": "🇳🇨",
+    "region": "Oceania",
+    "latlng": [-21, 165]
+  },
+  {
+    "value": "AL",
+    "label": "Albania",
+    "flag": "🇦🇱",
+    "region": "Europe",
+    "latlng": [41, 20]
+  },
+  {
+    "value": "PH",
+    "label": "Philippines",
+    "flag": "🇵🇭",
+    "region": "Asia",
+    "latlng": [13, 122]
+  },
+  {
+    "value": "SL",
+    "label": "Sierra Leone",
+    "flag": "🇸🇱",
+    "region": "Africa",
+    "latlng": [8, -11]
+  },
+  {
+    "value": "AG",
+    "label": "Antigua and Barbuda",
+    "flag": "🇦🇬",
+    "region": "Americas",
+    "latlng": [17, -61]
+  },
+  {
+    "value": "TK",
+    "label": "Tokelau",
+    "flag": "🇹🇰",
+    "region": "Oceania",
+    "latlng": [-9, -172]
+  },
+  {
+    "value": "ZW",
+    "label": "Zimbabwe",
+    "flag": "🇿🇼",
+    "region": "Africa",
+    "latlng": [-20, 30]
+  },
+  {
+    "value": "BM",
+    "label": "Bermuda",
+    "flag": "🇧🇲",
+    "region": "Americas",
+    "latlng": [32, -64]
+  },
+  {
+    "value": "CA",
+    "label": "Canada",
+    "flag": "🇨🇦",
+    "region": "Americas",
+    "latlng": [60, -95]
+  },
+  {
+    "value": "GL",
+    "label": "Greenland",
+    "flag": "🇬🇱",
+    "region": "Americas",
+    "latlng": [72, -40]
+  },
+  {
+    "value": "XK",
+    "label": "Kosovo",
+    "flag": "🇽🇰",
+    "region": "Europe",
+    "latlng": [42, 21]
+  },
+  {
+    "value": "MF",
+    "label": "Saint Martin",
+    "flag": "🇲🇫",
+    "region": "Americas",
+    "latlng": [18, -63]
+  },
+  {
+    "value": "MS",
+    "label": "Montserrat",
+    "flag": "🇲🇸",
+    "region": "Americas",
+    "latlng": [16, -62]
+  },
+  {
+    "value": "NA",
+    "label": "Namibia",
+    "flag": "🇳🇦",
+    "region": "Africa",
+    "latlng": [-22, 17]
+  },
+  {
+    "value": "SJ",
+    "label": "Svalbard and Jan Mayen",
+    "flag": "🇸🇯",
+    "region": "Europe",
+    "latlng": [78, 20]
+  },
+  {
+    "value": "SV",
+    "label": "El Salvador",
+    "flag": "🇸🇻",
+    "region": "Americas",
+    "latlng": [13, -88]
+  },
+  {
+    "value": "SI",
+    "label": "Slovenia",
+    "flag": "🇸🇮",
+    "region": "Europe",
+    "latlng": [46, 14]
+  },
+  {
+    "value": "SZ",
+    "label": "Eswatini",
+    "flag": "🇸🇿",
+    "region": "Africa",
+    "latlng": [-26, 31]
+  },
+  {
+    "value": "UG",
+    "label": "Uganda",
+    "flag": "🇺🇬",
+    "region": "Africa",
+    "latlng": [1, 32]
+  },
+  {
+    "value": "UM",
+    "label": "United States Minor Outlying Islands",
+    "flag": "🇺🇲",
+    "region": "Americas",
+    "latlng": [19, 166]
+  },
+  {
+    "value": "AT",
+    "label": "Austria",
+    "flag": "🇦🇹",
+    "region": "Europe",
+    "latlng": [47, 13]
+  },
+  {
+    "value": "BJ",
+    "label": "Benin",
+    "flag": "🇧🇯",
+    "region": "Africa",
+    "latlng": [9, 2]
+  },
+  {
+    "value": "SH",
+    "label": "Saint Helena, Ascension and Tristan da Cunha",
+    "flag": "🇸🇭",
+    "region": "Africa",
+    "latlng": [-15, -5]
+  },
+  {
+    "value": "BN",
+    "label": "Brunei",
+    "flag": "🇧🇳",
+    "region": "Asia",
+    "latlng": [4, 114]
+  },
+  {
+    "value": "BT",
+    "label": "Bhutan",
+    "flag": "🇧🇹",
+    "region": "Asia",
+    "latlng": [27, 90]
+  },
+  {
+    "value": "BV",
+    "label": "Bouvet Island",
+    "flag": "🇧🇻",
+    "region": "Antarctic",
+    "latlng": [-54, 3]
+  },
+  {
+    "value": "CV",
+    "label": "Cape Verde",
+    "flag": "🇨🇻",
+    "region": "Africa",
+    "latlng": [16, -24]
+  },
+  {
+    "value": "CW",
+    "label": "Curaçao",
+    "flag": "🇨🇼",
+    "region": "Americas",
+    "latlng": [12, -68]
+  },
+  {
+    "value": "GP",
+    "label": "Guadeloupe",
+    "flag": "🇬🇵",
+    "region": "Americas",
+    "latlng": [16, -61]
+  },
+  {
+    "value": "ID",
+    "label": "Indonesia",
+    "flag": "🇮🇩",
+    "region": "Asia",
+    "latlng": [-5, 120]
+  },
+  {
+    "value": "LB",
+    "label": "Lebanon",
+    "flag": "🇱🇧",
+    "region": "Asia",
+    "latlng": [33, 35]
+  },
+  {
+    "value": "MA",
+    "label": "Morocco",
+    "flag": "🇲🇦",
+    "region": "Africa",
+    "latlng": [32, -5]
+  },
+  {
+    "value": "YT",
+    "label": "Mayotte",
+    "flag": "🇾🇹",
+    "region": "Africa",
+    "latlng": [-12, 45]
+  },
+  {
+    "value": "RW",
+    "label": "Rwanda",
+    "flag": "🇷🇼",
+    "region": "Africa",
+    "latlng": [-2, 30]
+  },
+  {
+    "value": "SX",
+    "label": "Sint Maarten",
+    "flag": "🇸🇽",
+    "region": "Americas",
+    "latlng": [18, -63]
+  },
+  {
+    "value": "BE",
+    "label": "Belgium",
+    "flag": "🇧🇪",
+    "region": "Europe",
+    "latlng": [50, 4]
+  },
+  {
+    "value": "BB",
+    "label": "Barbados",
+    "flag": "🇧🇧",
+    "region": "Americas",
+    "latlng": [13, -59]
+  },
+  {
+    "value": "CF",
+    "label": "Central African Republic",
+    "flag": "🇨🇫",
+    "region": "Africa",
+    "latlng": [7, 21]
+  },
+  {
+    "value": "CY",
+    "label": "Cyprus",
+    "flag": "🇨🇾",
+    "region": "Europe",
+    "latlng": [35, 33]
+  },
+  {
+    "value": "ER",
+    "label": "Eritrea",
+    "flag": "🇪🇷",
+    "region": "Africa",
+    "latlng": [15, 39]
+  },
+  {
+    "value": "GH",
+    "label": "Ghana",
+    "flag": "🇬🇭",
+    "region": "Africa",
+    "latlng": [8, -2]
+  },
+  {
+    "value": "GR",
+    "label": "Greece",
+    "flag": "🇬🇷",
+    "region": "Europe",
+    "latlng": [39, 22]
+  },
+  {
+    "value": "HN",
+    "label": "Honduras",
+    "flag": "🇭🇳",
+    "region": "Americas",
+    "latlng": [15, -86]
+  },
+  {
+    "value": "IR",
+    "label": "Iran",
+    "flag": "🇮🇷",
+    "region": "Asia",
+    "latlng": [32, 53]
+  },
+  {
+    "value": "IQ",
+    "label": "Iraq",
+    "flag": "🇮🇶",
+    "region": "Asia",
+    "latlng": [33, 44]
+  },
+  {
+    "value": "KE",
+    "label": "Kenya",
+    "flag": "🇰🇪",
+    "region": "Africa",
+    "latlng": [1, 38]
+  },
+  {
+    "value": "KN",
+    "label": "Saint Kitts and Nevis",
+    "flag": "🇰🇳",
+    "region": "Americas",
+    "latlng": [17, -62]
+  },
+  {
+    "value": "KW",
+    "label": "Kuwait",
+    "flag": "🇰🇼",
+    "region": "Asia",
+    "latlng": [29, 45]
+  },
+  {
+    "value": "LA",
+    "label": "Laos",
+    "flag": "🇱🇦",
+    "region": "Asia",
+    "latlng": [18, 105]
+  },
+  {
+    "value": "MP",
+    "label": "Northern Mariana Islands",
+    "flag": "🇲🇵",
+    "region": "Oceania",
+    "latlng": [15, 145]
+  },
+  {
+    "value": "MQ",
+    "label": "Martinique",
+    "flag": "🇲🇶",
+    "region": "Americas",
+    "latlng": [14, -61]
+  },
+  {
+    "value": "PL",
+    "label": "Poland",
+    "flag": "🇵🇱",
+    "region": "Europe",
+    "latlng": [52, 20]
+  },
+  {
+    "value": "PY",
+    "label": "Paraguay",
+    "flag": "🇵🇾",
+    "region": "Americas",
+    "latlng": [-23, -58]
+  },
+  {
+    "value": "SS",
+    "label": "South Sudan",
+    "flag": "🇸🇸",
+    "region": "Africa",
+    "latlng": [7, 30]
+  },
+  {
+    "value": "VC",
+    "label": "Saint Vincent and the Grenadines",
+    "flag": "🇻🇨",
+    "region": "Americas",
+    "latlng": [13, -61]
+  },
+  {
+    "value": "BZ",
+    "label": "Belize",
+    "flag": "🇧🇿",
+    "region": "Americas",
+    "latlng": [17, -88]
+  },
+  {
+    "value": "AD",
+    "label": "Andorra",
+    "flag": "🇦🇩",
+    "region": "Europe",
+    "latlng": [42, 1]
+  },
+  {
+    "value": "CO",
+    "label": "Colombia",
+    "flag": "🇨🇴",
+    "region": "Americas",
+    "latlng": [4, -72]
+  },
+  {
+    "value": "DM",
+    "label": "Dominica",
+    "flag": "🇩🇲",
+    "region": "Americas",
+    "latlng": [15, -61]
+  },
+  {
+    "value": "EC",
+    "label": "Ecuador",
+    "flag": "🇪🇨",
+    "region": "Americas",
+    "latlng": [-2, -77]
+  },
+  {
+    "value": "FM",
+    "label": "Micronesia",
+    "flag": "🇫🇲",
+    "region": "Oceania",
+    "latlng": [6, 158]
+  },
+  {
+    "value": "GW",
+    "label": "Guinea-Bissau",
+    "flag": "🇬🇼",
+    "region": "Africa",
+    "latlng": [12, -15]
+  },
+  {
+    "value": "MG",
+    "label": "Madagascar",
+    "flag": "🇲🇬",
+    "region": "Africa",
+    "latlng": [-20, 47]
+  },
+  {
+    "value": "MY",
+    "label": "Malaysia",
+    "flag": "🇲🇾",
+    "region": "Asia",
+    "latlng": [2, 112]
+  },
+  {
+    "value": "OM",
+    "label": "Oman",
+    "flag": "🇴🇲",
+    "region": "Asia",
+    "latlng": [21, 57]
+  },
+  {
+    "value": "PK",
+    "label": "Pakistan",
+    "flag": "🇵🇰",
+    "region": "Asia",
+    "latlng": [30, 70]
+  },
+  {
+    "value": "PA",
+    "label": "Panama",
+    "flag": "🇵🇦",
+    "region": "Americas",
+    "latlng": [9, -80]
+  },
+  {
+    "value": "PF",
+    "label": "French Polynesia",
+    "flag": "🇵🇫",
+    "region": "Oceania",
+    "latlng": [-15, -140]
+  },
+  {
+    "value": "TG",
+    "label": "Togo",
+    "flag": "🇹🇬",
+    "region": "Africa",
+    "latlng": [8, 1]
+  },
+  {
+    "value": "TO",
+    "label": "Tonga",
+    "flag": "🇹🇴",
+    "region": "Oceania",
+    "latlng": [-20, -175]
+  },
+  {
+    "value": "ZM",
+    "label": "Zambia",
+    "flag": "🇿🇲",
+    "region": "Africa",
+    "latlng": [-15, 30]
+  },
+  {
+    "value": "CL",
+    "label": "Chile",
+    "flag": "🇨🇱",
+    "region": "Americas",
+    "latlng": [-30, -71]
+  },
+  {
+    "value": "CM",
+    "label": "Cameroon",
+    "flag": "🇨🇲",
+    "region": "Africa",
+    "latlng": [6, 12]
+  },
+  {
+    "value": "EE",
+    "label": "Estonia",
+    "flag": "🇪🇪",
+    "region": "Europe",
+    "latlng": [59, 26]
+  },
+  {
+    "value": "FO",
+    "label": "Faroe Islands",
+    "flag": "🇫🇴",
+    "region": "Europe",
+    "latlng": [62, -7]
+  },
+  {
+    "value": "GI",
+    "label": "Gibraltar",
+    "flag": "🇬🇮",
+    "region": "Europe",
+    "latlng": [36, -5]
+  },
+  {
+    "value": "HT",
+    "label": "Haiti",
+    "flag": "🇭🇹",
+    "region": "Americas",
+    "latlng": [19, -72]
+  },
+  {
+    "value": "JP",
+    "label": "Japan",
+    "flag": "🇯🇵",
+    "region": "Asia",
+    "latlng": [36, 138]
+  },
+  {
+    "value": "LK",
+    "label": "Sri Lanka",
+    "flag": "🇱🇰",
+    "region": "Asia",
+    "latlng": [7, 81]
+  },
+  {
+    "value": "SO",
+    "label": "Somalia",
+    "flag": "🇸🇴",
+    "region": "Africa",
+    "latlng": [10, 49]
+  },
+  {
+    "value": "TR",
+    "label": "Turkey",
+    "flag": "🇹🇷",
+    "region": "Asia",
+    "latlng": [39, 35]
+  },
+  {
+    "value": "VA",
+    "label": "Vatican City",
+    "flag": "🇻🇦",
+    "region": "Europe",
+    "latlng": [41, 12]
+  },
+  {
+    "value": "BI",
+    "label": "Burundi",
+    "flag": "🇧🇮",
+    "region": "Africa",
+    "latlng": [-3, 30]
+  },
+  {
+    "value": "BO",
+    "label": "Bolivia",
+    "flag": "🇧🇴",
+    "region": "Americas",
+    "latlng": [-17, -65]
+  },
+  {
+    "value": "CD",
+    "label": "DR Congo",
+    "flag": "🇨🇩",
+    "region": "Africa",
+    "latlng": [0, 25]
+  },
+  {
+    "value": "IS",
+    "label": "Iceland",
+    "flag": "🇮🇸",
+    "region": "Europe",
+    "latlng": [65, -18]
+  },
+  {
+    "value": "LR",
+    "label": "Liberia",
+    "flag": "🇱🇷",
+    "region": "Africa",
+    "latlng": [6, -9]
+  },
+  {
+    "value": "LV",
+    "label": "Latvia",
+    "flag": "🇱🇻",
+    "region": "Europe",
+    "latlng": [57, 25]
+  },
+  {
+    "value": "MK",
+    "label": "North Macedonia",
+    "flag": "🇲🇰",
+    "region": "Europe",
+    "latlng": [41, 22]
+  },
+  {
+    "value": "ME",
+    "label": "Montenegro",
+    "flag": "🇲🇪",
+    "region": "Europe",
+    "latlng": [42, 19]
+  },
+  {
+    "value": "NF",
+    "label": "Norfolk Island",
+    "flag": "🇳🇫",
+    "region": "Oceania",
+    "latlng": [-29, 167]
+  },
+  {
+    "value": "NG",
+    "label": "Nigeria",
+    "flag": "🇳🇬",
+    "region": "Africa",
+    "latlng": [10, 8]
+  },
+  {
+    "value": "SB",
+    "label": "Solomon Islands",
+    "flag": "🇸🇧",
+    "region": "Oceania",
+    "latlng": [-8, 159]
+  },
+  {
+    "value": "UZ",
+    "label": "Uzbekistan",
+    "flag": "🇺🇿",
+    "region": "Asia",
+    "latlng": [41, 64]
+  },
+  {
+    "value": "VU",
+    "label": "Vanuatu",
+    "flag": "🇻🇺",
+    "region": "Oceania",
+    "latlng": [-16, 167]
+  },
+  {
+    "value": "YE",
+    "label": "Yemen",
+    "flag": "🇾🇪",
+    "region": "Asia",
+    "latlng": [15, 48]
+  },
+  {
+    "value": "AS",
+    "label": "American Samoa",
+    "flag": "🇦🇸",
+    "region": "Oceania",
+    "latlng": [-14, -170]
+  },
+  {
+    "value": "AE",
+    "label": "United Arab Emirates",
+    "flag": "🇦🇪",
+    "region": "Asia",
+    "latlng": [24, 54]
+  },
+  {
+    "value": "AO",
+    "label": "Angola",
+    "flag": "🇦🇴",
+    "region": "Africa",
+    "latlng": [-12, 18]
+  },
+  {
+    "value": "TF",
+    "label": "French Southern and Antarctic Lands",
+    "flag": "🇹🇫",
+    "region": "Antarctic",
+    "latlng": [-49, 69]
+  },
+  {
+    "value": "CC",
+    "label": "Cocos (Keeling) Islands",
+    "flag": "🇨🇨",
+    "region": "Oceania",
+    "latlng": [-12, 96]
+  },
+  {
+    "value": "CK",
+    "label": "Cook Islands",
+    "flag": "🇨🇰",
+    "region": "Oceania",
+    "latlng": [-21, -159]
+  },
+  {
+    "value": "CZ",
+    "label": "Czechia",
+    "flag": "🇨🇿",
+    "region": "Europe",
+    "latlng": [49, 15]
+  },
+  {
+    "value": "DO",
+    "label": "Dominican Republic",
+    "flag": "🇩🇴",
+    "region": "Americas",
+    "latlng": [19, -70]
+  },
+  {
+    "value": "FI",
+    "label": "Finland",
+    "flag": "🇫🇮",
+    "region": "Europe",
+    "latlng": [64, 26]
+  },
+  {
+    "value": "FR",
+    "label": "France",
+    "flag": "🇫🇷",
+    "region": "Europe",
+    "latlng": [46, 2]
+  },
+  {
+    "value": "GN",
+    "label": "Guinea",
+    "flag": "🇬🇳",
+    "region": "Africa",
+    "latlng": [11, -10]
+  },
+  {
+    "value": "KR",
+    "label": "South Korea",
+    "flag": "🇰🇷",
+    "region": "Asia",
+    "latlng": [37, 127]
+  },
+  {
+    "value": "LI",
+    "label": "Liechtenstein",
+    "flag": "🇱🇮",
+    "region": "Europe",
+    "latlng": [47, 9]
+  },
+  {
+    "value": "MD",
+    "label": "Moldova",
+    "flag": "🇲🇩",
+    "region": "Europe",
+    "latlng": [47, 29]
+  },
+  {
+    "value": "NZ",
+    "label": "New Zealand",
+    "flag": "🇳🇿",
+    "region": "Oceania",
+    "latlng": [-41, 174]
+  },
+  {
+    "value": "PE",
+    "label": "Peru",
+    "flag": "🇵🇪",
+    "region": "Americas",
+    "latlng": [-10, -76]
+  },
+  {
+    "value": "QA",
+    "label": "Qatar",
+    "flag": "🇶🇦",
+    "region": "Asia",
+    "latlng": [25, 51]
+  },
+  {
+    "value": "RO",
+    "label": "Romania",
+    "flag": "🇷🇴",
+    "region": "Europe",
+    "latlng": [46, 25]
+  },
+  {
+    "value": "RU",
+    "label": "Russia",
+    "flag": "🇷🇺",
+    "region": "Europe",
+    "latlng": [60, 100]
+  },
+  {
+    "value": "SM",
+    "label": "San Marino",
+    "flag": "🇸🇲",
+    "region": "Europe",
+    "latlng": [43, 12]
+  },
+  {
+    "value": "TH",
+    "label": "Thailand",
+    "flag": "🇹🇭",
+    "region": "Asia",
+    "latlng": [15, 100]
+  },
+  {
+    "value": "VG",
+    "label": "British Virgin Islands",
+    "flag": "🇻🇬",
+    "region": "Americas",
+    "latlng": [18, -64]
+  },
+  {
+    "value": "BG",
+    "label": "Bulgaria",
+    "flag": "🇧🇬",
+    "region": "Europe",
+    "latlng": [43, 25]
+  },
+  {
+    "value": "BW",
+    "label": "Botswana",
+    "flag": "🇧🇼",
+    "region": "Africa",
+    "latlng": [-22, 24]
+  },
+  {
+    "value": "GY",
+    "label": "Guyana",
+    "flag": "🇬🇾",
+    "region": "Americas",
+    "latlng": [5, -59]
+  },
+  {
+    "value": "HK",
+    "label": "Hong Kong",
+    "flag": "🇭🇰",
+    "region": "Asia",
+    "latlng": [22, 114]
+  },
+  {
+    "value": "HM",
+    "label": "Heard Island and McDonald Islands",
+    "flag": "🇭🇲",
+    "region": "Antarctic",
+    "latlng": [-53, 72]
+  },
+  {
+    "value": "IO",
+    "label": "British Indian Ocean Territory",
+    "flag": "🇮🇴",
+    "region": "Africa",
+    "latlng": [-6, 71]
+  },
+  {
+    "value": "KZ",
+    "label": "Kazakhstan",
+    "flag": "🇰🇿",
+    "region": "Asia",
+    "latlng": [48, 68]
+  },
+  {
+    "value": "KG",
+    "label": "Kyrgyzstan",
+    "flag": "🇰🇬",
+    "region": "Asia",
+    "latlng": [41, 75]
+  },
+  {
+    "value": "LU",
+    "label": "Luxembourg",
+    "flag": "🇱🇺",
+    "region": "Europe",
+    "latlng": [49, 6]
+  },
+  {
+    "value": "MM",
+    "label": "Myanmar",
+    "flag": "🇲🇲",
+    "region": "Asia",
+    "latlng": [22, 98]
+  },
+  {
+    "value": "MZ",
+    "label": "Mozambique",
+    "flag": "🇲🇿",
+    "region": "Africa",
+    "latlng": [-18, 35]
+  },
+  {
+    "value": "MW",
+    "label": "Malawi",
+    "flag": "🇲🇼",
+    "region": "Africa",
+    "latlng": [-13, 34]
+  },
+  {
+    "value": "KP",
+    "label": "North Korea",
+    "flag": "🇰🇵",
+    "region": "Asia",
+    "latlng": [40, 127]
+  },
+  {
+    "value": "SA",
+    "label": "Saudi Arabia",
+    "flag": "🇸🇦",
+    "region": "Asia",
+    "latlng": [25, 45]
+  },
+  {
+    "value": "TM",
+    "label": "Turkmenistan",
+    "flag": "🇹🇲",
+    "region": "Asia",
+    "latlng": [40, 60]
+  },
+  {
+    "value": "AX",
+    "label": "Åland Islands",
+    "flag": "🇦🇽",
+    "region": "Europe",
+    "latlng": [60, 19]
+  },
+  {
+    "value": "AU",
+    "label": "Australia",
+    "flag": "🇦🇺",
+    "region": "Oceania",
+    "latlng": [-27, 133]
+  },
+  {
+    "value": "CI",
+    "label": "Ivory Coast",
+    "flag": "🇨🇮",
+    "region": "Africa",
+    "latlng": [8, -5]
+  },
+  {
+    "value": "CX",
+    "label": "Christmas Island",
+    "flag": "🇨🇽",
+    "region": "Oceania",
+    "latlng": [-10, 105]
+  },
+  {
+    "value": "DE",
+    "label": "Germany",
+    "flag": "🇩🇪",
+    "region": "Europe",
+    "latlng": [51, 9]
+  },
+  {
+    "value": "DZ",
+    "label": "Algeria",
+    "flag": "🇩🇿",
+    "region": "Africa",
+    "latlng": [28, 3]
+  },
+  {
+    "value": "GM",
+    "label": "Gambia",
+    "flag": "🇬🇲",
+    "region": "Africa",
+    "latlng": [13, -16]
+  },
+  {
+    "value": "GT",
+    "label": "Guatemala",
+    "flag": "🇬🇹",
+    "region": "Americas",
+    "latlng": [15, -90]
+  },
+  {
+    "value": "GU",
+    "label": "Guam",
+    "flag": "🇬🇺",
+    "region": "Oceania",
+    "latlng": [13, 144]
+  },
+  {
+    "value": "MR",
+    "label": "Mauritania",
+    "flag": "🇲🇷",
+    "region": "Africa",
+    "latlng": [20, -12]
+  },
+  {
+    "value": "PG",
+    "label": "Papua New Guinea",
+    "flag": "🇵🇬",
+    "region": "Oceania",
+    "latlng": [-6, 147]
+  },
+  {
+    "value": "SE",
+    "label": "Sweden",
+    "flag": "🇸🇪",
+    "region": "Europe",
+    "latlng": [62, 15]
+  },
+  {
+    "value": "TD",
+    "label": "Chad",
+    "flag": "🇹🇩",
+    "region": "Africa",
+    "latlng": [15, 19]
+  },
+  {
+    "value": "TL",
+    "label": "Timor-Leste",
+    "flag": "🇹🇱",
+    "region": "Asia",
+    "latlng": [-8, 125]
+  },
+  {
+    "value": "TW",
+    "label": "Taiwan",
+    "flag": "🇹🇼",
+    "region": "Asia",
+    "latlng": [23, 121]
+  },
+  {
+    "value": "WF",
+    "label": "Wallis and Futuna",
+    "flag": "🇼🇫",
+    "region": "Oceania",
+    "latlng": [-13, -176]
+  },
+  {
+    "value": "AZ",
+    "label": "Azerbaijan",
+    "flag": "🇦🇿",
+    "region": "Asia",
+    "latlng": [40, 47]
+  },
+  {
+    "value": "CH",
+    "label": "Switzerland",
+    "flag": "🇨🇭",
+    "region": "Europe",
+    "latlng": [47, 8]
+  },
+  {
+    "value": "CN",
+    "label": "China",
+    "flag": "🇨🇳",
+    "region": "Asia",
+    "latlng": [35, 105]
+  },
+  {
+    "value": "CR",
+    "label": "Costa Rica",
+    "flag": "🇨🇷",
+    "region": "Americas",
+    "latlng": [10, -84]
+  },
+  {
+    "value": "KY",
+    "label": "Cayman Islands",
+    "flag": "🇰🇾",
+    "region": "Americas",
+    "latlng": [19, -80]
+  },
+  {
+    "value": "DJ",
+    "label": "Djibouti",
+    "flag": "🇩🇯",
+    "region": "Africa",
+    "latlng": [11, 43]
+  },
+  {
+    "value": "EG",
+    "label": "Egypt",
+    "flag": "🇪🇬",
+    "region": "Africa",
+    "latlng": [27, 30]
+  },
+  {
+    "value": "GE",
+    "label": "Georgia",
+    "flag": "🇬🇪",
+    "region": "Asia",
+    "latlng": [42, 43]
+  },
+  {
+    "value": "GG",
+    "label": "Guernsey",
+    "flag": "🇬🇬",
+    "region": "Europe",
+    "latlng": [49, -2]
+  },
+  {
+    "value": "LY",
+    "label": "Libya",
+    "flag": "🇱🇾",
+    "region": "Africa",
+    "latlng": [25, 17]
+  },
+  {
+    "value": "MO",
+    "label": "Macau",
+    "flag": "🇲🇴",
+    "region": "Asia",
+    "latlng": [22, 113]
+  },
+  {
+    "value": "MC",
+    "label": "Monaco",
+    "flag": "🇲🇨",
+    "region": "Europe",
+    "latlng": [43, 7]
+  },
+  {
+    "value": "PN",
+    "label": "Pitcairn Islands",
+    "flag": "🇵🇳",
+    "region": "Oceania",
+    "latlng": [-25, -130]
+  },
+  {
+    "value": "PT",
+    "label": "Portugal",
+    "flag": "🇵🇹",
+    "region": "Europe",
+    "latlng": [39, -8]
+  },
+  {
+    "value": "GS",
+    "label": "South Georgia",
+    "flag": "🇬🇸",
+    "region": "Antarctic",
+    "latlng": [-54, -37]
+  },
+  {
+    "value": "SC",
+    "label": "Seychelles",
+    "flag": "🇸🇨",
+    "region": "Africa",
+    "latlng": [-4, 55]
+  },
+  {
+    "value": "TV",
+    "label": "Tuvalu",
+    "flag": "🇹🇻",
+    "region": "Oceania",
+    "latlng": [-8, 178]
+  },
+  {
+    "value": "VE",
+    "label": "Venezuela",
+    "flag": "🇻🇪",
+    "region": "Americas",
+    "latlng": [8, -66]
+  },
+  {
+    "value": "VN",
+    "label": "Vietnam",
+    "flag": "🇻🇳",
+    "region": "Asia",
+    "latlng": [16, 107]
+  },
+  {
+    "value": "BL",
+    "label": "Saint Barthélemy",
+    "flag": "🇧🇱",
+    "region": "Americas",
+    "latlng": [18, -63]
+  },
+  {
+    "value": "BQ",
+    "label": "Caribbean Netherlands",
+    "flag": "",
+    "region": "Americas",
+    "latlng": [12, -68]
+  },
+  {
+    "value": "CG",
+    "label": "Republic of the Congo",
+    "flag": "🇨🇬",
+    "region": "Africa",
+    "latlng": [-1, 15]
+  },
+  {
+    "value": "KM",
+    "label": "Comoros",
+    "flag": "🇰🇲",
+    "region": "Africa",
+    "latlng": [-12, 44]
+  },
+  {
+    "value": "CU",
+    "label": "Cuba",
+    "flag": "🇨🇺",
+    "region": "Americas",
+    "latlng": [21, -80]
+  },
+  {
+    "value": "HR",
+    "label": "Croatia",
+    "flag": "🇭🇷",
+    "region": "Europe",
+    "latlng": [45, 15]
+  },
+  {
+    "value": "IT",
+    "label": "Italy",
+    "flag": "🇮🇹",
+    "region": "Europe",
+    "latlng": [42, 12]
+  },
+  {
+    "value": "LS",
+    "label": "Lesotho",
+    "flag": "🇱🇸",
+    "region": "Africa",
+    "latlng": [-29, 28]
+  },
+  {
+    "value": "NL",
+    "label": "Netherlands",
+    "flag": "🇳🇱",
+    "region": "Europe",
+    "latlng": [52, 5]
+  },
+  {
+    "value": "PW",
+    "label": "Palau",
+    "flag": "🇵🇼",
+    "region": "Oceania",
+    "latlng": [7, 134]
+  },
+  {
+    "value": "PR",
+    "label": "Puerto Rico",
+    "flag": "🇵🇷",
+    "region": "Americas",
+    "latlng": [18, -66]
+  },
+  {
+    "value": "PS",
+    "label": "Palestine",
+    "flag": "🇵🇸",
+    "region": "Asia",
+    "latlng": [31, 35]
+  },
+  {
+    "value": "RS",
+    "label": "Serbia",
+    "flag": "🇷🇸",
+    "region": "Europe",
+    "latlng": [44, 21]
+  },
+  {
+    "value": "ST",
+    "label": "São Tomé and Príncipe",
+    "flag": "🇸🇹",
+    "region": "Africa",
+    "latlng": [1, 7]
+  },
+  {
+    "value": "US",
+    "label": "United States",
+    "flag": "🇺🇸",
+    "region": "Americas",
+    "latlng": [38, -97]
+  },
+  {
+    "value": "AW",
+    "label": "Aruba",
+    "flag": "🇦🇼",
+    "region": "Americas",
+    "latlng": [12, -69]
+  },
+  {
+    "value": "BR",
+    "label": "Brazil",
+    "flag": "🇧🇷",
+    "region": "Americas",
+    "latlng": [-10, -55]
+  },
+  {
+    "value": "GD",
+    "label": "Grenada",
+    "flag": "🇬🇩",
+    "region": "Americas",
+    "latlng": [12, -61]
+  },
+  {
+    "value": "JM",
+    "label": "Jamaica",
+    "flag": "🇯🇲",
+    "region": "Americas",
+    "latlng": [18, -77]
+  },
+  {
+    "value": "MT",
+    "label": "Malta",
+    "flag": "🇲🇹",
+    "region": "Europe",
+    "latlng": [35, 14]
+  },
+  {
+    "value": "PM",
+    "label": "Saint Pierre and Miquelon",
+    "flag": "🇵🇲",
+    "region": "Americas",
+    "latlng": [46, -56]
+  },
+  {
+    "value": "SK",
+    "label": "Slovakia",
+    "flag": "🇸🇰",
+    "region": "Europe",
+    "latlng": [48, 19]
+  },
+  {
+    "value": "TN",
+    "label": "Tunisia",
+    "flag": "🇹🇳",
+    "region": "Africa",
+    "latlng": [34, 9]
+  },
+  {
+    "value": "TZ",
+    "label": "Tanzania",
+    "flag": "🇹🇿",
+    "region": "Africa",
+    "latlng": [-6, 35]
+  },
+  {
+    "value": "VI",
+    "label": "United States Virgin Islands",
+    "flag": "🇻🇮",
+    "region": "Americas",
+    "latlng": [18, -64]
+  },
+  {
+    "value": "WS",
+    "label": "Samoa",
+    "flag": "🇼🇸",
+    "region": "Oceania",
+    "latlng": [-13, -172]
+  },
+  {
+    "value": "ZA",
+    "label": "South Africa",
+    "flag": "🇿🇦",
+    "region": "Africa",
+    "latlng": [-29, 24]
+  },
+  {
+    "value": "BD",
+    "label": "Bangladesh",
+    "flag": "🇧🇩",
+    "region": "Asia",
+    "latlng": [24, 90]
+  },
+  {
+    "value": "BA",
+    "label": "Bosnia and Herzegovina",
+    "flag": "🇧🇦",
+    "region": "Europe",
+    "latlng": [44, 18]
+  },
+  {
+    "value": "BY",
+    "label": "Belarus",
+    "flag": "🇧🇾",
+    "region": "Europe",
+    "latlng": [53, 28]
+  },
+  {
+    "value": "ET",
+    "label": "Ethiopia",
+    "flag": "🇪🇹",
+    "region": "Africa",
+    "latlng": [8, 38]
+  },
+  {
+    "value": "JE",
+    "label": "Jersey",
+    "flag": "🇯🇪",
+    "region": "Europe",
+    "latlng": [49, -2]
+  },
+  {
+    "value": "MX",
+    "label": "Mexico",
+    "flag": "🇲🇽",
+    "region": "Americas",
+    "latlng": [23, -102]
+  },
+  {
+    "value": "NI",
+    "label": "Nicaragua",
+    "flag": "🇳🇮",
+    "region": "Americas",
+    "latlng": [13, -85]
+  },
+  {
+    "value": "NR",
+    "label": "Nauru",
+    "flag": "🇳🇷",
+    "region": "Oceania",
+    "latlng": [0, 166]
+  },
+  {
+    "value": "SD",
+    "label": "Sudan",
+    "flag": "🇸🇩",
+    "region": "Africa",
+    "latlng": [15, 30]
+  },
+  {
+    "value": "TT",
+    "label": "Trinidad and Tobago",
+    "flag": "🇹🇹",
+    "region": "Americas",
+    "latlng": [11, -61]
+  },
+  {
+    "value": "UA",
+    "label": "Ukraine",
+    "flag": "🇺🇦",
+    "region": "Europe",
+    "latlng": [49, 32]
+  },
+  {
+    "value": "UY",
+    "label": "Uruguay",
+    "flag": "🇺🇾",
+    "region": "Americas",
+    "latlng": [-33, -56]
+  },
+  {
+    "value": "DK",
+    "label": "Denmark",
+    "flag": "🇩🇰",
+    "region": "Europe",
+    "latlng": [56, 10]
+  },
+  {
+    "value": "EH",
+    "label": "Western Sahara",
+    "flag": "🇪🇭",
+    "region": "Africa",
+    "latlng": [24, -13]
+  },
+  {
+    "value": "ES",
+    "label": "Spain",
+    "flag": "🇪🇸",
+    "region": "Europe",
+    "latlng": [40, -4]
+  },
+  {
+    "value": "FK",
+    "label": "Falkland Islands",
+    "flag": "🇫🇰",
+    "region": "Americas",
+    "latlng": [-51, -59]
+  },
+  {
+    "value": "GF",
+    "label": "French Guiana",
+    "flag": "🇬🇫",
+    "region": "Americas",
+    "latlng": [4, -53]
+  },
+  {
+    "value": "IM",
+    "label": "Isle of Man",
+    "flag": "🇮🇲",
+    "region": "Europe",
+    "latlng": [54, -4]
+  },
+  {
+    "value": "IN",
+    "label": "India",
+    "flag": "🇮🇳",
+    "region": "Asia",
+    "latlng": [20, 77]
+  },
+  {
+    "value": "IE",
+    "label": "Ireland",
+    "flag": "🇮🇪",
+    "region": "Europe",
+    "latlng": [53, -8]
+  },
+  {
+    "value": "JO",
+    "label": "Jordan",
+    "flag": "🇯🇴",
+    "region": "Asia",
+    "latlng": [31, 36]
+  },
+  {
+    "value": "KI",
+    "label": "Kiribati",
+    "flag": "🇰🇮",
+    "region": "Oceania",
+    "latlng": [1, 173]
+  },
+  {
+    "value": "LT",
+    "label": "Lithuania",
+    "flag": "🇱🇹",
+    "region": "Europe",
+    "latlng": [56, 24]
+  },
+  {
+    "value": "MH",
+    "label": "Marshall Islands",
+    "flag": "🇲🇭",
+    "region": "Oceania",
+    "latlng": [9, 168]
+  },
+  {
+    "value": "NE",
+    "label": "Niger",
+    "flag": "🇳🇪",
+    "region": "Africa",
+    "latlng": [16, 8]
+  },
+  {
+    "value": "RE",
+    "label": "Réunion",
+    "flag": "🇷🇪",
+    "region": "Africa",
+    "latlng": [-21, 55]
+  },
+  {
+    "value": "SY",
+    "label": "Syria",
+    "flag": "🇸🇾",
+    "region": "Asia",
+    "latlng": [35, 38]
+  },
+  {
+    "value": "TC",
+    "label": "Turks and Caicos Islands",
+    "flag": "🇹🇨",
+    "region": "Americas",
+    "latlng": [21, -71]
+  },
+  {
+    "value": "BH",
+    "label": "Bahrain",
+    "flag": "🇧🇭",
+    "region": "Asia",
+    "latlng": [26, 50]
+  },
+  {
+    "value": "BS",
+    "label": "Bahamas",
+    "flag": "🇧🇸",
+    "region": "Americas",
+    "latlng": [24, -76]
+  },
+  {
+    "value": "GQ",
+    "label": "Equatorial Guinea",
+    "flag": "🇬🇶",
+    "region": "Africa",
+    "latlng": [2, 10]
+  },
+  {
+    "value": "HU",
+    "label": "Hungary",
+    "flag": "🇭🇺",
+    "region": "Europe",
+    "latlng": [47, 20]
+  },
+  {
+    "value": "KH",
+    "label": "Cambodia",
+    "flag": "🇰🇭",
+    "region": "Asia",
+    "latlng": [13, 105]
+  },
+  {
+    "value": "LC",
+    "label": "Saint Lucia",
+    "flag": "🇱🇨",
+    "region": "Americas",
+    "latlng": [13, -60]
+  },
+  {
+    "value": "MV",
+    "label": "Maldives",
+    "flag": "🇲🇻",
+    "region": "Asia",
+    "latlng": [3, 73]
+  },
+  {
+    "value": "ML",
+    "label": "Mali",
+    "flag": "🇲🇱",
+    "region": "Africa",
+    "latlng": [17, -4]
+  },
+  {
+    "value": "MN",
+    "label": "Mongolia",
+    "flag": "🇲🇳",
+    "region": "Asia",
+    "latlng": [46, 105]
+  },
+  {
+    "value": "MU",
+    "label": "Mauritius",
+    "flag": "🇲🇺",
+    "region": "Africa",
+    "latlng": [-20, 57]
+  },
+  {
+    "value": "NU",
+    "label": "Niue",
+    "flag": "🇳🇺",
+    "region": "Oceania",
+    "latlng": [-19, -169]
+  },
+  {
+    "value": "NO",
+    "label": "Norway",
+    "flag": "🇳🇴",
+    "region": "Europe",
+    "latlng": [62, 10]
+  },
+  {
+    "value": "NP",
+    "label": "Nepal",
+    "flag": "🇳🇵",
+    "region": "Asia",
+    "latlng": [28, 84]
+  },
+  {
+    "value": "SN",
+    "label": "Senegal",
+    "flag": "🇸🇳",
+    "region": "Africa",
+    "latlng": [14, -14]
+  },
+  {
+    "value": "SG",
+    "label": "Singapore",
+    "flag": "🇸🇬",
+    "region": "Asia",
+    "latlng": [1, 103]
+  },
+  {
+    "value": "SR",
+    "label": "Suriname",
+    "flag": "🇸🇷",
+    "region": "Americas",
+    "latlng": [4, -56]
+  },
+  {
+    "value": "TJ",
+    "label": "Tajikistan",
+    "flag": "🇹🇯",
+    "region": "Asia",
+    "latlng": [39, 71]
+  }
+]

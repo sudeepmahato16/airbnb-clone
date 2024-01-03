@@ -8,7 +8,7 @@ import "swiper/css";
 
 import Container from "../Container";
 import CategoryBox from "../CategoryBox";
-import { categories } from "@/constants";
+import { categories } from "@/utils/constants";
 import { Category } from "@/types";
 
 const Categories = () => {

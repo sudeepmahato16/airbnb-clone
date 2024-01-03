@@ -41,6 +41,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
     reservationDate = `${format(start, "PP")} - ${format(end, "PP")}`;
   }
 
+
+
   return (
     <Link href={`/listings/${data.id}`} className="col-span-1 cursor-pointer">
       <div className="flex flex-col gap-1 w-full">

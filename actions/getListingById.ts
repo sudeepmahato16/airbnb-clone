@@ -1,10 +1,19 @@
 import { db } from "@/libs/db";
+import { Listing, User } from "@prisma/client";
 
 interface IParams {
   listingId?: string;
 }
 
-export const getListingById = async (params: IParams) => {
+export const getListingById = async (
+  params: IParams
+): Promise<
+  | (Listing & {
+      user: User;
+      reservations?: { startDate: Date; endDate: Date }[];
+    })
+  | null
+> => {
   try {
     const { listingId } = params;
 
@@ -14,6 +23,12 @@ export const getListingById = async (params: IParams) => {
       },
       include: {
         user: true,
+        reservations: {
+          select: {
+            startDate: true,
+            endDate: true,
+          },
+        },
       },
     });
 

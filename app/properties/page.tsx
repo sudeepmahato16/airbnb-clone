@@ -1,5 +1,5 @@
 import React from "react";
-import PropertiesClient from "./PropertiesClient";
+import PropertiesClient from "./_components/PropertiesClient";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import EmptyState from "@/components/EmptyState";
 import {db} from '@/libs/db'

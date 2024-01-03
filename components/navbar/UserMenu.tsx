@@ -10,8 +10,8 @@ import { User } from "@prisma/client";
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 
-import useRegisterModal from "@/hooks/useRegisterModal";
-import useLoginModal from "@/hooks/useLoginModal";
+import useRegisterModal from "@/store/useRegisterModal";
+import useLoginModal from "@/store/useLoginModal";
 import useRentModal from "@/hooks/useRentModal";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { zoomIn } from "@/utils/motion";
@@ -81,7 +81,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
               originY: 0,
             }}
             ref={ref}
-            className="absolute rounded-xl shadow-[0_0_16px_4px_rgba(0,0,0,0.035)] w-[40vw] md:w-3/4  bg-white overflow-hidden right-0 top-12 text-sm
+            className="absolute rounded-xl shadow-[0_0_36px_4px_rgba(0,0,0,0.075)] w-[40vw] md:w-3/4  bg-white overflow-hidden right-0 top-12 text-sm
           z-[10]
           "
           >

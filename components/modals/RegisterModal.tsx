@@ -12,8 +12,8 @@ import Modal from "./Modal";
 import Heading from "../Heading";
 import Button from "../Button";
 import Input from "../inputs/Input";
-import useRegisterModal from "@/hooks/useRegisterModal";
-import useLoginModal from "@/hooks/useLoginModal";
+import useRegisterModal from "@/store/useRegisterModal";
+import useLoginModal from "@/store/useLoginModal";
 
 const RegisterModal = () => {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,7 +1,6 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import dynamic from "next/dynamic";
@@ -16,7 +15,7 @@ import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
 
 import useRentModal from "@/hooks/useRentModal";
-import { categories } from "@/constants";
+import { categories } from "@/utils/constants";
 import { Category } from "@/types";
 
 enum STEPS {
@@ -53,7 +52,6 @@ const RentModal = () => {
       description: "",
     },
   });
-  const router = useRouter();
 
   const category = watch("category");
   const location = watch("location");

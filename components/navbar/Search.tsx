@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { FaSearch } from "react-icons/fa";
 import Skeleton from "react-loading-skeleton";
 
-import useSearchModal from "@/hooks/useSearchModal";
+import useSearchModal from "@/store/useSearchModal";
 import { getCountry } from "@/actions/getCountryBylabel";
 
 const Search = () => {

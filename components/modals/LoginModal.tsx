@@ -13,8 +13,8 @@ import Heading from "../Heading";
 import Button from "../Button";
 import Input from "../inputs/Input";
 
-import useLoginModal from "@/hooks/useLoginModal";
-import useRegisterModal from "@/hooks/useRegisterModal";
+import useLoginModal from "@/store/useLoginModal";
+import useRegisterModal from "@/store/useRegisterModal";
 
 const LoginModal = () => {
   const [isLoading, setIsLoading] = useState(false);

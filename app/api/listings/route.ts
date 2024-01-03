@@ -3,7 +3,7 @@ import { parse } from "url";
 
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import { db } from "@/libs/db";
-import { LISTINGS_BATCH } from "@/constants";
+import { LISTINGS_BATCH } from "@/utils/constants";
 
 export const POST = async (req: Request) => {
   const currentUser = await getCurrentUser();

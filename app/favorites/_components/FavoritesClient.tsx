@@ -1,9 +1,9 @@
 import React from 'react'
+import { User, Listing } from '@prisma/client'
 
 import ListingCard from '@/components/listings/ListingCard'
 import Heading from '@/components/Heading'
 import Container from '@/components/Container'
-import { User, Listing } from '@prisma/client'
 
 interface FavoritesClientProps {
   listings: Listing[],

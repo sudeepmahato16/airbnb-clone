@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { User } from "@prisma/client";
 
-import useLoginModal from "./useLoginModal";
+import useLoginModal from "../store/useLoginModal";
 
 interface IUseFavorite {
   listingId: string;

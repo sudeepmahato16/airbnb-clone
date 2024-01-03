@@ -7,7 +7,7 @@ import ListingLoader from "../loader/ListingLoader";
 
 import { useListings } from "@/hooks/useListings";
 import { useLoadMore } from "@/hooks/useLoadMore";
-import { LISTINGS_BATCH } from "@/constants";
+import { LISTINGS_BATCH } from "@/utils/constants";
 import EmptyState from "../EmptyState";
 
 interface ListingsProps {

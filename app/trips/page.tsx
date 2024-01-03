@@ -1,10 +1,12 @@
 import React from "react";
 
-import TripsClient from "./TripsClient";
+import TripsClient from "./_components/TripsClient";
 import EmptyState from "@/components/EmptyState";
+import Container from "@/components/Container";
+import Heading from "@/components/Heading";
 
-import {getCurrentUser} from "@/actions/getCurrentUser";
-import {getReservations} from "@/actions/getReservations";
+import { getCurrentUser } from "@/actions/getCurrentUser";
+import { getReservations } from "@/actions/getReservations";
 
 const TripsPage = async () => {
   const currentUser = await getCurrentUser();
@@ -24,7 +26,15 @@ const TripsPage = async () => {
     );
   }
 
-  return <TripsClient reservations={reservations} currentUser={currentUser} />;
+  return (
+    <Container>
+      <Heading
+        title="Trips"
+        subtitle="Where you've been and where you're going"
+      />
+      <TripsClient reservations={reservations} currentUser={currentUser} />
+    </Container>
+  );
 };
 
 export default TripsPage;

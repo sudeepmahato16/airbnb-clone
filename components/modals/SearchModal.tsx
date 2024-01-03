@@ -13,7 +13,7 @@ import { CountrySelectValue } from "../inputs/CountrySelect";
 import Heading from "../Heading";
 import CountrySelect from "../inputs/CountrySelect";
 import Counter from "../inputs/Counter";
-import useSearchModal from "@/hooks/useSearchModal";
+import useSearchModal from "@/store/useSearchModal";
 
 enum STEPS {
   LOCATION = 0,
