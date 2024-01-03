@@ -1,6 +1,5 @@
 "use client";
 import React, { PropsWithChildren, Suspense } from "react";
-import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -20,7 +19,6 @@ const queryClient = new QueryClient({
 const Providers = ({ children }: PropsWithChildren) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <NextTopLoader showSpinner={false} color="#f40701" height={2.5} />
       <Toaster />
       <Suspense fallback={<></>}>
         <SearchModal />
