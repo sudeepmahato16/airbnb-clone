@@ -10,6 +10,7 @@ import RentModal from "@/components/modals/RentModal";
 import SearchModal from "@/components/modals/SearchModal";
 import ToasterProvider from "@/providers/ToasterProvider";
 import QueryProvider from "@/providers/QueryProvider";
+import TopLoaderProvider from "@/providers/TopLoaderProvider";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 
 export const metadata = {
@@ -33,15 +34,17 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <QueryProvider>
-          <ToasterProvider />
-          <Suspense fallback={<></>}>
-            <SearchModal />
-          </Suspense>
-          <RegisterModal />
-          <RentModal />
-          <LoginModal />
-          <Navbar currentUser={currentUser} />
-          <main className="pb-20 md:pt-28 pt-24">{children}</main>
+          <TopLoaderProvider>
+            <ToasterProvider />
+            <Suspense fallback={<></>}>
+              <SearchModal />
+            </Suspense>
+            <RegisterModal />
+            <RentModal />
+            <LoginModal />
+            <Navbar currentUser={currentUser} />
+            <main className="pb-20 md:pt-28 pt-24">{children}</main>
+          </TopLoaderProvider>
         </QueryProvider>
       </body>
     </html>
