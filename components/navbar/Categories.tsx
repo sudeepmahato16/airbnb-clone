@@ -3,11 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import debounce from "lodash.debounce";
 import "swiper/css";
 
-import Container from "../Container";
-import CategoryBox from "../CategoryBox";
+import CategoryBox from "./CategoryBox";
 import { categories } from "@/utils/constants";
 import { Category } from "@/types";
 
@@ -27,7 +26,7 @@ const Categories = () => {
         setIsActive(false);
       }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", debounce(handleScroll, 250));
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -37,8 +36,11 @@ const Categories = () => {
   }
 
   return (
-    <div className={`${isActive ? "shadow-md shadow-[rgba(0,0,0,.045)]" : ""} transition-all duration-150`}>
-    <Container>
+    <div
+      className={`main-container ${
+        isActive ? "shadow-md shadow-[rgba(0,0,0,.045)]" : ""
+      } transition-all duration-150`}
+    >
       <Swiper
         slidesPerView="auto"
         pagination={{
@@ -56,8 +58,7 @@ const Categories = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </Container>
-              </div>
+    </div>
   );
 };
 

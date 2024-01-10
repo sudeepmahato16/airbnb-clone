@@ -10,6 +10,7 @@ const Logo = () => {
         alt="logo"
         fill
         sizes="150px"
+        priority
       />
     </Link>
   );

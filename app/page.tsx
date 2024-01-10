@@ -1,17 +1,11 @@
-import React from "react";
+import React from 'react'
 
-import Container from "@/components/Container";
-import { getCurrentUser } from "@/actions/getCurrentUser";
-import Listings from "@/components/listings/Listings";
-
-const Home = async () => {
-  const currentUser = await getCurrentUser();
-
+const Home = () => {
   return (
-    <Container>
-      <Listings currentUser={currentUser} />
-    </Container>
-  );
-};
+    <main className='main-container'>
 
-export default Home;
+    </main>
+  )
+}
+
+export default Home

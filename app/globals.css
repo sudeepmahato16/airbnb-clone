@@ -2,50 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-  overflow-y: scroll;
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
-::-webkit-scrollbar {
-  @apply w-2;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
 }
 
-::-webkit-scrollbar-thumb {
-  @apply bg-rose-400 transition-all duration-300 rounded-[25px];
+
+.main-container {
+  @apply max-w-[1140px] mx-auto xl:px-0 px-4;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-rose-500;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-rose-100 rounded-[25px];
-}
-
-::-webkit-scrollbar-corner {
-  @apply rounded-[25px];
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  width: 0;
-}
-
-.leaflet-bottom,
-.leaflet-control,
-.leaflet-pane,
-.leaflet-top {
-  z-index: 0 !important;
-}
-
-.rdrMonth {
-  width: 100% !important;
-}
-
-.rdrCalendarWrapper {
-  width: 100% !important;
-  font-size: 16px !important;
-}
-
-.swiper-wrapper > *:not(:last-child){
-  margin-right: 20px !important;
+.swiper-wrapper{
+  @apply md:gap-2 gap-1 justify-between;
 }
