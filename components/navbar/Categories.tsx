@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
-import debounce from "lodash.debounce";
+import throttle from "lodash.throttle";
 import "swiper/css";
 
 import CategoryBox from "./CategoryBox";
@@ -26,9 +26,11 @@ const Categories = () => {
         setIsActive(false);
       }
     };
-    window.addEventListener("scroll", debounce(handleScroll, 250));
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    const throttledHandleScroll = throttle(handleScroll, 150);
+    window.addEventListener("scroll", throttledHandleScroll);
+
+    return () => window.removeEventListener("scroll", throttledHandleScroll);
   }, []);
 
   if (!isMainPage) {
@@ -37,7 +39,7 @@ const Categories = () => {
 
   return (
     <div
-      className={`main-container ${
+      className={` ${
         isActive ? "shadow-md shadow-[rgba(0,0,0,.045)]" : ""
       } transition-all duration-150`}
     >
@@ -46,7 +48,7 @@ const Categories = () => {
         pagination={{
           clickable: true,
         }}
-        className="w-full mt-2"
+        className="main-container mt-2"
       >
         {categories.map((item: Category) => (
           <SwiperSlide className="max-w-fit" key={item.label}>

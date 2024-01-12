@@ -17,6 +17,15 @@ export const zoomIn = (scale: number, duration: number) => ({
   },
 });
 
+export const fadeIn = {
+  hidden: {
+    opacity: 0
+  },
+  show: {
+    opacity: 1
+  }
+}
+
 export const slideIn = (
   direction: "up" | "down" | "left" | "right",
   type: "tween" | "spring",
