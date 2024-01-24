@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import Link from "next/link";
 import { BsThreeDots } from "react-icons/bs";
@@ -15,24 +14,16 @@ import { formatPrice } from "@/utils/helper";
 
 interface ListingCardProps {
   data: Listing;
-  reservation?: Reservation;
-  onAction?: () => void;
-  actionLabel?: string;
+  reservation?: {
+    id: string;
+    startDate: Date;
+    endDate: Date;
+    totalPrice: number;
+  };
 }
 
-const ListingCard: React.FC<ListingCardProps> = ({
-  data,
-  actionLabel,
-  onAction,
-  reservation,
-}) => {
+const ListingCard: React.FC<ListingCardProps> = ({ data, reservation }) => {
   const price = reservation ? reservation.totalPrice : data?.price;
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e?.stopPropagation();
-    e?.preventDefault();
-    onAction?.();
-  };
 
   let reservationDate;
   if (reservation) {
@@ -48,7 +39,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           <div className="w-full h-full bg-gray-100 relative">
             <div className="absolute top-0 left-0 p-2 flex items-center justify-between w-full">
               <div className="z-5">
-                {onAction && actionLabel && (
+                {/* {onAction && actionLabel && (
                   <Menu>
                     <Menu.Toggle
                       id={actionLabel}
@@ -66,7 +57,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
                       </Menu.Button>
                     </Menu.List>
                   </Menu>
-                )}
+                )} */}
               </div>
 
               <div className="w-[40px] h-[40px] flex items-center justify-center">
@@ -102,21 +93,23 @@ const ListingCard: React.FC<ListingCardProps> = ({
 export default ListingCard;
 
 export const ListingSkeleton = () => {
-  return <div className="col-span-1 ">
-    <div className="flex flex-col gap-1 w-full">
-      <Skeleton
-        width={"100%"}
-        height={"100%"}
-        borderRadius={"12px"}
-        className="aspect-square"
-      />
+  return (
+    <div className="col-span-1 ">
+      <div className="flex flex-col gap-1 w-full">
+        <Skeleton
+          width={"100%"}
+          height={"100%"}
+          borderRadius={"12px"}
+          className="aspect-square"
+        />
 
-      <div className="flex flex-row gap-3">
-        <Skeleton height={"18px"} width={"84px"} />
-        <Skeleton height={"18px"} width={"84px"} />
+        <div className="flex flex-row gap-3">
+          <Skeleton height={"18px"} width={"84px"} />
+          <Skeleton height={"18px"} width={"84px"} />
+        </div>
+        <Skeleton height={"16px"} width={"102px"} />
+        <Skeleton height={"18px"} width={"132px"} />
       </div>
-      <Skeleton height={"16px"} width={"102px"} />
-      <Skeleton height={"18px"} width={"132px"} />
     </div>
-  </div>;
+  );
 };

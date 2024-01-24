@@ -3,6 +3,7 @@ import { Nunito } from "next/font/google";
 import "./globals.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import Navbar from "@/components/navbar";
+import Providers from "@/components/Provider";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -20,8 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={nunito.className}>
-        <Navbar />
-        <main className="pb-20 md:pt-28 pt-24">{children}</main>
+        <Providers>
+          <Navbar />
+          <main className="pb-16 md:pt-28 pt-24">{children}</main>
+        </Providers>
       </body>
     </html>
   );

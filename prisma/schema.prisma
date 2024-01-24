@@ -74,11 +74,3 @@ model Reservation {
   listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
 }
 
-model Country {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  value  String
-  label  String
-  flag   String
-  region String
-  latlng Int[]
-}

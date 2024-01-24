@@ -59,8 +59,8 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
       <p className=" font-light text-neutral-500 text-[16px] ">{description}</p>
       <hr />
       <div className="h-[210px]">
-      <Map center={latlng} />
-        </div>
+        <Map center={latlng} />
+      </div>
     </div>
   );
 };

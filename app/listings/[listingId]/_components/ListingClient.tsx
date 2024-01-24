@@ -1,9 +1,20 @@
 "use client";
-import React, { ReactNode, useEffect, useMemo, useState, useTransition } from "react";
+import React, {
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { Range } from "react-date-range";
+import { User } from "next-auth";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 import ListingReservation from "./ListingReservation";
+import { createReservation } from "@/services/reservation";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -13,22 +24,33 @@ const initialDateRange = {
 
 interface ListingClientProps {
   reservations?: {
-    startDate: Date,
-    endDate: Date
+    startDate: Date;
+    endDate: Date;
   }[];
   children: ReactNode;
   id: string;
+  title: string;
   price: number;
+  user:
+    | (User & {
+        id: string;
+      })
+    | undefined;
 }
 
 const ListingClient: React.FC<ListingClientProps> = ({
   price,
   reservations = [],
   children,
+  user,
+  id,
+  title,
 }) => {
   const [totalPrice, setTotalPrice] = useState(price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
-    const [isLoading, startTransition] = useTransition()
+  const [isLoading, startTransition] = useTransition();
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const disabledDates = useMemo(() => {
     let dates: Date[] = [];
@@ -42,12 +64,6 @@ const ListingClient: React.FC<ListingClientProps> = ({
     });
     return dates;
   }, [reservations]);
-
-  const onCreateReservation = () => {
-
-
-    
-  };
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
@@ -64,6 +80,27 @@ const ListingClient: React.FC<ListingClientProps> = ({
     }
   }, [dateRange.endDate, dateRange.startDate, price]);
 
+  const onCreateReservation = () => {
+    if (!user) return toast.error("Please log in to reserve listing.");
+    startTransition(async () => {
+      try {
+        const { endDate, startDate } = dateRange;
+        await createReservation({
+          listingId: id,
+          endDate,
+          startDate,
+          totalPrice,
+        });
+        router.push("/trips");
+        toast.success(`You've successfully reserved "${title}".`);
+        queryClient.invalidateQueries(["trips", user.id]);
+        queryClient.invalidateQueries(["reservations", user.id]);
+      } catch (error: any) {
+        toast.error(error?.message);
+      }
+    });
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-7 md:gap-10 mt-6">
       {children}
@@ -72,7 +109,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
         <ListingReservation
           price={price}
           totalPrice={totalPrice}
-          onChangeDate={(value) => setDateRange(value)}
+          onChangeDate={(name, value) => setDateRange(value)}
           dateRange={dateRange}
           onSubmit={onCreateReservation}
           isLoading={isLoading}

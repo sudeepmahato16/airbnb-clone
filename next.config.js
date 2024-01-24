@@ -14,6 +14,18 @@ const nextConfig = {
         pathname: "**",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        pathname: "**",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "files.edgestore.dev",
+        pathname: "**",
+        port: ""
+      }
     ],
   },
 };

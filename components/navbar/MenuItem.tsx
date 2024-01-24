@@ -7,12 +7,12 @@ interface MenuItemProps {
   label: string;
 }
 
+export const MenuItemStyle =
+  " hover:bg-neutral-100 transition font-semibold select-none";
+
 const MenuItem: FC<MenuItemProps> = ({ label, onClick }) => {
   return (
-    <Menu.Button
-      className=" hover:bg-neutral-100 transition font-semibold select-none"
-      onClick={onClick}
-    >
+    <Menu.Button className={MenuItemStyle} onClick={onClick}>
       {label}
     </Menu.Button>
   );

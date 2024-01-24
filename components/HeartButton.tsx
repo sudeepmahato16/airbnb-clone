@@ -1,15 +1,24 @@
 "use client";
 import React from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { User } from "@prisma/client";
+import { toast } from "react-hot-toast";
 
 interface HeartButtonProps {
   listingId: string;
 }
 
 const HeartButton: React.FC<HeartButtonProps> = ({ listingId }) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    toast.error("This feature is currently under construction");
+  };
+
   return (
-    <div
+    <button
+      type="button"
+      onClick={handleClick}
       className="
         relative
         hover:opacity-80
@@ -28,7 +37,7 @@ const HeartButton: React.FC<HeartButtonProps> = ({ listingId }) => {
         "
       />
       <AiFillHeart size={24} className={"fill-neutral-500/70"} />
-    </div>
+    </button>
   );
 };
 

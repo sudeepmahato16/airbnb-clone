@@ -1,7 +1,7 @@
 import React from "react";
 import { Range } from "react-date-range";
+import dynamic from "next/dynamic";
 
-import Calendar from "@/components/Calender";
 import Button from "@/components/Button";
 import SpinnerMini from "@/components/Loader";
 import { formatPrice } from "@/utils/helper";
@@ -10,11 +10,15 @@ interface ListingReservationProps {
   price: number;
   dateRange: Range;
   totalPrice: number;
-  onChangeDate: (value: Range) => void;
+  onChangeDate: (name: string, value: Range) => void;
   onSubmit: () => void;
   isLoading?: boolean;
   disabledDates: Date[];
 }
+
+const Calendar = dynamic(() => import("@/components/Calender"), {
+  ssr: false
+})
 
 const ListingReservation: React.FC<ListingReservationProps> = ({
   price,
@@ -35,7 +39,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       <Calendar
         value={dateRange}
         disabledDates={disabledDates}
-        onChange={(value) => onChangeDate(value.selection)}
+        onChange={onChangeDate}
       />
       <hr />
       <div className="p-4">

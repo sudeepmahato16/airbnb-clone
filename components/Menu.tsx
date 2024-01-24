@@ -1,7 +1,9 @@
 "use client";
 import React, {
   FC,
+  ReactElement,
   ReactNode,
+  cloneElement,
   createContext,
   useContext,
   useState,
@@ -18,7 +20,7 @@ const MenuContext = createContext({
 });
 
 interface ToggleProps {
-  children: ReactNode;
+  children: ReactElement;
   id: string;
   className?: string;
 }
@@ -33,11 +35,7 @@ const Toggle: FC<ToggleProps> = ({ children, id, className }) => {
     openId === "" || openId !== id ? setOpenId(id) : close();
   };
 
-  return (
-    <button type="button" className={className} onClick={handleClick}>
-      {children}
-    </button>
-  );
+  return <>{cloneElement(children, { onClick: handleClick })}</>;
 };
 
 interface ListProps {
@@ -94,7 +92,11 @@ const Button: FC<ButtonProps> = ({ children, onClick, className }) => {
 
   return (
     <li className={cn("w-full", className)}>
-      <button onClick={handleClick} type="button" className="text-left px-4 py-3 w-full">
+      <button
+        onClick={handleClick}
+        type="button"
+        className="text-left px-4 py-3 w-full"
+      >
         {children}
       </button>
     </li>

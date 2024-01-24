@@ -1,62 +1,67 @@
 "use client";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import { Listing } from "@prisma/client";
-import { useInView } from "react-intersection-observer";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import ListingCard, { ListingSkeleton } from "./ListingCard";
-import { getListings } from "@/services/listing";
 import { LISTINGS_BATCH } from "@/utils/constants";
+import { useLoadMore } from "@/hooks/useLoadMore";
 
 interface LoadMoreProps {
-  nextCursor: string | null;
-  searchParams?: { [key: string]: string | string[] | undefined };
+  nextCursor: string;
+  fnArgs?: { [key: string]: string | undefined };
+  queryFn: (args: Record<string, string>) => Promise<{
+    listings: Listing[];
+    nextCursor: null | string;
+  }>;
+  queryKey: any[];
 }
 
 const LoadMore: FC<LoadMoreProps> = ({
-  nextCursor: initialNextCursor,
-  searchParams,
+  nextCursor,
+  fnArgs,
+  queryFn,
+  queryKey,
 }) => {
-  const { ref, inView } = useInView();
-  const [listings, setListings] = useState<Listing[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [nextCursor, setNextCursor] = useState(initialNextCursor);
+  const { data, isFetchingNextPage, hasNextPage, status, fetchNextPage } =
+    useInfiniteQuery({
+      queryFn: ({ pageParam = nextCursor }) =>
+        queryFn({ ...fnArgs, cursor: pageParam }),
+      queryKey,
+      getNextPageParam: (lastPage) => lastPage?.nextCursor,
+    });
 
-  useEffect(() => {
-    setNextCursor(initialNextCursor);
-    setListings([]);
-  }, [initialNextCursor]);
-
-  useEffect(() => {
-    if (inView && !isLoading && nextCursor) {
-      setIsLoading(true);
-
-      getListings({ ...searchParams, cursor: nextCursor }).then(
-        (newListings) => {
-          setListings((prev) => [...prev, ...newListings.listings]);
-          setNextCursor(newListings.nextCursor);
-          setIsLoading(false);
-        }
-      );
-    }
-  }, [inView, isLoading, nextCursor, searchParams]);
+  const { ref } = useLoadMore(
+    fetchNextPage,
+    hasNextPage,
+    status === "loading" || isFetchingNextPage,
+    status === "error"
+  );
 
   return (
     <>
-      {listings.map((listing) => {
-        return <ListingCard key={listing.id} data={listing} />;
-      })}
-
-      {isLoading ? (
+      {data?.pages.map((group, i) => (
+        <React.Fragment key={i}>
+          {group?.listings?.map((listing: Listing) => (
+            <ListingCard key={listing.id} data={listing} />
+          ))}
+        </React.Fragment>
+      ))}
+      {(status === "loading" || isFetchingNextPage) && (
         <>
           {Array.from({ length: LISTINGS_BATCH / 2 }).map(
-            (_item, i: number) => (
+            (_item: any, i: number) => (
               <ListingSkeleton key={i} />
             )
           )}
         </>
-      ) : (
-        <div ref={ref} />
       )}
+      {status === "error" && (
+        <p className="text-xl mt-8 text-center font-semibold">
+          Something went wrong!
+        </p>
+      )}
+      <div ref={ref} />
     </>
   );
 };

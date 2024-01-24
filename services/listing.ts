@@ -1,6 +1,7 @@
 "use server";
 import { db } from "@/lib/db";
 import { LISTINGS_BATCH } from "@/utils/constants";
+import { getCurrentUser } from "./user";
 
 export const getListings = async (query?: {
   [key: string]: string | string[] | undefined | null;
@@ -117,6 +118,48 @@ export const getListingById = async (id: string) => {
           endDate: true,
         },
       },
+    },
+  });
+
+  return listing;
+};
+
+export const createListing = async (data: { [x: string]: any }) => {
+  const {
+    category,
+    location: { region, label: country, latlng },
+    guestCount,
+    bathroomCount,
+    roomCount,
+    image: imageSrc,
+    price,
+    title,
+    description,
+  } = data;
+
+  Object.keys(data).forEach((value: any) => {
+    if (!data[value]) {
+      throw new Error("Invalid data");
+    }
+  });
+
+  const user = await getCurrentUser();
+  if (!user) throw new Error("Unauthorized!");
+
+  const listing = await db.listing.create({
+    data: {
+      title,
+      description,
+      imageSrc,
+      category,
+      roomCount,
+      bathroomCount,
+      guestCount,
+      country,
+      region,
+      latlng,
+      price: parseInt(price, 10),
+      userId: user.id,
     },
   });
 

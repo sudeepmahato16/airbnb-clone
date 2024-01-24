@@ -4,6 +4,8 @@ import EmptyState from "@/components/EmptyState";
 import ListingHead from "./_components/ListingHead";
 import ListingInfo from "./_components/ListingInfo";
 import ListingClient from "./_components/ListingClient";
+
+import {getCurrentUser} from '@/services/user'
 import { getListingById } from "@/services/listing";
 import { categories } from "@/utils/constants";
 
@@ -13,6 +15,7 @@ interface IParams {
 
 const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
   const listing = await getListingById(listingId);
+  const currentUser = await getCurrentUser();
 
   if (!listing) return <EmptyState />;
 
@@ -22,7 +25,7 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
     country,
     region,
     id,
-    user,
+    user: owner,
     price,
     description,
     roomCount,
@@ -50,9 +53,11 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
         id={id}
         price={price}
         reservations={reservations}
+        user={currentUser}
+        title={title}
       >
         <ListingInfo
-          user={user}
+          user={owner}
           category={category}
           description={description}
           roomCount={roomCount}

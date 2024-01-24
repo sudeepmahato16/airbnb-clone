@@ -19,12 +19,22 @@ export const zoomIn = (scale: number, duration: number) => ({
 
 export const fadeIn = {
   hidden: {
-    opacity: 0
+    opacity: 0,
+    transition: {
+      duration: 0.15,
+      type: "tween",
+      ease: "easeIn",
+    },
   },
   show: {
-    opacity: 1
-  }
-}
+    opacity: 1,
+    transition: {
+      duration: 0.15,
+      type: "tween",
+      ease: "easeIn"
+    },
+  },
+};
 
 export const slideIn = (
   direction: "up" | "down" | "left" | "right",
@@ -33,11 +43,12 @@ export const slideIn = (
 ) => ({
   hidden: {
     x: direction === "left" ? "-100%" : direction === "right" ? "100%" : 0,
-    y: direction === "up" ? "100%" : direction === "down" ? "100%" : 0,
+    y: direction === "up" ? "100%" : direction === "down" ? "-100%" : 0,
     opacity: 0,
     transition: {
       duration,
-      ease: "easeInOut",
+      type,
+      ease: "easeOut"
     },
   },
   show: {
@@ -47,7 +58,7 @@ export const slideIn = (
     transition: {
       type,
       duration,
-      ease: "easeInOut",
+      ease: "easeInOut"
     },
   },
 });
