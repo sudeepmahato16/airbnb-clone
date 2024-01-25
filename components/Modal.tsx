@@ -12,11 +12,11 @@ import React, {
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
+import { createPortal } from "react-dom";
 
 import { fadeIn, slideIn } from "@/utils/motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
-import { createPortal } from "react-dom";
-import { useIsClient } from "@/hooks/useIsClient";
+import { useIsClient } from "./../hooks/useIsClient";
 
 interface ModalProps {
   children: ReactNode;
@@ -89,11 +89,31 @@ const Window: FC<WindowProps> = ({ children, name }) => {
   const { ref } = useOutsideClick(close);
   const isClient = useIsClient();
 
+  const isWindowOpen = openName === name;
+
+  useEffect(() => {
+    if (!isClient) return;
+    const body = document.body;
+    const rootNode = document.documentElement;
+    if (isWindowOpen) {
+      const scrollTop = rootNode.scrollTop;
+      body.style.top = `-${scrollTop}px`;
+      body.classList.add("no-scroll");
+    } else {
+      const top = parseFloat(body.style.top) * -1;
+      body.classList.remove("no-scroll");
+      if (top) {
+        rootNode.scrollTop = top;
+        body.style.top = "";
+      }
+    }
+  }, [isClient, isWindowOpen]);
+
   if (!isClient) return null;
 
   return createPortal(
     <AnimatePresence>
-      {openName === name ? (
+      {isWindowOpen ? (
         <motion.div
           variants={fadeIn}
           animate="show"
