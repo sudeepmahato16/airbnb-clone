@@ -9,7 +9,7 @@ import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
 import Menu from "@/components/Menu";
 import RentModal from "../modals/RentModal";
-import Modal from "../Modal";
+import Modal from "../modals/Modal";
 import AuthModal from "../modals/AuthModal";
 import { menuItems } from "@/utils/constants";
 
@@ -28,7 +28,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <Modal>
-          <Modal.Trigger name="share">
+          <Modal.Trigger name={user ? "share" : "Login"}>
             <button
               type="button"
               className="hidden md:block text-sm font-bold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer text-[#585858]"

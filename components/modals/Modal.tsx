@@ -16,7 +16,7 @@ import { createPortal } from "react-dom";
 
 import { fadeIn, slideIn } from "@/utils/motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
-import { useIsClient } from "./../hooks/useIsClient";
+import { useIsClient } from "../../hooks/useIsClient";
 
 interface ModalProps {
   children: ReactNode;
@@ -127,7 +127,7 @@ const Window: FC<WindowProps> = ({ children, name }) => {
               initial="hidden"
               animate="show"
               exit="hidden"
-              className="md:h-auto h-full max-h-screen overflow-y-auto rounded-lg shadow-lg w-full bg-white md:w-[420px]"
+              className="md:h-auto h-screen md:max-h-screen overflow-y-auto rounded-lg shadow-lg w-screen bg-white md:w-[420px]"
               ref={ref}
             >
               {cloneElement(children, { onCloseModal: close })}

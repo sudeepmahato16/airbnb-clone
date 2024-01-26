@@ -4,7 +4,7 @@ import { differenceInDays } from "date-fns";
 import { useSearchParams } from "next/navigation";
 import { FaSearch } from "react-icons/fa";
 
-import Modal from "../Modal";
+import Modal from "../modals/Modal";
 import SearchModal from "../modals/SearchModal";
 
 const Search = () => {

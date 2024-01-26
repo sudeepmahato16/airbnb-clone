@@ -1,4 +1,5 @@
-import React, { useTransition, useState } from "react";
+"use client";
+import React, { useTransition, useState, useEffect } from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -9,7 +10,7 @@ import { useRouter } from "next/navigation";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import Button from "../Button";
-import Modal from "../Modal";
+import Modal from "./Modal";
 import SpinnerMini from "../Loader";
 import { registerUser } from "@/services/auth";
 
@@ -19,7 +20,6 @@ const AuthModal = ({
 }: {
   name?: string;
   onCloseModal?: () => void;
-  
 }) => {
   const [isLoading, startTransition] = useTransition();
   const [title, setTitle] = useState(name || "");
@@ -29,6 +29,8 @@ const AuthModal = ({
     watch,
     formState: { errors },
     reset,
+    setError,
+    setFocus,
   } = useForm<FieldValues>({
     defaultValues: {
       email: "",
@@ -36,12 +38,25 @@ const AuthModal = ({
       name: "",
     },
   });
-  const isLoginModal = title === "Login";
   const router = useRouter();
+  const isLoginModal = title === "Login";
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (isLoginModal) {
+        setFocus("email");
+      } else {
+        setFocus("name");
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [isLoginModal, setFocus]);
 
   const onToggle = () => {
     const newTitle = isLoginModal ? "Sign up" : "Login";
     setTitle(newTitle);
+    reset();
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -50,22 +65,20 @@ const AuthModal = ({
     startTransition(async () => {
       try {
         if (isLoginModal) {
-          signIn("credentials", {
+          const callback = await signIn("credentials", {
             email,
             password,
             redirect: false,
-          }).then((callback) => {
-            console.log(callback);
-            if (callback?.error) {
-              toast.error(callback.error);
-              return;
-            }
-            if (callback?.ok) {
-              toast.success("You've successfully logged in.");
-              onCloseModal?.();
-              router.refresh();
-            }
           });
+
+          if (callback?.error) {
+            throw new Error(callback.error);
+          }
+          if (callback?.ok) {
+            toast.success("You've successfully logged in.");
+            onCloseModal?.();
+            router.refresh();
+          }
         } else {
           await registerUser({ email, password, name });
           setTitle("Login");
@@ -74,16 +87,24 @@ const AuthModal = ({
         }
       } catch (error: any) {
         toast.error(error.message);
+        if (isLoginModal) {
+          reset();
+          setError("email", {});
+          setError("password", {});
+          setTimeout(() => {
+            setFocus("email");
+          }, 100)
+        }
       }
     });
   };
 
   return (
-    <div>
+    <div className="h-full w-full">
       <Modal.WindowHeader title={title} />
 
       <form
-        className="flex flex-col gap-5 p-6 pb-0 w-full"
+        className="flex flex-col gap-5 p-6 pb-0 w-full h-full"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Heading

@@ -48,7 +48,7 @@ const Categories = () => {
         pagination={{
           clickable: true,
         }}
-        className="main-container mt-2"
+        className="main-container mt-2 lg:!px-3 !px-2"
       >
         {categories.map((item: Category) => (
           <SwiperSlide className="max-w-fit" key={item.label}>

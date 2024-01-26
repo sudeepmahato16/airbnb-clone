@@ -5,7 +5,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
 
-import Modal from "../Modal";
+import Modal from "./Modal";
 import Button from "../Button";
 import Heading from "../Heading";
 import Counter from "../inputs/Counter";
@@ -161,7 +161,7 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
 
       default:
         return (
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
             <Heading
               title="Where is your place located?"
               subtitle="Help guests find you!"
@@ -178,13 +178,13 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
   const isFieldFilled = !!getValues(steps[step]);
 
   return (
-    <div>
+    <div className="h-full w-full bg-white flex flex-col">
       <Modal.WindowHeader title="Filter!" />
       <form
-        className="h-full  md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none "
+        className="h-auto flex-1 border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none "
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="relative p-6 flex-auto">{body()}</div>
+        <div className="relative p-6">{body()}</div>
         <div className="flex flex-col gap-2 px-6 pb-6 pt-3">
           <div className="flex flex-row items-center gap-4 w-full">
             {step !== STEPS.LOCATION ? (

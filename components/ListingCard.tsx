@@ -35,8 +35,8 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, reservation }) => {
   return (
     <Link href={`/listings/${data.id}`} className="col-span-1 cursor-pointer">
       <div className="flex flex-col gap-1 w-full">
-        <div className="aspect-[1/0.95] w-full relative overflow-hidden rounded-xl">
-          <div className="w-full h-full bg-gray-100 relative">
+        <div className=" overflow-hidden rounded-xl">
+          <div className="aspect-[1/0.95] relative bg-gray-100">
             <div className="absolute top-0 left-0 p-2 flex items-center justify-between w-full">
               <div className="z-5">
                 {/* {onAction && actionLabel && (

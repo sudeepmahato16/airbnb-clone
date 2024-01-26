@@ -7,7 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { BiDollar } from "react-icons/bi";
 
-import Modal from "../Modal";
+import Modal from "./Modal";
 import Button from "../Button";
 import SpinnerMini from "../Loader";
 import Heading from "../Heading";
@@ -109,7 +109,8 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         router.refresh();
         router.push(`/listings/${newListing.id}`);
       } catch (error: any) {
-        toast.error(error?.message);
+        toast.error("Failed to create listing!");
+        console.log(error?.message)
       }
     });
   };
@@ -237,7 +238,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
               title="Which of these best describes your place?"
               subtitle="Pick a category"
             />
-            <div className=" grid grid-cols-1 md:grid-cols-2  gap-3 max-h-[240px] overflow-y-scroll scroll-smooth">
+            <div className="flex-1 grid grid-cols-2  gap-3 max-h-[60vh] lg:max-h-[260px] overflow-y-scroll scroll-smooth">
               {categories.map((item) => (
                   <CategoryButton
                     onClick={setCustomValue}
@@ -256,13 +257,13 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
   const isFieldFilled = !!getValues(steps[step]);
 
   return (
-    <div>
+    <div className="w-full h-full flex flex-col">
       <Modal.WindowHeader title="Share your home!" />
       <form
-        className="h-full  md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none "
+        className="flex-1  md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none "
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="relative p-6 flex-auto">{body()}</div>
+        <div className="relative p-6">{body()}</div>
         <div className="flex flex-col gap-2 px-6 pb-6 pt-3">
           <div className="flex flex-row items-center gap-4 w-full">
             {step !== STEPS.CATEGORY ? (
