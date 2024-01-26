@@ -1,13 +1,17 @@
 "use client";
 import React, {
   FC,
+  ReactElement,
   ReactNode,
+  cloneElement,
   createContext,
   useContext,
   useState,
 } from "react";
-import { IconType } from "react-icons";
+import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { zoomIn } from "@/utils/motion";
+import { cn } from "@/utils/helper";
 
 const MenuContext = createContext({
   openId: "",
@@ -16,7 +20,7 @@ const MenuContext = createContext({
 });
 
 interface ToggleProps {
-  children: ReactNode;
+  children: ReactElement;
   id: string;
   className?: string;
 }
@@ -31,40 +35,55 @@ const Toggle: FC<ToggleProps> = ({ children, id, className }) => {
     openId === "" || openId !== id ? setOpenId(id) : close();
   };
 
-  return (
-    <button type="button" className={className} onClick={handleClick}>
-      {children}
-    </button>
-  );
+  return <>{cloneElement(children, { onClick: handleClick })}</>;
 };
 
 interface ListProps {
   children: ReactNode;
+  className?: string;
+  position?: "bottom-left" | "bottom-right";
 }
 
-const List: FC<ListProps> = ({ children }) => {
+const List: FC<ListProps> = ({
+  children,
+  className,
+  position = "bottom-right",
+}) => {
   const { openId, close } = useContext(MenuContext);
   const { ref } = useOutsideClick(close, false);
 
-  if (!openId) return null;
-
   return (
-    <ul
-      ref={ref}
-      className={`absolute top-[110%] left-[20%] w-auto bg-white rounded-sm z-[9999] text-[12px] overflow-hidden`}
-    >
-      {children}
-    </ul>
+    <AnimatePresence>
+      {!openId ? null : (
+        <motion.ul
+          ref={ref}
+          variants={zoomIn(0.85, 0.175)}
+          initial="hidden"
+          animate="show"
+          exit="hidden"
+          style={{
+            originY: 0,
+          }}
+          className={cn(
+            `absolute top-[110%]  w-max min-w-[170px] bg-white rounded-sm z-[9999] text-[12px] overflow-hidden `,
+            className,
+            position === "bottom-left" ? "left-0" : "right-0"
+          )}
+        >
+          {children}
+        </motion.ul>
+      )}
+    </AnimatePresence>
   );
 };
 
 interface ButtonProps {
   children: ReactNode;
-  icon: IconType;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  className?: string;
 }
 
-const Button: FC<ButtonProps> = ({ children, icon: Icon, onClick }) => {
+const Button: FC<ButtonProps> = ({ children, onClick, className }) => {
   const { close } = useContext(MenuContext);
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     close();
@@ -72,14 +91,13 @@ const Button: FC<ButtonProps> = ({ children, icon: Icon, onClick }) => {
   };
 
   return (
-    <li className="w-[180px] ">
+    <li className={cn("w-full", className)}>
       <button
         onClick={handleClick}
-        className="w-full text-left bg-[#fff] hover:bg-gray-50 border-none p-2 text-[13.25px] transition-all duration-200 flex items-center gap-2"
         type="button"
+        className="text-left px-4 py-3 w-full"
       >
-        <Icon className="w-4 h-4 stroke-gray-700 text-gray-700" />
-        <span className=" ">{children}</span>
+        {children}
       </button>
     </li>
   );
@@ -106,7 +124,9 @@ const Menu: FC<MenuProps> & {
         close,
       }}
     >
-      <div className="flex items-center justify-end relative rounded-md">{children}</div>
+      <div className="flex items-center justify-end relative rounded-md">
+        {children}
+      </div>
     </MenuContext.Provider>
   );
 };

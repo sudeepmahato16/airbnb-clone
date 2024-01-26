@@ -1,4 +1,3 @@
-
 # Airbnb Clone
 
 This is an Airbnb clone built with Next.js, TypeScript, Tailwind CSS, MongoDB, Prisma, Next auth, Leaflet and many other technologies.
@@ -17,12 +16,11 @@ You can check out a live demo of the Airbnb clone project [here](https://airbnb-
 
 ## Screenshots
 
-  <kbd><img width="944" alt="vacationhub" src="https://github.com/sudeepmahato16/airbnb_clone/assets/122378993/f893e203-8a2d-4ff1-ae20-67e64187b770"></kbd>
+<kbd><img width="944" alt="vacationhub" src="https://github.com/sudeepmahato16/airbnb_clone/assets/122378993/f893e203-8a2d-4ff1-ae20-67e64187b770"></kbd>
 
-  <kbd><img width="886" alt="login-modal" src="https://github.com/sudeepmahato16/airbnb_clone/assets/122378993/3d6675e0-6046-48dc-b55f-7ef318581ccd"></kbd>
+<kbd><img width="886" alt="login-modal" src="https://github.com/sudeepmahato16/airbnb_clone/assets/122378993/3d6675e0-6046-48dc-b55f-7ef318581ccd"></kbd>
 
-  <kbd><img width="810" alt="listing" src="https://github.com/sudeepmahato16/airbnb_clone/assets/122378993/a0b05a50-cbc2-40db-8f62-6cc203a7c887"></kbd>
-  
+<kbd><img width="810" alt="listing" src="https://github.com/sudeepmahato16/airbnb_clone/assets/122378993/a0b05a50-cbc2-40db-8f62-6cc203a7c887"></kbd>
 
 ## Prerequisites
 
@@ -36,42 +34,51 @@ Make sure you have the following software installed on your system:
 
 - Clone the repository:
 
-    ```
-    git clone https://github.com/sudeepmahato16/airbnb_clone.git
-    ```
--  Navigate to the project directory:
+  ```
+  git clone https://github.com/sudeepmahato16/airbnb_clone.git
+  ```
 
-    ```
-    cd Airbnb
-    ```
--  Install the dependencies:
+- Navigate to the project directory:
 
-    ```
-    npm install
-    ```
--  Set up the environment variables:
+  ```
+  cd Airbnb
+  ```
 
-   1. Create a `.env.local` file in the root directory.
+- Install the dependencies:
 
-   2. Add the following variables to the .env file, replacing the placeholder values with your own:
+  ```
+  npm install
+  ```
 
-    ```
-    DATABASE_URL=<your-mongodb-uri>
-    GITHUB_CLIENT_ID=<your-github-client-id>
-    GITHUB_CLIENT_SECRET=<your-github-client-secret>
-    GOOGLE_CLIENT_ID=<your-google-client-id>
-    GOOGLE_CLIENT_SECRET=<your-google-client-secret>
-    NEXTAUTH_SECRET=<your-nextauth-secret>
-    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=<your-cloudinary-cloud-name>
-    ```
+- Set up the environment variables:
+
+  1.  Create a `.env.local` file in the root directory.
+
+  2.  Add the following variables to the .env file, replacing the placeholder values with your own:
+
+      ```
+      DATABASE_URL=<your-mongodb-uri>
+      GITHUB_CLIENT_ID=<your-github-client-id>
+      GITHUB_CLIENT_SECRET=<your-github-client-secret>
+      GOOGLE_CLIENT_ID=<your-google-client-id>
+      GOOGLE_CLIENT_SECRET=<your-google-client-secret>
+      NEXTAUTH_SECRET=<your-nextauth-secret>
+      EDGE_STORE_ACCESS_KEY=<your-edge-store-access-key>
+      EDGE_STORE_SECRET_KEY=<your-edge-store-secret-key>
+      ```
+
+  ```
+
+  ```
 
 ## Usage
 
 - Start the development server:
 
-    ```
-    npm run dev
-    ```
+  ```
+  npm run dev
+  ```
+
 - Open your browser and visit `http://localhost:3000` to access the application.
 
 ## Contributing

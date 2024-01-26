@@ -1,141 +1,163 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, {
+  FC,
+  ReactElement,
+  ReactNode,
+  cloneElement,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
+import { createPortal } from "react-dom";
 
-import Button from "../Button";
-import SpinnerMini from "../loader/Loader";
+import { fadeIn, slideIn } from "@/utils/motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { useIsClient } from "../../hooks/useIsClient";
 
 interface ModalProps {
-  isOpen?: boolean;
-  onClose: () => void;
-  onSubmit: () => void;
-  title?: string;
-  body?: React.ReactElement;
-  footer?: React.ReactElement;
-  actionLabel: string;
-  secondaryAction?: () => void;
-  secondaryActionLabel?: string;
-  disabled?: boolean;
+  children: ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  onSubmit,
-  title,
-  body,
-  footer,
-  actionLabel,
-  disabled,
-  secondaryAction,
-  secondaryActionLabel,
-}) => {
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const { ref } = useOutsideClick(handleClose, false);
+interface TriggerProps {
+  name: string;
+  children: ReactElement;
+}
+
+interface WindowProps extends TriggerProps {}
+
+interface WindowHeaderProps {
+  title: string;
+}
+
+const ModalContext = createContext({
+  open: (val: string) => {},
+  close: () => {},
+  openName: "",
+});
+
+const Modal: FC<ModalProps> & {
+  Trigger: typeof Trigger;
+  Window: typeof Window;
+  WindowHeader: typeof WindowHeader;
+} = ({ children }) => {
+  const [openName, setOpenName] = useState("");
 
   useEffect(() => {
-    setShowModal(Boolean(isOpen));
-  }, [isOpen]);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (openName && e.key === "Escape") {
+        setOpenName("");
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
 
-  function handleClose() {
-    if (disabled) {
-      return;
-    }
-    setShowModal(false);
-    setTimeout(() => {
-      onClose();
-    }, 300);
-  }
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [openName]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const close = useCallback(() => {
+    setOpenName("");
+  }, []);
 
-    if (disabled) return;
-    onSubmit();
-  };
-
-  const handleSecondaryAction = () => {
-    if (disabled || !secondaryAction) {
-      return;
-    }
-
-    secondaryAction();
-  };
-
-  if (!isOpen) return null;
-
+  const open = setOpenName;
   return (
-    <>
-      <div
-        className={`justify-center items-center flex w-screen h-screen overflow-x-hidden  fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70 duration-300 ${
-          showModal ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <div
-          className="relative w-full md:w-4/6 lg:max-w-[420px] rounded-lg hide-scrollbar overflow-y-scroll"
-        >
-          <div
-            className={`duration-300 md:max-h-[90vh] h-full   ${
-              showModal ? "translate-y-0" : "translate-y-full"
-            }
-            ${showModal ? "opacity-100" : "opacity-0"}`}
-            ref={ref}
-          >
-            <form
-              className="translate h-full lg:h-auto  md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none "
-              onSubmit={handleSubmit}
-
-            >
-              <div className=" flex items-center  px-6 py-4  rounded-t justify-center relative border-b-[1px]">
-                <button
-                type="button"
-                  className="
-                    p-1
-                    border-0 
-                    hover:opacity-70
-                    transition
-                    absolute
-                    left-6
-                  "
-                  onClick={handleClose}
-                >
-                  <IoMdClose size={18} />
-                </button>
-                <div className="text-lg font-semibold">{title}</div>
-              </div>
-              <div className="relative p-6 flex-auto">{body}</div>
-              <div className="flex flex-col gap-2 p-6">
-                <div
-                  className="
-                    flex 
-                    flex-row 
-                    items-center 
-                    gap-4 
-                    w-full
-                  "
-                >
-                  {secondaryAction && secondaryActionLabel && (
-                    <Button
-                    type="button"
-                      disabled={disabled}
-                      label={secondaryActionLabel}
-                      onClick={handleSecondaryAction}
-                      outline
-                    />
-                  )}
-                  <Button type="submit" disabled={disabled} className="flex items-center gap-2 justify-center">
-                    {disabled ? <SpinnerMini /> : actionLabel}
-                  </Button>
-                </div>
-                {footer}
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </>
+    <ModalContext.Provider
+      value={{
+        open,
+        close,
+        openName,
+      }}
+    >
+      {children}
+    </ModalContext.Provider>
   );
 };
+
+const Trigger: FC<TriggerProps> = ({ children, name }) => {
+  const { open } = useContext(ModalContext);
+  const onClick = (e: MouseEvent | TouchEvent) => {
+    e.stopPropagation();
+    open(name);
+  };
+  return cloneElement(children, { onClick });
+};
+
+const Window: FC<WindowProps> = ({ children, name }) => {
+  const { openName, close } = useContext(ModalContext);
+  const { ref } = useOutsideClick(close);
+  const isClient = useIsClient();
+
+  const isWindowOpen = openName === name;
+
+  useEffect(() => {
+    if (!isClient) return;
+    const body = document.body;
+    const rootNode = document.documentElement;
+    if (isWindowOpen) {
+      const scrollTop = rootNode.scrollTop;
+      body.style.top = `-${scrollTop}px`;
+      body.classList.add("no-scroll");
+    } else {
+      const top = parseFloat(body.style.top) * -1;
+      body.classList.remove("no-scroll");
+      if (top) {
+        rootNode.scrollTop = top;
+        body.style.top = "";
+      }
+    }
+  }, [isClient, isWindowOpen]);
+
+  if (!isClient) return null;
+
+  return createPortal(
+    <AnimatePresence>
+      {isWindowOpen ? (
+        <motion.div
+          variants={fadeIn}
+          animate="show"
+          initial="hidden"
+          exit="hidden"
+          className="justify-center items-center flex w-full h-full overflow-hidden  fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70"
+        >
+          <div className="relative ">
+            <motion.div
+              variants={slideIn("up", "tween", 0.3)}
+              initial="hidden"
+              animate="show"
+              exit="hidden"
+              className="md:h-auto h-screen md:max-h-screen overflow-y-auto rounded-lg shadow-lg w-screen bg-white md:w-[420px]"
+              ref={ref}
+            >
+              {cloneElement(children, { onCloseModal: close })}
+            </motion.div>
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>,
+    document.body
+  );
+};
+
+const WindowHeader: FC<WindowHeaderProps> = ({ title }) => {
+  const { close } = useContext(ModalContext);
+  return (
+    <header className=" flex items-center  px-6 py-3  rounded-t justify-center relative border-b-[1px]">
+      <button
+        type="button"
+        className=" p-1 border-0  hover:opacity-70 transition absolute left-6"
+        onClick={close}
+      >
+        <IoMdClose size={18} />
+      </button>
+      <h4 className="text-[18px] font-semibold">{title}</h4>
+    </header>
+  );
+};
+
+Modal.Trigger = Trigger;
+Modal.Window = Window;
+Modal.WindowHeader = WindowHeader;
 
 export default Modal;

@@ -1,20 +1,20 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from "react";
 
-export const useOutsideClick = (action: () => void, listenCapturing=true) => {
-    const ref = useRef<any>(null);
+export const useOutsideClick = (action: () => void, listenCapturing = true) => {
+  const ref = useRef<any>(null);
 
-    useEffect(() => {
-        const handleClick = (e: MouseEvent) => {
-            if(ref.current && !ref.current.contains(e.target as Node)){
-                action();
-            }
-        }
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        action();
+      }
+    };
 
-        document.addEventListener('click', handleClick, listenCapturing)
+    document.addEventListener("click", handleClick, listenCapturing);
 
-        return () => document.removeEventListener('click', handleClick, listenCapturing)
-    }, [action]);
+    return () =>
+      document.removeEventListener("click", handleClick, listenCapturing);
+  }, [action, listenCapturing]);
 
-  return {ref}
-}
-
+  return { ref };
+};

@@ -1,19 +1,24 @@
 "use client";
-
 import React, { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-import { formatISO } from "date-fns";
-import { Range } from "react-date-range";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
 
 import Modal from "./Modal";
-import Calendar from "../inputs/Calendar";
-import { CountrySelectValue } from "../inputs/CountrySelect";
+import Button from "../Button";
 import Heading from "../Heading";
-import CountrySelect from "../inputs/CountrySelect";
 import Counter from "../inputs/Counter";
-import useSearchModal from "@/store/useSearchModal";
+import CountrySelect from "../inputs/CountrySelect";
+import { formatISO } from "date-fns";
+
+const Calendar = dynamic(() => import("@/components/Calender"), { ssr: false });
+
+const steps = {
+  "0": "location",
+  "1": "dateRange",
+  "2": "guestCount",
+};
 
 enum STEPS {
   LOCATION = 0,
@@ -21,21 +26,28 @@ enum STEPS {
   INFO = 2,
 }
 
-const SearchModal = () => {
-  const searchModal = useSearchModal();
-  const router = useRouter();
-  const params = useSearchParams();
-
+const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
   const [step, setStep] = useState(STEPS.LOCATION);
-  const [location, setLocation] = useState<CountrySelectValue>();
-  const [guestCount, setGuestCount] = useState(1);
-  const [roomCount, setRoomCount] = useState(1);
-  const [bathroomCount, setBathroomCount] = useState(1);
-  const [dateRange, setDateRange] = useState<Range>({
-    startDate: new Date(),
-    endDate: new Date(),
-    key: "selection",
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const { handleSubmit, setValue, watch, getValues } = useForm<FieldValues>({
+    defaultValues: {
+      location: null,
+      guestCount: 1,
+      bathroomCount: 1,
+      roomCount: 1,
+      dateRange: {
+        startDate: new Date(),
+        endDate: new Date(),
+        key: "selection",
+      },
+    },
   });
+
+  const location = watch("location");
+  const dateRange = watch("dateRange");
+  const country = location?.label;
 
   const Map = useMemo(
     () =>
@@ -43,24 +55,33 @@ const SearchModal = () => {
         ssr: false,
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [location]
+    [country]
   );
 
-  const onNext = () => {
-    setStep((value) => value + 1);
-  }
+  const setCustomValue = (id: string, value: any) => {
+    setValue(id, value, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
+  };
 
   const onBack = () => {
     setStep((value) => value - 1);
-  }
+  };
 
-  const onSubmit = async () => {
+  const onNext = () => {
+    setStep((value) => value + 1);
+  };
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (step !== STEPS.INFO) return onNext();
+    const { guestCount, roomCount, bathroomCount, dateRange } = data;
 
     let currentQuery = {};
 
-    if (params) {
-      currentQuery = queryString.parse(params.toString());
+    if (searchParams) {
+      currentQuery = queryString.parse(searchParams.toString());
     }
 
     const updatedQuery: any = {
@@ -86,97 +107,106 @@ const SearchModal = () => {
       },
       { skipNull: true }
     );
-
-    setStep(STEPS.LOCATION);
-    searchModal.onClose();
+    onCloseModal?.();
     router.push(url);
-  }
+  };
 
-  const actionLabel = useMemo(() => {
-    if (step === STEPS.INFO) {
-      return "Search";
+  const body = () => {
+    switch (step) {
+      case STEPS.DATE:
+        return (
+          <div className="flex flex-col gap-3">
+            <Heading
+              title="When do you plan to go?"
+              subtitle="Make sure everyone is free!"
+            />
+            <div className="h-[348px] w-full">
+              <Calendar onChange={setCustomValue} value={dateRange} />
+            </div>
+          </div>
+        );
+
+      case STEPS.INFO:
+        return (
+          <div className="flex flex-col gap-6">
+            <Heading
+              title="More information"
+              subtitle="Find your perfect place!"
+            />
+            <Counter
+              title="Guests"
+              subtitle="How many guests do you allow?"
+              watch={watch}
+              onChange={setCustomValue}
+              name="guestCount"
+            />
+            <hr />
+            <Counter
+              onChange={setCustomValue}
+              watch={watch}
+              title="Rooms"
+              subtitle="How many rooms do you have?"
+              name="roomCount"
+            />
+            <hr />
+            <Counter
+              onChange={setCustomValue}
+              watch={watch}
+              title="Bathrooms"
+              subtitle="How many bathrooms do you have?"
+              name="bathroomCount"
+            />
+          </div>
+        );
+
+      default:
+        return (
+          <div className="flex flex-col gap-4">
+            <Heading
+              title="Where is your place located?"
+              subtitle="Help guests find you!"
+            />
+            <CountrySelect value={location} onChange={setCustomValue} />
+            <div className="h-[240px]">
+              <Map center={location?.latlng} />
+            </div>
+          </div>
+        );
     }
+  };
 
-    return "Next";
-  }, [step]);
-
-  const secondaryActionLabel = useMemo(() => {
-    if (step === STEPS.LOCATION) return undefined;
-
-    return "Back";
-  }, [step]);
-
-  let bodyContent = (
-    <div className="flex flex-col gap-8">
-      <Heading
-        title="Where do you wanna go?"
-        subtitle="Find the perfect location!"
-      />
-      <CountrySelect
-        value={location}
-        onChange={(value) => setLocation(value as CountrySelectValue)}
-      />
-      <hr />
-      <Map center={location?.latlng} />
-    </div>
-  );
-
-  if (step === STEPS.DATE) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="When do you plan to go?"
-          subtitle="Make sure everyone is free!"
-        />
-        <Calendar
-          onChange={(value) => setDateRange(value.selection)}
-          value={dateRange}
-        />
-      </div>
-    );
-  }
-
-  if (step === STEPS.INFO) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading title="More information" subtitle="Find your perfect place!" />
-        <Counter
-          onChange={(value) => setGuestCount(value)}
-          value={guestCount}
-          title="Guests"
-          subtitle="How many guests are coming?"
-        />
-        <hr />
-        <Counter
-          onChange={(value) => setRoomCount(value)}
-          value={roomCount}
-          title="Rooms"
-          subtitle="How many rooms do you need?"
-        />
-        <hr />
-        <Counter
-          onChange={(value) => {
-            setBathroomCount(value);
-          }}
-          value={bathroomCount}
-          title="Bathrooms"
-          subtitle="How many bahtrooms do you need?"
-        />
-      </div>
-    );
-  }
+  const isFieldFilled = !!getValues(steps[step]);
 
   return (
-    <Modal
-      isOpen={searchModal.isOpen}
-      onClose={searchModal.onClose}
-      title="Filters"
-      actionLabel={actionLabel}
-      onSubmit={onSubmit}
-      secondaryActionLabel={secondaryActionLabel}
-      secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
-      body={bodyContent}
-    />
+    <div className="h-full w-full bg-white flex flex-col">
+      <Modal.WindowHeader title="Filter!" />
+      <form
+        className="h-auto flex-1 border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none "
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="relative p-6">{body()}</div>
+        <div className="flex flex-col gap-2 px-6 pb-6 pt-3">
+          <div className="flex flex-row items-center gap-4 w-full">
+            {step !== STEPS.LOCATION ? (
+              <Button
+                type="button"
+                className="flex items-center gap-2 justify-center"
+                onClick={onBack}
+              >
+                Back
+              </Button>
+            ) : null}
+            <Button
+              type="submit"
+              className="flex items-center gap-2 justify-center"
+              disabled={!isFieldFilled}
+            >
+              {step === STEPS.INFO ? "Search" : "Next"}
+            </Button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };
 

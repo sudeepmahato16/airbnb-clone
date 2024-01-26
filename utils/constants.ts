@@ -23,7 +23,7 @@ export const categories = [
   {
     label: "Windmills",
     icon: GiWindmill,
-    description: "This property is has windmills!",
+    description: "This property has a windmills!",
   },
   {
     label: "Modern",
@@ -93,3 +93,23 @@ export const categories = [
 ];
 
 export const LISTINGS_BATCH = 10;
+
+
+export const menuItems = [
+  {
+    label: "My trips",
+    path: "/trips"
+  },
+  {
+    label: "My favorites",
+    path: "/favorites"
+  },
+  {
+    label: "My reservations",
+    path: "/reservations"
+  },
+  {
+    label: "My properties",
+    path: "/properties"
+  },
+]

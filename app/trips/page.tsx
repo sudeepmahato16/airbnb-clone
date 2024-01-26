@@ -1,23 +1,23 @@
-import React from "react";
+import React, { Suspense } from "react";
 
-import TripsClient from "./_components/TripsClient";
 import EmptyState from "@/components/EmptyState";
-import Container from "@/components/Container";
 import Heading from "@/components/Heading";
+import ListingCard from "@/components/ListingCard";
+import LoadMore from "@/components/LoadMore";
 
-import { getCurrentUser } from "@/actions/getCurrentUser";
-import { getReservations } from "@/actions/getReservations";
+import { getCurrentUser } from "@/services/user";
+import { getReservations } from "@/services/reservation";
 
 const TripsPage = async () => {
-  const currentUser = await getCurrentUser();
+  const user = await getCurrentUser();
 
-  if (!currentUser) {
+  if (!user) {
     return <EmptyState title="Unauthorized" subtitle="Please login" />;
   }
 
-  const reservations = await getReservations({ userId: currentUser.id });
+  const { listings, nextCursor } = await getReservations({ userId: user.id });
 
-  if (reservations.length === 0) {
+  if (listings.length === 0) {
     return (
       <EmptyState
         title="No trips found"
@@ -27,13 +27,34 @@ const TripsPage = async () => {
   }
 
   return (
-    <Container>
+    <section className="main-container">
       <Heading
         title="Trips"
-        subtitle="Where you've been and where you're going"
+        subtitle="Where you've been and where you're going."
       />
-      <TripsClient reservations={reservations} currentUser={currentUser} />
-    </Container>
+      <div className=" mt-8 md:mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 md:gap-8 gap-4">
+        {listings.map((listing) => {
+          const { reservation, ...data } = listing;
+          return (
+            <ListingCard
+              key={listing.id}
+              data={data}
+              reservation={reservation}
+            />
+          );
+        })}
+        {nextCursor ? (
+          <Suspense fallback={<></>}>
+            <LoadMore
+              nextCursor={nextCursor}
+              fnArgs={{ userId: user.id }}
+              queryFn={getReservations}
+              queryKey={["trips", user.id]}
+            />
+          </Suspense>
+        ) : null}
+      </div>
+    </section>
   );
 };
 

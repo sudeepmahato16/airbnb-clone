@@ -1,27 +1,24 @@
-"use client"
+"use client";
 import React from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { User } from "@prisma/client";
-
-import useFavorite from "@/hooks/useFavorite";
+import { toast } from "react-hot-toast";
 
 interface HeartButtonProps {
   listingId: string;
-  currentUser?: User | null;
 }
 
-const HeartButton: React.FC<HeartButtonProps> = ({
-  listingId,
-  currentUser,
-}) => {
-  const { hasFavorited, toggleFavorite } = useFavorite({
-    listingId,
-    currentUser,
-  });
+const HeartButton: React.FC<HeartButtonProps> = ({ listingId }) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    toast.error("This feature is currently under construction");
+  };
 
   return (
-    <div
-      onClick={toggleFavorite}
+    <button
+      type="button"
+      onClick={handleClick}
       className="
         relative
         hover:opacity-80
@@ -39,11 +36,8 @@ const HeartButton: React.FC<HeartButtonProps> = ({
           -right-[2px]
         "
       />
-      <AiFillHeart
-        size={24}
-        className={hasFavorited ? "fill-rose-500" : "fill-neutral-500/70"}
-      />
-    </div>
+      <AiFillHeart size={24} className={"fill-neutral-500/70"} />
+    </button>
   );
 };
 

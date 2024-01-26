@@ -1,23 +1,25 @@
 import React from "react";
 
 import EmptyState from "@/components/EmptyState";
-import FavoritesClient from "./_components/FavoritesClient";
-import { getCurrentUser } from "@/actions/getCurrentUser";
-import { getFavoriteListings } from "@/actions/getFavoriteListings";
+import { getCurrentUser } from "@/services/user";
+
 
 const FavoritesPage = async () => {
-  const currentUser = await getCurrentUser();
-  const listings = await getFavoriteListings();
+  const user = await getCurrentUser();
 
-  if (listings.length === 0)
+  if (!user) {
+    return <EmptyState title="Unauthorized" subtitle="Please login" />;
+  }
+
     return (
       <EmptyState
-        title="No favorites found"
-        subtitle="Looks like you have no favorite listings."
+        title="No Favorites found"
+        subtitle="Looks like you have no properties."
       />
     );
 
-  return <FavoritesClient listings={listings} currentUser={currentUser} />;
+
+  
 };
 
 export default FavoritesPage;

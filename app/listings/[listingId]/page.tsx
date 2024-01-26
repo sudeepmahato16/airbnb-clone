@@ -1,21 +1,20 @@
 import React from "react";
 
 import EmptyState from "@/components/EmptyState";
+import ListingHead from "./_components/ListingHead";
+import ListingInfo from "./_components/ListingInfo";
 import ListingClient from "./_components/ListingClient";
-import Container from "@/components/Container";
-import ListingHead from "@/components/listings/ListingHead";
-import ListingInfo from "@/components/listings/ListingInfo";
 
-import { getCurrentUser } from "@/actions/getCurrentUser";
-import { getListingById } from "@/actions/getListingById";
+import {getCurrentUser} from '@/services/user'
+import { getListingById } from "@/services/listing";
 import { categories } from "@/utils/constants";
 
 interface IParams {
-  listingId?: string;
+  listingId: string;
 }
 
-const ListingPage = async ({ params }: { params: IParams }) => {
-  const listing = await getListingById(params);
+const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
+  const listing = await getListingById(listingId);
   const currentUser = await getCurrentUser();
 
   if (!listing) return <EmptyState />;
@@ -26,7 +25,7 @@ const ListingPage = async ({ params }: { params: IParams }) => {
     country,
     region,
     id,
-    user,
+    user: owner,
     price,
     description,
     roomCount,
@@ -39,37 +38,35 @@ const ListingPage = async ({ params }: { params: IParams }) => {
   const category = categories.find((cate) => cate.label === listing.category);
 
   return (
-    <Container>
-      <div className="max-w-screen-lg mx-auto">
-        <div className="flex flex-col gap-6">
-          <ListingHead
-            title={title}
-            image={imageSrc}
-            country={country}
-            region={region}
-            id={id}
-            currentUser={currentUser}
-          />
-        </div>
-
-        <ListingClient
+    <section className="main-container">
+      <div  className="flex flex-col gap-6">
+        <ListingHead
+          title={title}
+          image={imageSrc}
+          country={country}
+          region={region}
           id={id}
-          price={price}
-          currentUser={currentUser}
-          reservations={reservations}
-        >
-          <ListingInfo
-            user={user}
-            category={category}
-            description={description}
-            roomCount={roomCount}
-            guestCount={guestCount}
-            bathroomCount={bathroomCount}
-            latlng={latlng}
-          />
-        </ListingClient>
+        />
       </div>
-    </Container>
+
+      <ListingClient
+        id={id}
+        price={price}
+        reservations={reservations}
+        user={currentUser}
+        title={title}
+      >
+        <ListingInfo
+          user={owner}
+          category={category}
+          description={description}
+          roomCount={roomCount}
+          guestCount={guestCount}
+          bathroomCount={bathroomCount}
+          latlng={latlng}
+        />
+      </ListingClient>
+    </section>
   );
 };
 

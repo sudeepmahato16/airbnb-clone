@@ -1,9 +1,7 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Select from "react-select";
-import { useQuery } from "@tanstack/react-query";
-import { getCountries } from "@/actions/getCountries";
-import Skeleton from "react-loading-skeleton";
+import countries from "@/data/countries.json";
 
 export type CountrySelectValue = {
   flag: string;
@@ -18,48 +16,54 @@ const CountrySelect = ({
   onChange,
 }: {
   value?: CountrySelectValue;
-  onChange: (val: CountrySelectValue) => void;
+  onChange: (name: string, val: CountrySelectValue) => void;
 }) => {
-  const { data: countries, isLoading } = useQuery({
-    queryFn: getCountries,
-    queryKey: ["countries"],
-  });
+  const ref = useRef<any>(null);
 
-  if (isLoading) return <Skeleton height={48} width={"100%"} />;
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      ref.current?.focus();
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleChange = (value: CountrySelectValue) => {
+    onChange("location", value);
+  };
 
   return (
-    <div>
-      <Select
-        placeholder="Anywhere"
-        isClearable
-        options={countries}
-        value={value}
-        onChange={(value) => onChange(value as CountrySelectValue)}
-        formatOptionLabel={(option: any) => (
-          <div className="flex flex-row items-center gap-3 z-[10]">
-            <div>{option.flag}</div>
-            <div>
-              {option.label},
-              <span className="text-neutral-500 ml-1">{option.region}</span>
-            </div>
+    <Select
+      ref={ref}
+      placeholder="Anywhere"
+      isClearable
+      options={countries}
+      value={value}
+      onChange={handleChange}
+      formatOptionLabel={(option: any) => (
+        <div className="flex flex-row items-center gap-3 z-[10]">
+          <div>{option.flag}</div>
+          <div>
+            {option.lsabel},
+            <span className="text-neutral-500 ml-1">{option.region}</span>
           </div>
-        )}
-        classNames={{
-          control: () => "p-[6px] text-[14px] border-1",
-          input: () => "text-[14px]",
-          option: () => "text-[14px]",
-        }}
-        theme={(theme) => ({
-          ...theme,
-          borderRadius: 6,
-          colors: {
-            ...theme.colors,
-            primary: "black",
-            primary25: "#ffe4e6",
-          },
-        })}
-      />
-    </div>
+        </div>
+      )}
+      classNames={{
+        control: () => "p-[6px] text-[14px] border-1",
+        input: () => "text-[14px]",
+        option: () => "text-[14px]",
+      }}
+      theme={(theme) => ({
+        ...theme,
+        borderRadius: 6,
+        colors: {
+          ...theme.colors,
+          primary: "black",
+          primary25: "#ffe4e6",
+        },
+      })}
+    />
   );
 };
 

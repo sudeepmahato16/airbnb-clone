@@ -20,7 +20,7 @@ export const useLoadMore = (
     };
     const observer = new IntersectionObserver(callbackFn, {
       root: null,
-      rootMargin: "270px",
+      rootMargin: "240px",
       threshold: 0.1,
     });
 

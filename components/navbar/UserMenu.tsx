@@ -1,120 +1,94 @@
 "use client";
-
-import React, { useState } from "react";
+import React from "react";
+import { AiOutlineMenu } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { AnimatePresence, motion } from "framer-motion";
-import { AiOutlineMenu } from "react-icons/ai";
-import { User } from "@prisma/client";
+import { User } from "next-auth";
 
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
-
-import useRegisterModal from "@/store/useRegisterModal";
-import useLoginModal from "@/store/useLoginModal";
-import useRentModal from "@/hooks/useRentModal";
-import { useOutsideClick } from "@/hooks/useOutsideClick";
-import { zoomIn } from "@/utils/motion";
+import Menu from "@/components/Menu";
+import RentModal from "../modals/RentModal";
+import Modal from "../modals/Modal";
+import AuthModal from "../modals/AuthModal";
+import { menuItems } from "@/utils/constants";
 
 interface UserMenuProps {
-  currentUser?: User | null;
+  user?: User;
 }
 
-const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
   const router = useRouter();
-  const registerModal = useRegisterModal();
-  const loginModal = useLoginModal();
-  const rentModal = useRentModal();
 
-  const { ref } = useOutsideClick(close, false);
-
-  function close() {
-    setIsOpen(false);
-  }
-
-  const open = () => {
-    setIsOpen((prev) => !prev);
-  }
-
-  const onRent = () => {
-    if (!currentUser) return loginModal.onOpen();
-    close();
-    rentModal.onOpen();
-  }
-
-  const navigate = (pathName: string) => {
-    close();
-    router.push(pathName);
+  const redirect = (url: string) => {
+    router.push(url);
   };
 
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div
-          className="hidden md:block text-sm font-bold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer text-[#585858]"
-          onClick={onRent}
-        >
-          Share your home
-        </div>
-
-        <div
-          className=" p-4 md:py-1 md:px-2 border-[1px]   border-neutral-200  flex  flex-row  items-center   gap-3   rounded-full   cursor-pointer   hover:shadow-md   transition duration-300"
-          onClick={open}
-        >
-          <AiOutlineMenu />
-          <div className="hidden md:block">
-            <Avatar src={currentUser?.image} />
-          </div>
-        </div>
-      </div>
-
-      <AnimatePresence>
-
-        {isOpen && (
-          <motion.div
-            variants={zoomIn(0.85, 0.175)}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-            style={{
-              originY: 0,
-            }}
-            ref={ref}
-            className="absolute rounded-xl shadow-[0_0_36px_4px_rgba(0,0,0,0.075)] w-[40vw] md:w-3/4  bg-white overflow-hidden right-0 top-12 text-sm
-          z-[10]
-          "
-          >
-            <div className="flex flex-col cursor-pointer">
-              {currentUser ? (
+        <Modal>
+          <Modal.Trigger name={user ? "share" : "Login"}>
+            <button
+              type="button"
+              className="hidden md:block text-sm font-bold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer text-[#585858]"
+            >
+              Share your home
+            </button>
+          </Modal.Trigger>
+          <Menu>
+            <Menu.Toggle id="user-menu">
+              <button
+                type="button"
+                className=" p-4 md:py-1 md:px-2 border-[1px]   border-neutral-200  flex  flex-row  items-center   gap-3   rounded-full   cursor-pointer   hover:shadow-md   transition duration-300"
+              >
+                <AiOutlineMenu />
+                <div className="hidden md:block">
+                  <Avatar src={user?.image} />
+                </div>
+              </button>
+            </Menu.Toggle>
+            <Menu.List className="shadow-[0_0_36px_4px_rgba(0,0,0,0.075)] rounded-xl bg-white text-sm">
+              {user ? (
                 <>
-                  <MenuItem label="My trips" onClick={() => navigate("/trips")} />
-                  <MenuItem
-                    label="My favorites"
-                    onClick={() => navigate("/favorites")}
-                  />
-                  <MenuItem
-                    label="My reservations"
-                    onClick={() => navigate("/reservations")}
-                  />
-                  <MenuItem
-                    label="My properties"
-                    onClick={() => navigate("/properties")}
-                  />
-                  <MenuItem label="Share your home" onClick={onRent} />
+                  {menuItems.map((item) => (
+                    <MenuItem
+                      label={item.label}
+                      onClick={() => redirect(item.path)}
+                      key={item.label}
+                    />
+                  ))}
+
+                  <Modal.Trigger name="share">
+                    <MenuItem label="Share your home" />
+                  </Modal.Trigger>
                   <hr />
-                  <MenuItem label="Logout" onClick={() => signOut()} />
+                  <MenuItem label="Log out" onClick={signOut} />
                 </>
               ) : (
                 <>
-                  <MenuItem label="Login" onClick={loginModal.onOpen} />
-                  <MenuItem label="Sign up" onClick={registerModal.onOpen} />
+                  <Modal.Trigger name="Login">
+                    <MenuItem label="Log in" />
+                  </Modal.Trigger>
+
+                  <Modal.Trigger name="Sign up">
+                    <MenuItem label="Sign up" />
+                  </Modal.Trigger>
                 </>
               )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </Menu.List>
+          </Menu>
+          <Modal.Window name="Login">
+            <AuthModal name="Login" />
+          </Modal.Window>
+          <Modal.Window name="Sign up">
+            <AuthModal name="Sign up" />
+          </Modal.Window>
+          <Modal.Window name="share">
+            <RentModal />
+          </Modal.Window>
+        </Modal>
+      </div>
     </div>
   );
 };

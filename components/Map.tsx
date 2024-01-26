@@ -26,7 +26,7 @@ const Map: React.FC<MapProps> = ({ center }) => {
       center={(center as L.LatLngExpression) || [52, -0.09]}
       zoom={center ? 4 : 2}
       scrollWheelZoom={false}
-      className={`h-[210px] rounded-lg`}
+      className={`h-full rounded-lg`}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
