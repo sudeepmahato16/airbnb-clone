@@ -92,24 +92,23 @@ export const categories = [
   },
 ];
 
-export const LISTINGS_BATCH = 10;
-
+export const LISTINGS_BATCH = 12;
 
 export const menuItems = [
   {
     label: "My trips",
-    path: "/trips"
+    path: "/trips",
   },
   {
     label: "My favorites",
-    path: "/favorites"
+    path: "/favorites",
   },
   {
     label: "My reservations",
-    path: "/reservations"
+    path: "/reservations",
   },
   {
     label: "My properties",
-    path: "/properties"
+    path: "/properties",
   },
-]
+];

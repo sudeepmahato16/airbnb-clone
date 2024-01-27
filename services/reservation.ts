@@ -1,11 +1,10 @@
 "use server";
+import { revalidatePath } from "next/cache";
 import { Listing, Reservation } from "@prisma/client";
 
 import { db } from "@/lib/db";
 import { LISTINGS_BATCH } from "@/utils/constants";
 import { getCurrentUser } from "./user";
-import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 
 export const getReservations = async (args: Record<string, string>) => {
   try {

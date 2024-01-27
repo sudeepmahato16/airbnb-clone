@@ -15,6 +15,7 @@ interface LoadMoreProps {
     nextCursor: null | string;
   }>;
   queryKey: any[];
+  favorites: string[];
 }
 
 const LoadMore: FC<LoadMoreProps> = ({
@@ -22,6 +23,7 @@ const LoadMore: FC<LoadMoreProps> = ({
   fnArgs,
   queryFn,
   queryKey,
+  favorites,
 }) => {
   const { data, isFetchingNextPage, hasNextPage, status, fetchNextPage } =
     useInfiniteQuery({
@@ -42,9 +44,16 @@ const LoadMore: FC<LoadMoreProps> = ({
     <>
       {data?.pages.map((group, i) => (
         <React.Fragment key={i}>
-          {group?.listings?.map((listing: Listing) => (
-            <ListingCard key={listing.id} data={listing} />
-          ))}
+          {group?.listings?.map((listing: Listing) => {
+            const hasFavorited = favorites.includes(listing.id);
+            return (
+              <ListingCard
+                key={listing.id}
+                data={listing}
+                hasFavorited={hasFavorited}
+              />
+            );
+          })}
         </React.Fragment>
       ))}
       {(status === "loading" || isFetchingNextPage) && (

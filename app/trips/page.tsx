@@ -7,9 +7,11 @@ import LoadMore from "@/components/LoadMore";
 
 import { getCurrentUser } from "@/services/user";
 import { getReservations } from "@/services/reservation";
+import { getFavorites } from "@/services/favorite";
 
 const TripsPage = async () => {
   const user = await getCurrentUser();
+  const favorites = await getFavorites();
 
   if (!user) {
     return <EmptyState title="Unauthorized" subtitle="Please login" />;
@@ -21,7 +23,7 @@ const TripsPage = async () => {
     return (
       <EmptyState
         title="No trips found"
-        subtitle="Looks like you havent reserved any trips."
+        subtitle="Looks like you haven't reserved any trips."
       />
     );
   }
@@ -35,11 +37,13 @@ const TripsPage = async () => {
       <div className=" mt-8 md:mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 md:gap-8 gap-4">
         {listings.map((listing) => {
           const { reservation, ...data } = listing;
+          const hasFavorited = favorites.includes(listing.id);
           return (
             <ListingCard
               key={listing.id}
               data={data}
               reservation={reservation}
+              hasFavorited={hasFavorited}
             />
           );
         })}
@@ -50,6 +54,7 @@ const TripsPage = async () => {
               fnArgs={{ userId: user.id }}
               queryFn={getReservations}
               queryKey={["trips", user.id]}
+              favorites={favorites}
             />
           </Suspense>
         ) : null}

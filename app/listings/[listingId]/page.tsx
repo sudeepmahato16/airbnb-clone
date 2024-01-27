@@ -5,7 +5,7 @@ import ListingHead from "./_components/ListingHead";
 import ListingInfo from "./_components/ListingInfo";
 import ListingClient from "./_components/ListingClient";
 
-import {getCurrentUser} from '@/services/user'
+import { getCurrentUser } from "@/services/user";
 import { getListingById } from "@/services/listing";
 import { categories } from "@/utils/constants";
 
@@ -39,7 +39,7 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
 
   return (
     <section className="main-container">
-      <div  className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6">
         <ListingHead
           title={title}
           image={imageSrc}

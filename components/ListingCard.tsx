@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BsThreeDots } from "react-icons/bs";
 import { MdDeleteOutline } from "react-icons/md";
 import { format } from "date-fns";
-import { Listing, Reservation } from "@prisma/client";
+import { Listing } from "@prisma/client";
 import Skeleton from "react-loading-skeleton";
 
 import HeartButton from "./HeartButton";
@@ -20,9 +20,14 @@ interface ListingCardProps {
     endDate: Date;
     totalPrice: number;
   };
+  hasFavorited: boolean;
 }
 
-const ListingCard: React.FC<ListingCardProps> = ({ data, reservation }) => {
+const ListingCard: React.FC<ListingCardProps> = ({
+  data,
+  reservation,
+  hasFavorited,
+}) => {
   const price = reservation ? reservation.totalPrice : data?.price;
 
   let reservationDate;
@@ -61,7 +66,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, reservation }) => {
               </div>
 
               <div className="w-[40px] h-[40px] flex items-center justify-center">
-                <HeartButton listingId={data.id} />
+                <HeartButton listingId={data.id} key={data.id} hasFavorited={hasFavorited} />
               </div>
             </div>
             <Image
