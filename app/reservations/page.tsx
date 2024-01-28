@@ -3,10 +3,10 @@ import React, { Suspense } from "react";
 import EmptyState from "@/components/EmptyState";
 import Heading from "@/components/Heading";
 import ListingCard from "@/components/ListingCard";
+import LoadMore from "@/components/LoadMore";
 
 import { getCurrentUser } from "@/services/user";
 import { getReservations } from "@/services/reservation";
-import LoadMore from "@/components/LoadMore";
 import { getFavorites } from "@/services/favorite";
 
 const ReservationPage = async () => {
@@ -16,7 +16,7 @@ const ReservationPage = async () => {
   if (!user) return <EmptyState title="Unauthorized" subtitle="Please login" />;
 
   const { listings, nextCursor } = await getReservations({
-    autherId: user.id,
+    authorId: user.id,
   });
 
   if (listings.length === 0)
@@ -47,7 +47,7 @@ const ReservationPage = async () => {
           <Suspense fallback={<></>}>
             <LoadMore
               nextCursor={nextCursor}
-              fnArgs={{ autherId: user.id }}
+              fnArgs={{ authorId: user.id }}
               queryFn={getReservations}
               queryKey={["reservations", user.id]}
               favorites={favorites}

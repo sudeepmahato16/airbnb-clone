@@ -86,16 +86,18 @@ interface ButtonProps {
 const Button: FC<ButtonProps> = ({ children, onClick, className }) => {
   const { close } = useContext(MenuContext);
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
     close();
     onClick?.(e);
   };
 
   return (
-    <li className={cn("w-full", className)}>
+    <li className={"w-full"}>
       <button
         onClick={handleClick}
         type="button"
-        className="text-left px-4 py-3 w-full"
+        className={cn("text-left px-4 py-3 w-full", className)}
       >
         {children}
       </button>

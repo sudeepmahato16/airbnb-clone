@@ -92,7 +92,7 @@ export const categories = [
   },
 ];
 
-export const LISTINGS_BATCH = 12;
+export const LISTINGS_BATCH = 16;
 
 export const menuItems = [
   {

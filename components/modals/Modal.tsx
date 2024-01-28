@@ -78,7 +78,6 @@ const Modal: FC<ModalProps> & {
 const Trigger: FC<TriggerProps> = ({ children, name }) => {
   const { open } = useContext(ModalContext);
   const onClick = (e: MouseEvent | TouchEvent) => {
-    e.stopPropagation();
     open(name);
   };
   return cloneElement(children, { onClick });

@@ -111,3 +111,46 @@ export const createReservation = async ({
     throw new Error(error?.message);
   }
 };
+
+export const deleteReservation = async (reservationId: string) => {
+  try {
+    const currentUser = await getCurrentUser();
+
+    if (!currentUser) {
+      throw new Error("Unauthorized");
+    }
+
+    if (!reservationId || typeof reservationId !== "string") {
+      throw new Error("Invalid ID");
+    }
+
+
+    const reservation = await db.reservation.findUnique({
+      where: {
+        id: reservationId,
+      }
+    });
+
+    if (!reservation) {
+      throw new Error("Reservation not found!");
+    }
+
+    await db.reservation.deleteMany({
+      where: {
+        id: reservationId,
+        OR: [
+          { userId: currentUser.id },
+          { listing: { userId: currentUser.id } },
+        ],
+      },
+    });
+
+    revalidatePath("/reservations");
+    revalidatePath(`/listings/${reservation.listingId}`);
+    revalidatePath("/trips");
+
+    return reservation;
+  } catch (error: any) {
+    throw new Error(error.message)
+  }
+};

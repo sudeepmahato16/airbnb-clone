@@ -1,6 +1,8 @@
 "use server";
 import { db } from "@/lib/db";
 import { LISTINGS_BATCH } from "@/utils/constants";
+import { getCurrentUser } from "./user";
+import { revalidatePath } from "next/cache";
 
 export const getProperties = async (args?: Record<string, string>) => {
   try {
@@ -41,4 +43,34 @@ export const getProperties = async (args?: Record<string, string>) => {
       nextCursor: null,
     };
   }
+};
+
+export const deleteProperty = async (listingId: string) => {
+  try {
+    const currentUser = await getCurrentUser();
+
+    if (!currentUser) {
+      throw new Error("Unauthorized");
+    }
+
+    if (!listingId || typeof listingId !== "string") {
+      throw new Error("Invalid ID");
+    }
+
+    const listing = await db.listing.deleteMany({
+      where: {
+        id: listingId,
+        userId: currentUser.id,
+      },
+    });
+
+    revalidatePath("/");
+    revalidatePath("/reservation");
+    revalidatePath("/trips");
+    revalidatePath("/favorites");
+    revalidatePath("/properties");
+    revalidatePath(`/listings/${listing.id}`)
+
+    return listing;
+  } catch (error) {}
 };

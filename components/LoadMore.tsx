@@ -4,7 +4,6 @@ import { Listing } from "@prisma/client";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import ListingCard, { ListingSkeleton } from "./ListingCard";
-import { LISTINGS_BATCH } from "@/utils/constants";
 import { useLoadMore } from "@/hooks/useLoadMore";
 
 interface LoadMoreProps {
@@ -44,21 +43,33 @@ const LoadMore: FC<LoadMoreProps> = ({
     <>
       {data?.pages.map((group, i) => (
         <React.Fragment key={i}>
-          {group?.listings?.map((listing: Listing) => {
-            const hasFavorited = favorites.includes(listing.id);
-            return (
-              <ListingCard
-                key={listing.id}
-                data={listing}
-                hasFavorited={hasFavorited}
-              />
-            );
-          })}
+          {group?.listings?.map(
+            (
+              listing: Listing & {
+                reservation?: {
+                  id: string;
+                  startDate: Date;
+                  endDate: Date;
+                  totalPrice: number;
+                };
+              }
+            ) => {
+              const hasFavorited = favorites.includes(listing.id);
+              return (
+                <ListingCard
+                  key={listing?.reservation?.id || listing.id}
+                  data={listing}
+                  hasFavorited={hasFavorited}
+                  reservation={listing?.reservation}
+                />
+              );
+            }
+          )}
         </React.Fragment>
       ))}
       {(status === "loading" || isFetchingNextPage) && (
         <>
-          {Array.from({ length: LISTINGS_BATCH / 2 }).map(
+          {Array.from({ length: 4 }).map(
             (_item: any, i: number) => (
               <ListingSkeleton key={i} />
             )
