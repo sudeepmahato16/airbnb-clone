@@ -57,7 +57,7 @@ export const deleteProperty = async (listingId: string) => {
       throw new Error("Invalid ID");
     }
 
-    const listing = await db.listing.deleteMany({
+    await db.listing.deleteMany({
       where: {
         id: listingId,
         userId: currentUser.id,
@@ -69,8 +69,10 @@ export const deleteProperty = async (listingId: string) => {
     revalidatePath("/trips");
     revalidatePath("/favorites");
     revalidatePath("/properties");
-    revalidatePath(`/listings/${listing.id}`)
+    revalidatePath(`/listings/${listingId}`);
 
-    return listing;
-  } catch (error) {}
+    return "success";
+  } catch (error) {
+    throw new Error("Failed to delete the property!");
+  }
 };
