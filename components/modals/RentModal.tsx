@@ -271,6 +271,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
                 type="button"
                 className="flex items-center gap-2 justify-center"
                 onClick={onBack}
+                outline
               >
                 Back
               </Button>
