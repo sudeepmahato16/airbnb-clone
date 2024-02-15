@@ -43,7 +43,8 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
   }
   
   return (
-    <div
+    <button
+    type="button"
     onClick={handleClick}
       className={` flex  flex-col max-w-fit  items-center  justify-center  gap-2 p-2 border-b-2  hover:text-neutral-800 transition cursor-pointer text-[20px] md:text-[24px] ${
         selected
@@ -52,7 +53,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
     >
       <Icon  />
       <small className="font-medium md:text-[13.75px] text-[12.75px] select-none">{label}</small>
-    </div>
+    </button>
   );
 };
 

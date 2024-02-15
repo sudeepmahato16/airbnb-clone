@@ -4,13 +4,13 @@ import dynamic from "next/dynamic";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
+import { formatISO } from "date-fns";
 
 import Modal from "./Modal";
 import Button from "../Button";
 import Heading from "../Heading";
 import Counter from "../inputs/Counter";
 import CountrySelect from "../inputs/CountrySelect";
-import { formatISO } from "date-fns";
 
 const Calendar = dynamic(() => import("@/components/Calender"), { ssr: false });
 
@@ -179,7 +179,7 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
 
   return (
     <div className="h-full w-full bg-white flex flex-col">
-      <Modal.WindowHeader title="Filter!" />
+      <Modal.WindowHeader title="Filter" />
       <form
         className="h-auto flex-1 border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none "
         onSubmit={handleSubmit(onSubmit)}
