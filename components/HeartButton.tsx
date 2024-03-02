@@ -27,11 +27,7 @@ const HeartButton: React.FC<HeartButtonProps> = ({
       hasFavoritedRef.current = !hasFavoritedRef.current;
       setHasFavorited(hasFavoritedRef.current);
       toast.error("Failed to favorite");
-    },
-    onSuccess: ({ hasFavorited }) => {
-      setHasFavorited(hasFavorited);
-      hasFavoritedRef.current = hasFavorited;
-    },
+    }
   });
 
   const debouncedUpdateFavorite = debounce(() => {
