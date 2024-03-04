@@ -12,6 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { zoomIn } from "@/utils/motion";
 import { cn } from "@/utils/helper";
+import { useKeyPress } from "@/hooks/useKeyPress";
 
 const MenuContext = createContext({
   openId: "",
@@ -32,7 +33,7 @@ const Toggle: FC<ToggleProps> = ({ children, id, className }) => {
     e.preventDefault();
     e.stopPropagation();
 
-    openId === "" || openId !== id ? setOpenId(id) : close();
+    (openId === "" || openId !== id) ? setOpenId(id) : close();
   };
 
   return <>{cloneElement(children, { onClick: handleClick })}</>;
@@ -51,6 +52,7 @@ const List: FC<ListProps> = ({
 }) => {
   const { openId, close } = useContext(MenuContext);
   const { ref } = useOutsideClick(close, false);
+  useKeyPress("Escape", close);
 
   return (
     <AnimatePresence>

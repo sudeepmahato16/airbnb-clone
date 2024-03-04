@@ -14,9 +14,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
 import { createPortal } from "react-dom";
 
-import { fadeIn, slideIn } from "@/utils/motion";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
-import { useIsClient } from "../../hooks/useIsClient";
+import { useIsClient } from "@/hooks/useIsClient";
+import { useKeyPress } from "@/hooks/useKeyPress";
+import { fadeIn, slideIn } from "@/utils/motion";
 
 interface ModalProps {
   children: ReactNode;
@@ -27,15 +28,15 @@ interface TriggerProps {
   children: ReactElement;
 }
 
-interface WindowProps extends TriggerProps {}
+interface WindowProps extends TriggerProps { }
 
 interface WindowHeaderProps {
   title: string;
 }
 
 const ModalContext = createContext({
-  open: (val: string) => {},
-  close: () => {},
+  open: (val: string) => { },
+  close: () => { },
   openName: "",
 });
 
@@ -46,16 +47,14 @@ const Modal: FC<ModalProps> & {
 } = ({ children }) => {
   const [openName, setOpenName] = useState("");
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (openName && e.key === "Escape") {
-        setOpenName("");
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
+  const handleKeyDown = useCallback(() => {
+    if (openName) {
+      setOpenName("");
+    }
+  }, [openName])
 
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [openName]);
+  useKeyPress("Escape", handleKeyDown)
+
 
   const close = useCallback(() => {
     setOpenName("");
