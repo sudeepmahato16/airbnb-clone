@@ -22,7 +22,7 @@
     "leaflet": "^1.9.4",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
-    "next": "14.0.4",
+    "next": "14.1.1",
     "next-auth": "^4.24.5",
     "query-string": "^8.1.0",
     "react": "^18",
