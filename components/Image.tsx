@@ -10,6 +10,7 @@ const CustomImage = ({
   className,
   priority = false,
   effect,
+  sizes
 }: {
   imageSrc: string;
   fill?: boolean;
@@ -17,6 +18,7 @@ const CustomImage = ({
   className?: string;
   priority?: boolean;
   effect?: "zoom";
+  sizes?: string;
 }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
@@ -33,7 +35,7 @@ const CustomImage = ({
       alt={alt}
       onLoad={() => setIsImageLoaded(true)}
       priority={priority}
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      sizes={sizes}
     />
   );
 };

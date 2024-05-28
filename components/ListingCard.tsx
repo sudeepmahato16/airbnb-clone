@@ -58,6 +58,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
                 fill
                 alt={data.title}
                 effect="zoom"
+                className="object-cover"
+                sizes="100vw"
               />
             </div>
           </div>

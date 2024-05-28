@@ -29,7 +29,7 @@ const ListingHead: React.FC<ListingHeadProps> = async ({
       <div
         className={`w-full md:h-[420px] sm:h-[280px] bg-gray-100 h-[260px] overflow-hidden  rounded-xl relative transition duration-300`}
       >
-        <Image imageSrc={image} fill className={`object-cover`} alt={title} />
+        <Image imageSrc={image} fill className={`object-cover`} alt={title} sizes="100vw" />
         <div className="absolute top-5 right-5">
           <HeartButton listingId={id} hasFavorited={hasFavorited} />
         </div>
