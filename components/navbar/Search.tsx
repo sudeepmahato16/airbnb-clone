@@ -1,11 +1,15 @@
 "use client";
 import React, { useMemo } from "react";
+import dynamic from "next/dynamic";
 import { differenceInDays } from "date-fns";
 import { useSearchParams } from "next/navigation";
 import { FaSearch } from "react-icons/fa";
 
 import Modal from "../modals/Modal";
-import SearchModal from "../modals/SearchModal";
+
+const SearchModal = dynamic(() => import("@/components/modals/SearchModal"), {
+  ssr: false
+});
 
 const Search = () => {
   const searchParams = useSearchParams();
