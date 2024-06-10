@@ -16,8 +16,8 @@ import { useKeyPress } from "@/hooks/useKeyPress";
 
 const MenuContext = createContext({
   openId: "",
-  setOpenId: (val: string) => {},
-  close: () => {},
+  setOpenId: (val: string) => { },
+  close: () => { },
 });
 
 interface ToggleProps {
@@ -51,8 +51,17 @@ const List: FC<ListProps> = ({
   position = "bottom-right",
 }) => {
   const { openId, close } = useContext(MenuContext);
-  const { ref } = useOutsideClick(close, false);
-  useKeyPress("Escape", close);
+  const { ref } = useOutsideClick({
+    action: close,
+    listenCapturing: false,
+    enable: !!openId
+  });
+  
+  useKeyPress({
+    key: "Escape",
+    action: close,
+    enable: !!openId
+  });
 
   return (
     <AnimatePresence>

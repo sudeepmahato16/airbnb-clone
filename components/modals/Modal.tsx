@@ -47,15 +47,6 @@ const Modal: FC<ModalProps> & {
 } = ({ children }) => {
   const [openName, setOpenName] = useState("");
 
-  const handleKeyDown = useCallback(() => {
-    if (openName) {
-      setOpenName("");
-    }
-  }, [openName])
-
-  useKeyPress("Escape", handleKeyDown)
-
-
   const close = useCallback(() => {
     setOpenName("");
   }, []);
@@ -84,10 +75,20 @@ const Trigger: FC<TriggerProps> = ({ children, name }) => {
 
 const Window: FC<WindowProps> = ({ children, name }) => {
   const { openName, close } = useContext(ModalContext);
-  const { ref } = useOutsideClick(close);
+  const isWindowOpen = openName === name;
+  const { ref } = useOutsideClick({
+    action: close,
+    enable: isWindowOpen,
+  });
+
+  useKeyPress({
+    key: "Escape",
+    action: close,
+    enable: isWindowOpen
+  })
+
   const isClient = useIsClient();
 
-  const isWindowOpen = openName === name;
 
   useEffect(() => {
     if (!isClient) return;

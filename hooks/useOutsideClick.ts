@@ -1,6 +1,16 @@
 import { useEffect, useRef } from "react";
 
-export const useOutsideClick = (action: (e?: any) => void, listenCapturing = true) => {
+interface IUseOutsideClick {
+  action: (e: MouseEvent) => void;
+  listenCapturing?: boolean;
+  enable?: boolean;
+}
+
+export const useOutsideClick = ({
+  action,
+  listenCapturing = true,
+  enable = true,
+}: IUseOutsideClick) => {
   const ref = useRef<any>(null);
 
   useEffect(() => {
@@ -10,11 +20,15 @@ export const useOutsideClick = (action: (e?: any) => void, listenCapturing = tru
       }
     };
 
-    document.addEventListener("click", handleClick, listenCapturing);
+    if (enable) {
+      document.addEventListener("click", handleClick, listenCapturing);
+    } else {
+      document.removeEventListener("click", handleClick, listenCapturing);
+    }
 
     return () =>
       document.removeEventListener("click", handleClick, listenCapturing);
-  }, [action, listenCapturing]);
+  }, [action, listenCapturing, enable]);
 
   return { ref };
 };
