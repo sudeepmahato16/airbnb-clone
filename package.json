@@ -36,6 +36,7 @@
     "react-loading-skeleton": "^3.3.1",
     "react-select": "^5.8.0",
     "sharp": "^0.33.1",
+    "stripe": "^17.2.1",
     "swiper": "^11.0.5",
     "tailwind-merge": "^2.2.0",
     "zod": "^3.22.4"

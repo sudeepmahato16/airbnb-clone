@@ -11,10 +11,9 @@ import { Range } from "react-date-range";
 import { User } from "next-auth";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 
 import ListingReservation from "./ListingReservation";
-import { createReservation } from "@/services/reservation";
+import { createPaymentSession, createReservation } from "@/services/reservation";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -50,8 +49,6 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
   const [isLoading, startTransition] = useTransition();
   const router = useRouter();
-  const queryClient = useQueryClient();
-
   const disabledDates = useMemo(() => {
     let dates: Date[] = [];
     reservations.forEach((reservation) => {
@@ -73,7 +70,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
       );
 
       if (dayCount && price) {
-        setTotalPrice(dayCount * price);
+        setTotalPrice((dayCount + 1) * price);
       } else {
         setTotalPrice(price);
       }
@@ -85,16 +82,16 @@ const ListingClient: React.FC<ListingClientProps> = ({
     startTransition(async () => {
       try {
         const { endDate, startDate } = dateRange;
-        await createReservation({
+        const res = await createPaymentSession({
           listingId: id,
           endDate,
           startDate,
           totalPrice,
         });
-        router.push("/trips");
-        toast.success(`You've successfully reserved "${title}".`);
-        queryClient.invalidateQueries(["trips", user.id]);
-        queryClient.invalidateQueries(["reservations", user.id]);
+
+        if(res?.url){
+          router.push(res.url);
+        }
       } catch (error: any) {
         toast.error(error?.message);
       }
