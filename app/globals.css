@@ -28,7 +28,7 @@ body {
 }
 
 .main-container {
-  @apply max-w-[1140px] mx-auto xl:px-0 px-4;
+  @apply max-w-[1140px] 2xl:max-w-[1200px] mx-auto xl:px-0 px-4;
 }
 
 .swiper-wrapper {
