@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
+
 import "./globals.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import Navbar from "@/components/navbar";
@@ -26,6 +28,7 @@ export default function RootLayout({
           <main className="pb-16 md:pt-28 pt-24">{children}</main>
         </Providers>
       </body>
+      <GoogleAnalytics gaId={process.env.GA_MEASUREMENT_ID || ""} />
     </html>
   );
 }
