@@ -36,6 +36,7 @@ const CustomImage = ({
       onLoad={() => setIsImageLoaded(true)}
       priority={priority}
       sizes={sizes}
+      unoptimized
     />
   );
 };

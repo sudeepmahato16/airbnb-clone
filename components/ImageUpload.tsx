@@ -84,6 +84,7 @@ const ImageUpload: FC<ImageUploadProps> = ({ onChange, initialImage = "" }) => {
             alt="hotel"
             sizes="100vw"
             className="z-10"
+            unoptimized
           />
         </div>
       ) : (

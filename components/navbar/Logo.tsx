@@ -11,6 +11,7 @@ const Logo = () => {
         fill
         sizes="150px"
         priority
+        unoptimized
       />
     </Link>
   );
