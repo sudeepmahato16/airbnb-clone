@@ -16,7 +16,7 @@ const ReservationPage = async () => {
   if (!user) return <EmptyState title="Unauthorized" subtitle="Please login" />;
 
   const { listings, nextCursor } = await getReservations({
-    authorId: user.id,
+    userId: user.id,
   });
 
   if (listings.length === 0)

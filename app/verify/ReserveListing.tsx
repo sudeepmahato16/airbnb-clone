@@ -1,0 +1,92 @@
+import { db } from "@/lib/db";
+import { createReservation } from "@/services/reservation";
+import { getCurrentUser } from "@/services/user";
+import { redirect } from "next/navigation";
+
+import React, { FC } from "react";
+import toast from "react-hot-toast";
+import { TbLoader2 } from "react-icons/tb";
+import RedirectUser from "./RedirectUser";
+
+interface IReserveListingProps {
+  listingId: string;
+  totalAmount: number;
+  startDate: string;
+  endDate: string;
+}
+
+function getNumberOfDays(
+  startDateStr: string,
+  endDateStr: string,
+  inclusive: boolean = false
+): number {
+  const startDate = new Date(startDateStr);
+  const endDate = new Date(endDateStr);
+
+  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+    throw new Error("Invalid date format");
+  }
+
+  const diffInMs = endDate.getTime() - startDate.getTime();
+  let diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+
+  if (inclusive) {
+    diffInDays += 1;
+  }
+
+  return diffInDays;
+}
+
+const ReserveListing: FC<IReserveListingProps> = async ({
+  listingId,
+  totalAmount,
+  startDate,
+  endDate,
+}) => {
+  console.log("data", listingId, startDate, endDate, totalAmount);
+
+  const user = await getCurrentUser();
+
+  if (!user) return <div>Unauthorized</div>;
+
+  const listing = await db.listing.findUnique({
+    where: {
+      id: listingId,
+    },
+  });
+
+  if (!listing) return <div>Something went wrong</div>;
+
+  const numberOfDays = getNumberOfDays(startDate, endDate, true);
+
+  if (totalAmount !== numberOfDays * listing.price)
+    return <div>Something went wrong</div>;
+
+  try {
+    await createReservation({
+      listingId,
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
+      totalPrice: totalAmount,
+      userId: user.id,
+    });
+  } catch (error) {
+    toast.error("Something went wrong");
+  }
+
+  return (
+    <div className="h-screen w-screen">
+      <div className="w-full h-[50%] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-2">
+          <TbLoader2 className="h-8 w-8 animate-spin text-zinc-500" />
+          <h3 className="font-semibold text-xl">You&#39;re all booked!</h3>
+          <p>Your reservation was successful. Redirecting you now...</p>
+        </div>
+      </div>
+
+      <RedirectUser />
+    </div>
+  );
+};
+
+export default ReserveListing;

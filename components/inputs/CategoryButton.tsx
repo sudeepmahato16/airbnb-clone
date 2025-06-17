@@ -48,7 +48,7 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
         onFocus={handleChange}
       >
         <Icon size={24} />
-        <span className="font-semibold text-sm select-none">{label}</span>
+        <span className="font-semibold text-sm select-none text-start">{label}</span>
       </button>
     </div>
   );

@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { LISTINGS_BATCH } from "@/utils/constants";
 import { getCurrentUser } from "./user";
 import { stripe } from "@/lib/stripe";
+import { randomUUID } from "crypto";
 
 export const getReservations = async (args: Record<string, string>) => {
   try {
@@ -25,6 +26,9 @@ export const getReservations = async (args: Record<string, string>) => {
       where.listing = { userId: authorId };
     }
 
+
+    console.log("args", args)
+
     const filterQuery: any = {
       where,
       take: LISTINGS_BATCH,
@@ -33,6 +37,8 @@ export const getReservations = async (args: Record<string, string>) => {
       },
       orderBy: { createdAt: "desc" },
     };
+
+    console.log("query", filterQuery)
 
     if (cursor) {
       filterQuery.cursor = { id: cursor };
@@ -75,13 +81,13 @@ export const createReservation = async ({
   startDate,
   endDate,
   totalPrice,
-  userId
+  userId,
 }: {
   listingId: string;
   startDate: Date | undefined;
   endDate: Date | undefined;
   totalPrice: number;
-  userId: string
+  userId: string;
 }) => {
   try {
     if (!listingId || !startDate || !endDate || !totalPrice)
@@ -121,11 +127,10 @@ export const deleteReservation = async (reservationId: string) => {
       throw new Error("Invalid ID");
     }
 
-
     const reservation = await db.reservation.findUnique({
       where: {
         id: reservationId,
-      }
+      },
     });
 
     if (!reservation) {
@@ -148,10 +153,9 @@ export const deleteReservation = async (reservationId: string) => {
 
     return reservation;
   } catch (error: any) {
-    throw new Error(error.message)
+    throw new Error(error.message);
   }
 };
-
 
 export const createPaymentSession = async ({
   listingId,
@@ -168,10 +172,10 @@ export const createPaymentSession = async ({
     throw new Error("Invalid data");
 
   const listing = await db.listing.findUnique({
-    where: {id: listingId}
-  })
+    where: { id: listingId },
+  });
 
-  if(!listing) throw new Error("Listing not found!");
+  if (!listing) throw new Error("Listing not found!");
 
   const user = await getCurrentUser();
 
@@ -179,32 +183,56 @@ export const createPaymentSession = async ({
     throw new Error("Please log in to reserve!");
   }
 
-  const product = await stripe.products.create({
-    name: "Listing",
-    images: [listing.imageSrc],
-    default_price_data: {
-      currency: "USD",
-      unit_amount: totalPrice * 100
-    }
-  })
+  // const product = await stripe.products.create({
+  //   name: "Listing",
+  //   images: [listing.imageSrc],
+  //   default_price_data: {
+  //     currency: "USD",
+  //     unit_amount: totalPrice * 100,
+  //   },
+  // });
 
-  const stripeSession = await stripe.checkout.sessions.create({
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/trips`,
-    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/listings/${listing.id}`,
-    payment_method_types: ['card'],
-    mode: 'payment',
-    shipping_address_collection: {
-      allowed_countries: ["DE", "US", "NP", "CH", "BH", "AU"],
+  // const stripeSession = await stripe.checkout.sessions.create({
+  //   success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/trips`,
+  //   cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/listings/${listing.id}`,
+  //   payment_method_types: ['card'],
+  //   mode: 'payment',
+  //   shipping_address_collection: {
+  //     allowed_countries: ["DE", "US", "NP", "CH", "BH", "AU"],
+  //   },
+  //   metadata: {
+  //     listingId,
+  //     startDate: String(startDate),
+  //     endDate: String(endDate),
+  //     totalPrice,
+  //     userId: user.id
+  //   },
+  //   line_items: [{ price: product.default_price as string, quantity: 1 }],
+  // });
+
+  // return {url: stripeSession.url}
+
+  const response = await fetch("http://localhost:3000/api/payment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-    metadata: {
+    body: JSON.stringify({
       listingId,
-      startDate: String(startDate),
-      endDate: String(endDate),
-      totalPrice,
-      userId: user.id
-    },
-    line_items: [{ price: product.default_price as string, quantity: 1 }],
+      startDate,
+      endDate,
+      method: "esewa",
+      amount: totalPrice,
+      productName: listing.title,
+      transactionId: randomUUID(),
+    }),
   });
 
-  return {url: stripeSession.url}
-}
+  if (!response.ok) {
+    throw new Error(`Payment initiation failed: ${response.statusText}`);
+  }
+
+  const paymentData = await response.json();
+  console.log(paymentData)
+  return paymentData;
+};
