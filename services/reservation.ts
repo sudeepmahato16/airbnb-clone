@@ -93,7 +93,7 @@ export const createReservation = async ({
     if (!listingId || !startDate || !endDate || !totalPrice)
       throw new Error("Invalid data");
 
-    await db.listing.update({
+    const reservation = await db.listing.update({
       where: {
         id: listingId,
       },
@@ -110,6 +110,8 @@ export const createReservation = async ({
     });
 
     revalidatePath(`/listings/${listingId}`);
+
+    return reservation
   } catch (error: any) {
     throw new Error(error?.message);
   }

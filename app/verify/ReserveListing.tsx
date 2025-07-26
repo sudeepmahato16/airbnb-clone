@@ -1,7 +1,6 @@
 import { db } from "@/lib/db";
 import { createReservation } from "@/services/reservation";
 import { getCurrentUser } from "@/services/user";
-import { redirect } from "next/navigation";
 
 import React, { FC } from "react";
 import toast from "react-hot-toast";
@@ -63,13 +62,30 @@ const ReserveListing: FC<IReserveListingProps> = async ({
     return <div>Something went wrong</div>;
 
   try {
-    await createReservation({
+    const reservation = await createReservation({
       listingId,
       startDate: new Date(startDate),
       endDate: new Date(endDate),
       totalPrice: totalAmount,
       userId: user.id,
     });
+
+    await fetch("/api/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        guestName: user.name,
+        hotelName: listing.title,
+        reservationId: reservation.id,
+        checkInDate: new Date(startDate).toISOString().split("T")[0],
+        checkOutDate: new Date(endDate).toISOString().split("T")[0],
+        totalPrice: totalAmount,
+        hotelAddress: listing.country,
+      }),
+    });
+    
   } catch (error) {
     toast.error("Something went wrong");
   }
