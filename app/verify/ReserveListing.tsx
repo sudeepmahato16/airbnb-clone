@@ -2,8 +2,7 @@ import { db } from "@/lib/db";
 import { createReservation } from "@/services/reservation";
 import { getCurrentUser } from "@/services/user";
 
-import React, { FC } from "react";
-import toast from "react-hot-toast";
+import React, { FC, Suspense } from "react";
 import { TbLoader2 } from "react-icons/tb";
 import RedirectUser from "./RedirectUser";
 
@@ -70,7 +69,7 @@ const ReserveListing: FC<IReserveListingProps> = async ({
       userId: user.id,
     });
 
-    await fetch("/api/send", {
+    await fetch("http://localhost:3000/api/send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -83,25 +82,27 @@ const ReserveListing: FC<IReserveListingProps> = async ({
         checkOutDate: new Date(endDate).toISOString().split("T")[0],
         totalPrice: totalAmount,
         hotelAddress: listing.country,
+        sendTo: user.email,
       }),
     });
-    
   } catch (error) {
-    toast.error("Something went wrong");
+    console.log(error);
   }
 
   return (
-    <div className="h-screen w-screen">
-      <div className="w-full h-[50%] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-2">
-          <TbLoader2 className="h-8 w-8 animate-spin text-zinc-500" />
-          <h3 className="font-semibold text-xl">You&#39;re all booked!</h3>
-          <p>Your reservation was successful. Redirecting you now...</p>
+    <Suspense
+      fallback={
+        <div className="w-full h-[50%] flex items-center justify-center mt-20">
+          <div className="flex flex-col items-center gap-2">
+            <TbLoader2 className="h-8 w-8 animate-spin text-zinc-500" />
+            <h3 className="font-semibold text-xl">You&#39;re all booked!</h3>
+            <p>Your reservation was successful. Redirecting you now...</p>
+          </div>
         </div>
-      </div>
-
+      }
+    >
       <RedirectUser />
-    </div>
+    </Suspense>
   );
 };
 

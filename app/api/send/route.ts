@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       html,
       email: "sudeepmahato456@gmail.com",
       sendTo: data.sendTo,
-      subject: `You're all set! ${data.title} reservation confirmed`,
+      subject: `You're all set! ${data.hotelName} reservation confirmed`,
     });
 
     return NextResponse.json({ success: true, message: "Email sent" });

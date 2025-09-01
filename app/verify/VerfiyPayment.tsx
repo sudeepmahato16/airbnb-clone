@@ -25,7 +25,7 @@ const VerfiyPayment = async ({ data }: { data: string }) => {
   return (
     <Suspense
       fallback={
-        <div className="h-screen w-screen">
+        <div className="mt-20">
           <div className="w-full h-full flex items-center justify-center">
             <div className="flex flex-col items-center gap-2">
               <TbLoader2 className="h-8 w-8 animate-spin text-zinc-500" />
