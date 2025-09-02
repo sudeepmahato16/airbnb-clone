@@ -6,6 +6,15 @@ interface SpinnerMiniProps {
   className?: string;
 }
 
+interface LoaderProps {
+  className?: string
+}
+
+
+export const Loader: FC<LoaderProps> = ({ className }) => (
+  <div className={`orbit ${className}`}></div>
+);
+
 export const SpinnerMini: React.FC<SpinnerMiniProps> = ({ className }) => {
   return <BiLoaderAlt className={`w-5 h-5 animate-spin ${className}`} />;
 };
