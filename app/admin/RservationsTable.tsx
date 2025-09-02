@@ -31,7 +31,7 @@ const RservationsTable = ({
               totalPrice={reservation.totalPrice}
             />
           )}
-          emptyMessage="No users found."
+          emptyMessage="No reservations found."
         />
       </Table>
     </div>

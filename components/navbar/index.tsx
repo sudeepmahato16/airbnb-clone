@@ -10,6 +10,8 @@ interface NavbarProps {}
 const Navbar: React.FC<NavbarProps> = async () => {
   const user = await getCurrentUser();
 
+  const isAdmin = user?.email === process.env.ADMIN;
+
   return (
     <header className="fixed top-0 left-0 w-full bg-white z-10 ">
       <nav className="py-3 border-b-[1px]">
@@ -18,7 +20,7 @@ const Navbar: React.FC<NavbarProps> = async () => {
           <Suspense fallback={<></>}>
             <Search />
           </Suspense>
-          <UserMenu user={user} />
+          <UserMenu user={user} isAdmin={isAdmin}/>
         </div>
       </nav>
       <Categories />

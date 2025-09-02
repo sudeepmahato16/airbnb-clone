@@ -127,7 +127,11 @@ export const getListingById = async (id: string) => {
 export const createListing = async (data: { [x: string]: any }) => {
   const {
     category,
-    location: { region, label: country, latlng },
+    location: {
+      region,
+      label: country,
+      city: { latlng, name },
+    },
     guestCount,
     bathroomCount,
     roomCount,
@@ -158,6 +162,7 @@ export const createListing = async (data: { [x: string]: any }) => {
       country,
       region,
       latlng,
+      city: name,
       price: parseInt(price, 10),
       userId: user.id,
     },

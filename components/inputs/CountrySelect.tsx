@@ -6,9 +6,12 @@ import countries from "@/data/countries.json";
 export type CountrySelectValue = {
   flag: string;
   label: string;
-  latlng: number[];
   region: string;
   value: string;
+  city: {
+    name: string;
+    latlng: number[];
+  };
 };
 
 const CountrySelect = ({
@@ -44,7 +47,7 @@ const CountrySelect = ({
         <div className="flex flex-row items-center gap-3 z-[10]">
           <div>{option.flag}</div>
           <div>
-            {option.label},
+            {option.city.name}, {option.label},
             <span className="text-neutral-500 ml-1">{option.region}</span>
           </div>
         </div>

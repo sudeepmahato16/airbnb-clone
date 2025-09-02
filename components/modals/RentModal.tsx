@@ -126,7 +126,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
             />
             <CountrySelect value={location} onChange={setCustomValue} />
             <div className="h-[240px]">
-              <Map center={location?.latlng} />
+              <Map center={location?.city?.latlng} />
             </div>
           </div>
         );

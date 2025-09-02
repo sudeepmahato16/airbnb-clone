@@ -56,6 +56,7 @@ model Listing {
   userId        String   @db.ObjectId
   price         Int
   country       String?
+  city          String
   latlng        Int[]
   region        String?
 

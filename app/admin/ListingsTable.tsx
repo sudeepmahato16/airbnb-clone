@@ -30,7 +30,7 @@ const ListingsTable = ({ listings }: { listings: Listing[] }) => {
               createdAt={listing.createdAt}
             />
           )}
-          emptyMessage="No users found."
+          emptyMessage="No listings found."
         />
       </Table>
     </div>

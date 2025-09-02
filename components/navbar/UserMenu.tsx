@@ -15,9 +15,10 @@ import { menuItems } from "@/utils/constants";
 
 interface UserMenuProps {
   user?: User;
+  isAdmin?: boolean;
 }
 
-const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
+const UserMenu: React.FC<UserMenuProps> = ({ user, isAdmin }) => {
   const router = useRouter();
 
   const redirect = (url: string) => {
@@ -51,6 +52,13 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
             <Menu.List className="shadow-[0_0_36px_4px_rgba(0,0,0,0.075)] rounded-xl bg-white text-sm">
               {user ? (
                 <>
+                  {isAdmin ? (
+                    <MenuItem
+                      label="Dashboard"
+                      onClick={() => redirect("/admin")}
+                      key={"dashboard"}
+                    />
+                  ) : null}
                   {menuItems.map((item) => (
                     <MenuItem
                       label={item.label}

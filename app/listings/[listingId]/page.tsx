@@ -33,6 +33,7 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
     bathroomCount,
     latlng,
     reservations,
+    city
   } = listing;
 
   const category = categories.find((cate) => cate.label === listing.category);
@@ -46,6 +47,7 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
           country={country}
           region={region}
           id={id}
+          city={city}
         />
       </div>
 

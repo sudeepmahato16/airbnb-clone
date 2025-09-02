@@ -11,6 +11,7 @@ interface ListingHeadProps {
   region: string | null;
   image: string;
   id: string;
+  city: string
 }
 
 const ListingHead: React.FC<ListingHeadProps> = async ({
@@ -19,13 +20,14 @@ const ListingHead: React.FC<ListingHeadProps> = async ({
   region = "",
   image,
   id,
+  city
 }) => {
   const favorites = await getFavorites();
   const hasFavorited = favorites.includes(id);
 
   return (
     <>
-      <Heading title={title} subtitle={`${region}, ${country}`} backBtn/>
+      <Heading title={title} subtitle={`${city}, ${region}, ${country}`} backBtn/>
       <div
         className={`w-full md:h-[420px] sm:h-[280px] bg-gray-100 h-[260px] overflow-hidden  rounded-xl relative transition duration-300`}
       >
