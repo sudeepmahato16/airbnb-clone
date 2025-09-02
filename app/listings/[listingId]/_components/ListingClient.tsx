@@ -95,7 +95,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
           listingId: id,
           endDate,
           startDate,
-          totalPrice,
+          totalPrice: totalPrice * 141.24,
         });
 
         // if(res?.url){
@@ -121,7 +121,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
           signed_field_names: paymentData.esewaConfig.signed_field_names,
           signature: paymentData.esewaConfig.signature,
         };
-   
+
         Object.entries(esewaPayload).forEach(([key, value]) => {
           const input = document.createElement("input");
           input.type = "hidden";

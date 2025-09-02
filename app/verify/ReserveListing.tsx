@@ -57,7 +57,7 @@ const ReserveListing: FC<IReserveListingProps> = async ({
 
   const numberOfDays = getNumberOfDays(startDate, endDate, true);
 
-  if (totalAmount !== numberOfDays * listing.price)
+  if (totalAmount !== numberOfDays * listing.price * 141.24)
     return <div>Something went wrong</div>;
 
   try {
