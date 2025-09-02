@@ -1,14 +1,20 @@
 import BackButton from "@/components/BackButton";
 import React from "react";
 import AdminDashboard from "./AdminDashboard";
+import { getCurrentUser } from "@/services/user";
+import { redirect } from "next/navigation";
 
-const AdminPage = ({
+const AdminPage = async ({
   searchParams,
 }: {
   searchParams: {
     [x: string]: string | string[] | undefined;
   };
 }) => {
+  const user = await getCurrentUser();
+
+  if(user?.email !== process.env.ADMIN) return redirect("/")
+
   const tab = searchParams?.tab;
   return (
     <section className="main-container flex flex-col gap-4">
